@@ -1,0 +1,82 @@
+@import "./axiogen-core.css";
+
+/* Global safety rules to prevent any horizontal scroll on mobile without breaking position:sticky */
+html, body {
+  overflow-x: clip;
+  max-width: 100vw;
+  width: 100%;
+}
+
+/* Extra smooth scroll rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* 60fps GPU-accelerated marquee animations */
+@keyframes marquee-left {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 26s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 34s linear infinite;
+  will-change: transform;
+}
+
+/* Dedicated rock-solid responsive rules for Hero Video Cutout */
+.hero-video-container {
+  position: relative;
+  width: 100%;
+  height: clamp(520px, 78svh, 650px);
+}
+
+@media (min-width: 768px) {
+  .hero-video-container {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.hero-video-cutout {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  background-color: #161616;
+}
+
+@media (min-width: 768px) {
+  .hero-video-cutout {
+    border-radius: clamp(20px, 2.6vw, 34px);
+  }
+}
+
