@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, MotionConfig } from "framer-motion";
 
 export const PageIntroContext = createContext<boolean>(true);
 
@@ -11,6 +11,7 @@ export const usePageIntro = () => {
 };
 
 const transitionMap: Record<string, "accent" | "theme"> = {
+  "/": "theme",
   "/what-we-do": "accent",
   "/our-work": "theme",
   "/about-us": "theme",
@@ -75,65 +76,67 @@ function ZoomCurtain({
   const isTheme = variant === "theme";
 
   return (
-    <motion.div
-      className={`fixed inset-0 z-[90] flex items-center justify-center ${
-        isTheme ? "bg-foreground" : "bg-background"
-      }`}
-      initial={{ opacity: 1 }}
-      animate={{ opacity: phase === "clear" ? 0 : 1 }}
-      transition={{ duration: fS, ease: [0.4, 0, 0.2, 1] }}
-      aria-hidden="true"
-      style={{ pointerEvents: "none" }}
-    >
-      {/* Subtle background wash for theme mode */}
-      {isTheme && (
-        <div className="absolute inset-0 bg-background opacity-[0.08]" />
-      )}
-
-      {/* Signature Axiogen Zoom Box */}
+    <MotionConfig reducedMotion="never">
       <motion.div
-        className={isTheme ? "relative bg-background" : "relative"}
-        initial={{
-          width: boxSize,
-          height: boxSize,
-          borderRadius: 22,
-          opacity: 0,
-          scale: 0.45,
-        }}
-        animate={
-          phase === "box"
-            ? {
-                width: boxSize,
-                height: boxSize,
-                borderRadius: 22,
-                opacity: 1,
-                scale: 1,
-              }
-            : {
-                width: windowSize.w * 1.06,
-                height: windowSize.h * 1.2,
-                borderRadius: 0,
-                opacity: 1,
-                scale: 1,
-              }
-        }
-        transition={
-          phase === "box"
-            ? {
-                type: "spring",
-                stiffness: 420,
-                damping: 26,
-                mass: 0.7,
-                duration: uS,
-              }
-            : {
-                duration: dS,
-                ease: [0.65, 0, 0.35, 1],
-              }
-        }
-        style={isTheme ? undefined : { backgroundColor: "#FF6B42" }}
-      />
-    </motion.div>
+        className={`fixed inset-0 z-[90] flex items-center justify-center ${
+          isTheme ? "bg-foreground" : "bg-background"
+        }`}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: phase === "clear" ? 0 : 1 }}
+        transition={{ duration: fS, ease: [0.4, 0, 0.2, 1] }}
+        aria-hidden="true"
+        style={{ pointerEvents: "none" }}
+      >
+        {/* Subtle background wash for theme mode */}
+        {isTheme && (
+          <div className="absolute inset-0 bg-background opacity-[0.08]" />
+        )}
+
+        {/* Signature Axiogen Zoom Box */}
+        <motion.div
+          className={isTheme ? "relative bg-background" : "relative"}
+          initial={{
+            width: boxSize,
+            height: boxSize,
+            borderRadius: 22,
+            opacity: 0,
+            scale: 0.45,
+          }}
+          animate={
+            phase === "box"
+              ? {
+                  width: boxSize,
+                  height: boxSize,
+                  borderRadius: 22,
+                  opacity: 1,
+                  scale: 1,
+                }
+              : {
+                  width: windowSize.w * 1.06,
+                  height: windowSize.h * 1.2,
+                  borderRadius: 0,
+                  opacity: 1,
+                  scale: 1,
+                }
+          }
+          transition={
+            phase === "box"
+              ? {
+                  type: "spring",
+                  stiffness: 420,
+                  damping: 26,
+                  mass: 0.7,
+                  duration: uS,
+                }
+              : {
+                  duration: dS,
+                  ease: [0.65, 0, 0.35, 1],
+                }
+          }
+          style={isTheme ? undefined : { backgroundColor: "#FF6B42" }}
+        />
+      </motion.div>
+    </MotionConfig>
   );
 }
 
