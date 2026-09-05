@@ -31,21 +31,26 @@ html.lenis, html.lenis body {
 /* 60fps GPU-accelerated marquee animations */
 @keyframes marquee-left {
   0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
 }
 
 @keyframes marquee-right {
-  0% { transform: translate3d(-50%, 0, 0); }
+  0% { transform: translate3d(-100%, 0, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 
 .animate-marquee-left {
-  animation: marquee-left 26s linear infinite;
+  animation: marquee-left 28s linear infinite;
   will-change: transform;
 }
 
 .animate-marquee-right {
-  animation: marquee-right 34s linear infinite;
+  animation: marquee-right 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-strip {
+  animation: marquee-left 44s linear infinite;
   will-change: transform;
 }
 

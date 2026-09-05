@@ -15,53 +15,52 @@ interface MarqueeRowProps {
 
 function MarqueeRow({ reverse = false, outlined = false, seconds }: MarqueeRowProps) {
   return (
-    <div aria-hidden="true" className="flex select-none overflow-hidden">
-      <div
-        className={`flex shrink-0 ${
-          reverse ? "animate-marquee-right" : "animate-marquee-left"
-        } motion-reduce:animate-none`}
-        style={{ animationDuration: `${seconds}s` }}
-      >
-        {[0, 1].map((r) => (
-          <div key={r} className="flex shrink-0 items-center">
-            {marqueePhrases.map((phrase, s) => (
-              <React.Fragment key={`${r}-${s}`}>
-                <span
-                  style={{
-                    fontSize: "clamp(3.5rem, 11vw, 10.5rem)",
-                    lineHeight: 0.95,
-                    letterSpacing: "-0.04em",
-                    fontWeight: 800,
-                    color: outlined ? "transparent" : "hsl(var(--foreground) / 0.08)",
-                    WebkitTextStroke: outlined
-                      ? "1px hsl(var(--foreground) / 0.22)"
-                      : "none",
-                  }}
-                  className={`whitespace-nowrap px-3 sm:px-6 select-none ${
-                    outlined ? "text-transparent" : ""
-                  }`}
-                >
-                  {phrase}
-                </span>
-                <span
-                  style={{
-                    fontSize: "clamp(2rem, 7vw, 6.5rem)",
-                    lineHeight: 0.95,
-                    color: outlined ? "transparent" : "hsl(var(--foreground) / 0.16)",
-                    WebkitTextStroke: outlined
-                      ? "1px hsl(var(--foreground) / 0.22)"
-                      : "none",
-                  }}
-                  className="select-none px-3 sm:px-6 font-bold align-middle opacity-80"
-                  aria-hidden="true"
-                >
-                  •
-                </span>
-              </React.Fragment>
-            ))}
-          </div>
-        ))}
-      </div>
+    <div aria-hidden="true" className="flex w-full select-none overflow-hidden">
+      {[0, 1].map((r) => (
+        <div
+          key={r}
+          className={`flex shrink-0 items-center ${
+            reverse ? "animate-marquee-right" : "animate-marquee-left"
+          } will-change-transform motion-reduce:animate-none`}
+          style={{ animationDuration: `${seconds}s` }}
+        >
+          {marqueePhrases.map((phrase, s) => (
+            <React.Fragment key={`${r}-${s}`}>
+              <span
+                style={{
+                  fontSize: "clamp(3.5rem, 11vw, 10.5rem)",
+                  lineHeight: 0.95,
+                  letterSpacing: "-0.04em",
+                  fontWeight: 800,
+                  color: outlined ? "transparent" : "hsl(var(--foreground) / 0.08)",
+                  WebkitTextStroke: outlined
+                    ? "1px hsl(var(--foreground) / 0.22)"
+                    : "none",
+                }}
+                className={`whitespace-nowrap px-3 sm:px-6 select-none ${
+                  outlined ? "text-transparent" : ""
+                }`}
+              >
+                {phrase}
+              </span>
+              <span
+                style={{
+                  fontSize: "clamp(2rem, 7vw, 6.5rem)",
+                  lineHeight: 0.95,
+                  color: outlined ? "transparent" : "hsl(var(--foreground) / 0.16)",
+                  WebkitTextStroke: outlined
+                    ? "1px hsl(var(--foreground) / 0.22)"
+                    : "none",
+                }}
+                className="select-none px-3 sm:px-6 font-bold align-middle opacity-80"
+                aria-hidden="true"
+              >
+                •
+              </span>
+            </React.Fragment>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

@@ -1,46 +1,50 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 
-const text = "LET'S CONNECT • LET'S EVOLVE • LET'S BUILD •";
+const textPhrases = ["LET'S CONNECT", "LET'S EVOLVE", "LET'S BUILD"];
 
 function MarqueeRow({
   reverse = false,
-  duration = 26,
-  running = true,
+  duration = 28,
 }: {
   reverse?: boolean;
   duration?: number;
-  running?: boolean;
 }) {
   return (
-    <div className="flex w-max select-none">
+    <div className="flex w-full select-none overflow-hidden" aria-hidden="true">
       {[0, 1].map((r) => (
         <div
           key={r}
-          className={`flex w-max shrink-0 ${
-            reverse
-              ? "animate-[marquee-right_linear_infinite]"
-              : "animate-[marquee-left_linear_infinite]"
-          }`}
-          style={{
-            animationDuration: `${duration}s`,
-            animationPlayState: running ? "running" : "paused",
-          }}
+          className={`flex shrink-0 items-center ${
+            reverse ? "animate-marquee-right" : "animate-marquee-left"
+          } will-change-transform motion-reduce:animate-none`}
+          style={{ animationDuration: `${duration}s` }}
         >
-          {[0, 1].map((s) => (
-            <span
-              key={s}
-              className="whitespace-nowrap pr-[0.35em] text-foreground"
-              style={{
-                fontSize: "clamp(2.75rem, 11vw, 13rem)",
-                lineHeight: 1.02,
-                letterSpacing: "-0.04em",
-                fontWeight: 500,
-              }}
-            >
-              {text}
-            </span>
+          {textPhrases.map((phrase, s) => (
+            <React.Fragment key={`${r}-${s}`}>
+              <span
+                className="whitespace-nowrap px-4 sm:px-8 text-foreground"
+                style={{
+                  fontSize: "clamp(2.75rem, 11vw, 13rem)",
+                  lineHeight: 1.02,
+                  letterSpacing: "-0.04em",
+                  fontWeight: 500,
+                }}
+              >
+                {phrase}
+              </span>
+              <span
+                className="select-none px-3 sm:px-6 font-bold text-foreground/30"
+                style={{
+                  fontSize: "clamp(1.75rem, 7vw, 7rem)",
+                  lineHeight: 1.02,
+                }}
+                aria-hidden="true"
+              >
+                •
+              </span>
+            </React.Fragment>
           ))}
         </div>
       ))}
@@ -49,23 +53,8 @@ function MarqueeRow({
 }
 
 export default function InfiniteMarquee() {
-  const containerRef = useRef<HTMLElement>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { rootMargin: "200px 0px" }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
   return (
     <section
-      ref={containerRef}
       className="w-full overflow-hidden bg-background font-['Schibsted_Grotesk',sans-serif]"
       style={{
         paddingTop: "clamp(56px, 7vw, 120px)",
@@ -77,11 +66,11 @@ export default function InfiniteMarquee() {
         href="#contact"
         className="group block select-none opacity-90 transition-opacity duration-500 hover:opacity-100"
       >
-        <div className="overflow-hidden" aria-hidden="true">
-          <MarqueeRow duration={26} running={isInView} />
+        <div className="overflow-hidden">
+          <MarqueeRow duration={28} />
         </div>
-        <div className="mt-1 hidden overflow-hidden sm:block lg:mt-2" aria-hidden="true">
-          <MarqueeRow reverse duration={32} running={isInView} />
+        <div className="mt-1 hidden overflow-hidden sm:block lg:mt-2">
+          <MarqueeRow reverse duration={34} />
         </div>
       </a>
     </section>

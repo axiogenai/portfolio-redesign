@@ -35,20 +35,6 @@ const capabilitiesStrip = [
 ];
 
 export default function WhoWeAre() {
-  const marqueeRef = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const el = marqueeRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { rootMargin: "200px 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const target = document.querySelector(href);
@@ -133,7 +119,7 @@ export default function WhoWeAre() {
       </div>
 
       {/* Infinite Rolling Capabilities Marquee Strip */}
-      <div ref={marqueeRef} className="mt-12 md:mt-20 md:py-4 lg:mt-28 lg:py-8 w-full max-w-full overflow-hidden">
+      <div className="mt-12 md:mt-20 md:py-4 lg:mt-28 lg:py-8 w-full max-w-full overflow-hidden">
         <div
           className="relative flex select-none overflow-hidden"
           style={{
@@ -147,8 +133,7 @@ export default function WhoWeAre() {
           {[0, 1].map((r) => (
             <div
               key={r}
-              className="flex shrink-0 items-center animate-[marquee-strip_48s_linear_infinite]"
-              style={{ animationPlayState: isInView ? "running" : "paused" }}
+              className="flex shrink-0 items-center animate-marquee-strip will-change-transform"
             >
               {capabilitiesStrip.map(({ label, Icon }) => (
                 <span

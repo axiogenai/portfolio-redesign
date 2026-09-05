@@ -116,7 +116,8 @@ function KineticStage({
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(([entry]) => setIsInView(entry.isIntersecting), {
-      threshold: 0.25,
+      threshold: 0.1,
+      rootMargin: "150px 0px",
     });
     obs.observe(el);
     return () => obs.disconnect();
@@ -128,8 +129,8 @@ function KineticStage({
     const timeout = window.setTimeout(() => {
       timer = window.setInterval(() => {
         setActiveIdx((prev) => (prev + 1) % phrases.length);
-      }, 1350);
-    }, (seed % 4) * 340);
+      }, 1400);
+    }, (seed % 4) * 320);
     return () => {
       window.clearTimeout(timeout);
       if (timer) window.clearInterval(timer);
@@ -138,8 +139,8 @@ function KineticStage({
 
   const curr = phrases[activeIdx];
   const isLight = tone === "light" || tone === "accent";
-  const blurAmount = isMd ? 14 : 0;
-  const blurExit = isMd ? 12 : 0;
+  const blurAmount = isMd ? 12 : 6;
+  const blurExit = isMd ? 10 : 5;
 
   return (
     <div
@@ -173,18 +174,25 @@ function KineticStage({
                 fontWeight: 800,
               }}
               variants={{
-                hidden: { opacity: 0, y: "0.32em", filter: `blur(${blurAmount}px)` },
+                hidden: {
+                  opacity: 0,
+                  y: "0.26em",
+                  scale: 0.94,
+                  filter: `blur(${blurAmount}px)`,
+                },
                 show: {
                   opacity: 1,
                   y: "0em",
+                  scale: 1,
                   filter: "blur(0px)",
-                  transition: { duration: 0.36, ease: customEase },
+                  transition: { duration: 0.38, ease: customEase },
                 },
                 out: {
                   opacity: 0,
-                  y: "-0.24em",
+                  y: "-0.2em",
+                  scale: 1.04,
                   filter: `blur(${blurExit}px)`,
-                  transition: { duration: 0.2, ease: customEase },
+                  transition: { duration: 0.22, ease: customEase },
                 },
               }}
             >
