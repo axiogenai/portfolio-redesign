@@ -356,10 +356,10 @@ export default function OurWorkPage() {
                       return (
                         <div
                           key={item.id}
-                          className="flex-[0_0_100%] md:flex-[0_0_88%] xl:flex-[0_0_82%] px-2 sm:px-3 lg:px-4 shrink-0 transform-gpu transition-all duration-700"
+                          className="flex-[0_0_88%] sm:flex-[0_0_88%] xl:flex-[0_0_82%] px-2 sm:px-3 lg:px-4 shrink-0 transform-gpu transition-all duration-700"
                           style={{
                             opacity: isActive ? 1 : 0.45,
-                            transform: isActive ? "scale(1)" : "scale(0.97)",
+                            transform: isActive ? "scale(1)" : "scale(0.92)",
                           }}
                         >
                           <a

@@ -124,7 +124,7 @@ function KineticStage({
   }, []);
 
   useEffect(() => {
-    if (!isInView || phrases.length < 2) return;
+    if (phrases.length < 2) return;
     let timer: any;
     const timeout = window.setTimeout(() => {
       timer = window.setInterval(() => {
@@ -135,12 +135,12 @@ function KineticStage({
       window.clearTimeout(timeout);
       if (timer) window.clearInterval(timer);
     };
-  }, [isInView, phrases.length, seed]);
+  }, [phrases.length, seed]);
 
   const curr = phrases[activeIdx];
   const isLight = tone === "light" || tone === "accent";
-  const blurAmount = isMd ? 12 : 6;
-  const blurExit = isMd ? 10 : 5;
+  const blurAmount = isMd ? 14 : 0;
+  const blurExit = isMd ? 12 : 0;
 
   return (
     <div
@@ -178,20 +178,20 @@ function KineticStage({
                   opacity: 0,
                   y: "0.26em",
                   scale: 0.94,
-                  filter: `blur(${blurAmount}px)`,
+                  filter: blurAmount > 0 ? `blur(${blurAmount}px)` : "none",
                 },
                 show: {
                   opacity: 1,
                   y: "0em",
                   scale: 1,
-                  filter: "blur(0px)",
+                  filter: "none",
                   transition: { duration: 0.38, ease: customEase },
                 },
                 out: {
                   opacity: 0,
                   y: "-0.2em",
                   scale: 1.04,
-                  filter: `blur(${blurExit}px)`,
+                  filter: blurExit > 0 ? `blur(${blurExit}px)` : "none",
                   transition: { duration: 0.22, ease: customEase },
                 },
               }}

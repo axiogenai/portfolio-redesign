@@ -34,13 +34,13 @@ function ZoomCurtain({
   variant?: "accent" | "theme";
   onHandoff: () => void;
 }) {
-  const shouldReduceMotion = useReducedMotion();
   const [phase, setPhase] = useState<"box" | "expand" | "clear" | "gone">("box");
-  const [windowSize, setWindowSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
-
-  useEffect(() => {
-    setWindowSize({ w: window.innerWidth, h: window.innerHeight });
-  }, []);
+  const [windowSize, setWindowSize] = useState<{ w: number; h: number }>(() => {
+    if (typeof window !== "undefined") {
+      return { w: window.innerWidth, h: window.innerHeight };
+    }
+    return { w: 390, h: 844 };
+  });
 
   const isExpandingOrBeyond = phase !== "box";
 
@@ -48,17 +48,12 @@ function ZoomCurtain({
     if (isExpandingOrBeyond) return;
     const handleResize = () =>
       setWindowSize({ w: window.innerWidth, h: window.innerHeight });
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [isExpandingOrBeyond]);
 
   useEffect(() => {
-    if (shouldReduceMotion) {
-      setPhase("gone");
-      onHandoff();
-      return;
-    }
-
     const timers = [
       window.setTimeout(() => setPhase("expand"), hS),
       window.setTimeout(() => {
@@ -69,9 +64,9 @@ function ZoomCurtain({
     ];
 
     return () => timers.forEach(clearTimeout);
-  }, [shouldReduceMotion, onHandoff]);
+  }, [onHandoff]);
 
-  if (phase === "gone" || windowSize.w === 0) return null;
+  if (phase === "gone") return null;
 
   // Box size formula: Math.round(Math.min(132, Math.max(76, innerWidth * 0.14)))
   const boxSize = Math.round(Math.min(132, Math.max(76, windowSize.w * 0.14)));

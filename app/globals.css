@@ -28,19 +28,24 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
-/* 60fps GPU-accelerated marquee animations */
+/* 60fps GPU-accelerated marquee animations matching WhyCreatives standard */
 @keyframes marquee-left {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes marquee-strip {
   0% { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-100%, 0, 0); }
 }
 
-@keyframes marquee-right {
-  0% { transform: translate3d(-100%, 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-
 .animate-marquee-left {
-  animation: marquee-left 28s linear infinite;
+  animation: marquee-left 26s linear infinite;
   will-change: transform;
 }
 
@@ -50,7 +55,7 @@ html.lenis, html.lenis body {
 }
 
 .animate-marquee-strip {
-  animation: marquee-left 44s linear infinite;
+  animation: marquee-strip 48s linear infinite;
   will-change: transform;
 }
 
