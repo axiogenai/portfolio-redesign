@@ -63,7 +63,9 @@ function ZoomCurtain({
       window.setTimeout(() => setPhase("gone"), HM),
     ];
 
-    return () => timers.forEach(clearTimeout);
+    return () => {
+      timers.forEach((t) => window.clearTimeout(t));
+    };
   }, [onHandoff]);
 
   if (phase === "gone") return null;
@@ -145,7 +147,15 @@ export default function PageTransitionProvider({
   const [revealed, setRevealed] = useState(!variant);
 
   useEffect(() => {
-    setRevealed(!transitionMap[pathname]);
+    if (!transitionMap[pathname]) {
+      setRevealed(true);
+      return;
+    }
+    setRevealed(false);
+    const fallbackTimer = window.setTimeout(() => {
+      setRevealed(true);
+    }, 1100);
+    return () => window.clearTimeout(fallbackTimer);
   }, [pathname]);
 
   const onHandoff = useCallback(() => {

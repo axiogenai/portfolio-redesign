@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import BlurLines from "./BlurLines";
@@ -344,6 +345,10 @@ function ProjectCard({
 
   const xOffset = column === "right" ? 40 : -40;
 
+  const isInternal = project.href.startsWith("/");
+  const LinkComponent: any = isInternal ? Link : "a";
+  const linkProps = isInternal ? {} : { target: "_blank", rel: "noopener noreferrer" };
+
   return (
     <motion.article
       className={className}
@@ -357,7 +362,7 @@ function ProjectCard({
         y: { duration: 0.85, ease: customEase },
       }}
     >
-      <a href={project.href} className="group block select-none">
+      <LinkComponent href={project.href} {...linkProps} className="group block select-none">
         <div
           ref={frameRef}
           onPointerEnter={handlePointerEnter}
@@ -507,7 +512,7 @@ function ProjectCard({
             />
           </span>
         </h3>
-      </a>
+      </LinkComponent>
     </motion.article>
   );
 }

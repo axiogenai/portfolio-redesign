@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Cpu,
@@ -97,7 +98,7 @@ export default function WhoWeAre() {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
-            <a
+            <Link
               href="/about-us"
               className="group inline-flex items-center gap-2.5 rounded-full bg-foreground px-6 py-3 text-sm font-bold text-background transition-[opacity,transform] duration-300 ease-out hover:opacity-85 active:scale-[0.98] motion-reduce:transform-none"
             >
@@ -105,15 +106,15 @@ export default function WhoWeAre() {
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-background/15 transition-[background-color,transform] duration-300 ease-out group-hover:scale-110 group-hover:bg-background/25 motion-reduce:transform-none">
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </span>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/contact"
               className="group inline-flex items-center gap-2.5 rounded-full border border-foreground/25 px-6 py-3 text-sm font-semibold text-foreground transition-[background-color,border-color,color,transform] duration-300 ease-out hover:border-foreground hover:bg-foreground hover:text-background active:scale-[0.98] motion-reduce:transform-none"
             >
               <span>Start a project</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
+            </Link>
           </motion.div>
         </div>
       </div>
