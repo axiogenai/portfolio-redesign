@@ -101,49 +101,36 @@ export default function Hero() {
       m = y.height;
     if (b < 2 || m < 2) return;
 
-    const g = Math.max(14, Math.min(34, b * 0.026));
+    const g = Math.max(16, Math.min(34, b * 0.026));
+    const stepFillet = Math.max(14, Math.min(26, b * 0.02));
     const w = (_: HTMLElement) => {
       const B = _.getBoundingClientRect();
       return { right: B.right - y.left, bottom: B.bottom - y.top };
     };
 
-    const S = w(f),
-      E = x.map(w),
-      T = w(p),
-      k = [...E, T];
+    const S = w(f);
+    const E = x.map(w);
+    const T = w(p);
 
-    for (let _ = k.length - 2; _ >= 0; _--) {
-      k[_] = { ...k[_], right: Math.max(k[_].right, k[_ + 1].right) };
-    }
-
-    const C = [
-      { right: Math.max(S.right, k[0].right), bottom: k[0].bottom },
-      ...k.slice(1),
+    // Stepped points for each line and buttons without artificial flattening
+    const rawSteps: { right: number; bottom: number }[] = [
+      { right: Math.max(S.right, E[0].right), bottom: E[0].bottom },
+      ...E.slice(1),
+      T,
     ];
-    const M = b - g - 4,
-      j: { right: number; bottom: number }[] = [];
 
-    for (const _ of C) {
-      const B = Math.min(_.right, M),
-        L = Math.min(_.bottom, m - g - 4),
-        $ = j[j.length - 1];
+    const M = b - g - 4;
+    const steps: { right: number; bottom: number }[] = [];
 
-      if ($ && Math.abs(B - $.right) < g * 1.4) {
-        $.right = Math.max($.right, B);
-        $.bottom = Math.max($.bottom, L);
-        continue;
-      }
-      if ($ && L <= $.bottom + 8) {
-        $.right = Math.max($.right, B);
-        $.bottom = Math.max($.bottom, L);
-        continue;
-      }
-      j.push({ right: B, bottom: L });
+    for (const step of rawSteps) {
+      const stepR = Math.min(step.right, M);
+      const stepB = Math.min(step.bottom, m - g - 4);
+      steps.push({ right: stepR, bottom: stepB });
     }
 
-    if (!j.length) return;
+    if (!steps.length) return;
     const V = Math.max(0, d.getBoundingClientRect().left - y.left);
-    setClipPathStr(iO(b, m, j, g, g, V));
+    setClipPathStr(iO(b, m, steps, g, stepFillet, V));
   }, []);
 
   useLayoutEffect(() => {
@@ -290,7 +277,7 @@ export default function Hero() {
             {/* Action Buttons */}
             <div
               ref={btnRef}
-              className="w-full md:w-fit"
+              className="w-fit"
               style={{
                 paddingLeft: padL,
                 paddingRight: padR,
@@ -299,7 +286,7 @@ export default function Hero() {
               }}
             >
               <motion.div
-                className="flex flex-wrap items-center gap-2.5 sm:gap-4"
+                className="inline-flex flex-wrap items-center gap-2.5 sm:gap-4 w-fit"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: ju, delay: 0.45 }}
