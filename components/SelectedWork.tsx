@@ -143,18 +143,30 @@ function KineticStage({
   const blurAmount = isMd ? 14 : 0;
   const blurExit = isMd ? 12 : 0;
 
+  // Dynamically calculate container-query proportional font size based on longest word
+  const maxLen = Math.max(...curr.words.map((w) => w.trim().length));
+  const fontSize =
+    maxLen >= 11
+      ? "clamp(1.5rem, 8.5cqw, 2.75rem)"
+      : maxLen >= 9
+      ? "clamp(1.75rem, 10cqw, 3.25rem)"
+      : maxLen >= 7
+      ? "clamp(2rem, 11.5cqw, 3.75rem)"
+      : "clamp(2.25rem, 13cqw, 4.25rem)";
+
   return (
     <div
       ref={ref}
-      className="absolute inset-0 flex items-center justify-center overflow-hidden px-6 sm:px-10 select-none"
+      className="absolute inset-0 flex items-center justify-center overflow-hidden px-4 sm:px-8 select-none @container"
       style={{
+        containerType: "inline-size",
         backgroundColor: tone === "light" ? "#f1f1ef" : tone === "accent" ? "#FF6B42" : "#151515",
       }}
     >
       <AnimatePresence mode="wait">
         <motion.div
           key={activeIdx}
-          className="relative max-w-[10ch] text-balance text-center"
+          className="relative w-full max-w-[92%] px-2 text-center flex flex-col items-center justify-center"
           initial="hidden"
           animate="show"
           exit="out"
@@ -166,12 +178,12 @@ function KineticStage({
           {curr.words.map((w) => (
             <motion.p
               key={w}
-              className="block"
+              className="block w-full max-w-full text-center whitespace-nowrap"
               style={{
                 color: curr.color,
-                fontSize: "clamp(2.75rem, 8.5vw, 6.5rem)",
-                lineHeight: 0.88,
-                letterSpacing: "-0.055em",
+                fontSize,
+                lineHeight: 0.94,
+                letterSpacing: "-0.04em",
                 fontWeight: 800,
               }}
               variants={{
@@ -394,24 +406,13 @@ function ProjectCard({
             ref={tagsRef}
             className="absolute right-0 top-0 z-30 flex items-center gap-1.5 sm:gap-2 pr-3.5 pt-3 sm:pr-4 sm:pt-3.5"
           >
-            {project.tags.map((tag, tIdx) => (
-              <motion.span
+            {project.tags.map((tag) => (
+              <span
                 key={tag}
-                animate={
-                  isHovered
-                    ? { y: 4, opacity: 1, scale: 1.04 }
-                    : { y: 0, opacity: 1, scale: 1 }
-                }
-                transition={{
-                  type: "spring",
-                  stiffness: 420,
-                  damping: 26,
-                  delay: isHovered ? tIdx * 0.05 : 0,
-                }}
                 className="whitespace-nowrap rounded-full bg-white px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-bold text-black shadow-md border border-black/5"
               >
                 {tag}
-              </motion.span>
+              </span>
             ))}
           </div>
 
@@ -427,7 +428,7 @@ function ProjectCard({
 
           {/* Card Canvas with Notched ClipPath */}
           <div
-            className="relative h-full w-full overflow-hidden rounded-[22px] sm:rounded-[28px] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+            className="relative h-full w-full overflow-hidden rounded-[22px] sm:rounded-[28px]"
             style={{
               clipPath: clipPath ? `path("${clipPath}")` : undefined,
               WebkitClipPath: clipPath ? `path("${clipPath}")` : undefined,

@@ -54,6 +54,8 @@ export default function GlobeChoroplethChart({
   const activeCountryIdRef = useRef<string>("356");
   const rotationRef = useRef<[number, number, number]>([-78, -20, 0]);
   const baseRotationRef = useRef<[number, number, number]>([-78, -20, 0]);
+  const targetRotationRef = useRef<[number, number] | null>(null);
+  const pauseAutoRotationUntilRef = useRef<number>(0);
   const isDraggingRef = useRef(false);
   const isPointerDownRef = useRef(false);
   const hasDraggedRef = useRef(false);
@@ -68,22 +70,63 @@ export default function GlobeChoroplethChart({
     target: [0, 0],
   });
 
-  const getFillColor = useCallback((id: string) => {
-    const metric = COUNTRY_DATA[id];
-    if (!metric) return MAP_THEME_COLORS.countryBase;
+  const getCountryMetric = useCallback((id: string, feature?: any): CountryMetric => {
+    if (COUNTRY_DATA[id]) return COUNTRY_DATA[id];
+
+    const name = feature?.properties?.name || `Territory ${id}`;
+    // Deterministic metrics generator for all global territories in world-atlas
+    let hash = 0;
+    for (let i = 0; i < id.length; i++) {
+      hash = (hash * 31 + id.charCodeAt(i)) % 100000;
+    }
+    for (let i = 0; i < name.length; i++) {
+      hash = (hash * 17 + name.charCodeAt(i)) % 100000;
+    }
+    const activeUsers = 150000 + (hash % 1600000);
+    const visits = Math.max(16, Math.round(activeUsers / 6800));
+
+    return {
+      id,
+      name,
+      code: (feature?.properties?.iso_a3 || name.slice(0, 3)).toUpperCase(),
+      activeUsers,
+      dataProcessedTB: Math.round(activeUsers / 480),
+      securityScore: 82 + (hash % 17),
+      serverLatencyMs: 18 + (hash % 85),
+      region: "Global Edge Node",
+      tier: activeUsers > 1000000 ? "Primary Edge" : "Regional Hub",
+      verifiedVisits: `${visits} verified visits`,
+    };
+  }, []);
+
+  const getFillColor = useCallback((id: string, feature?: any) => {
+    const metric = getCountryMetric(id, feature);
     const users = metric.activeUsers;
     if (users > 5000000) return MAP_THEME_COLORS.scales[4];
     if (users > 2500000) return MAP_THEME_COLORS.scales[3];
     if (users > 1200000) return MAP_THEME_COLORS.scales[2];
     if (users > 500000) return MAP_THEME_COLORS.scales[1];
     return MAP_THEME_COLORS.scales[0];
-  }, []);
+  }, [getCountryMetric]);
 
   useEffect(() => {
-    if (externalSelectedId) {
+    if (externalSelectedId && externalSelectedId !== activeCountryIdRef.current) {
       activeCountryIdRef.current = externalSelectedId;
+      if (data?.features) {
+        const feat = data.features.find((f: any) => {
+          const cId = String(f.id || f.properties?.id || "").padStart(3, "0");
+          return cId === externalSelectedId;
+        });
+        if (feat) {
+          const center = geoCentroid(feat);
+          if (center && !isNaN(center[0]) && !isNaN(center[1])) {
+            targetRotationRef.current = [-center[0], -Math.max(-75, Math.min(75, center[1]))];
+            pauseAutoRotationUntilRef.current = performance.now() + 4500;
+          }
+        }
+      }
     }
-  }, [externalSelectedId]);
+  }, [externalSelectedId, data]);
 
   // Mobile DeviceOrientation Gyro Sensor
   useEffect(() => {
@@ -130,9 +173,24 @@ export default function GlobeChoroplethChart({
       g.current[0] += (g.target[0] - g.current[0]) * 0.08;
       g.current[1] += (g.target[1] - g.current[1]) * 0.08;
 
-      if (!isPointerDownRef.current && !isDraggingRef.current) {
-        const delta = (dt / 1000) * 2.2;
-        baseRotationRef.current[0] = (baseRotationRef.current[0] + delta) % 360;
+      if (targetRotationRef.current) {
+        let diffYaw = (targetRotationRef.current[0] - baseRotationRef.current[0]) % 360;
+        if (diffYaw > 180) diffYaw -= 360;
+        if (diffYaw < -180) diffYaw += 360;
+        const diffPitch = targetRotationRef.current[1] - baseRotationRef.current[1];
+
+        if (Math.abs(diffYaw) < 0.25 && Math.abs(diffPitch) < 0.25) {
+          baseRotationRef.current = [targetRotationRef.current[0], targetRotationRef.current[1], 0];
+          targetRotationRef.current = null;
+        } else {
+          baseRotationRef.current[0] += diffYaw * 0.09;
+          baseRotationRef.current[1] += diffPitch * 0.09;
+        }
+      } else if (!isPointerDownRef.current && !isDraggingRef.current) {
+        if (performance.now() > pauseAutoRotationUntilRef.current) {
+          const delta = (dt / 1000) * 2.2;
+          baseRotationRef.current[0] = (baseRotationRef.current[0] + delta) % 360;
+        }
       }
 
       const effectiveYaw = (baseRotationRef.current[0] + g.current[0]) % 360;
@@ -192,7 +250,7 @@ export default function GlobeChoroplethChart({
 
         ctx.beginPath();
         path(feature);
-        ctx.fillStyle = getFillColor(countryId);
+        ctx.fillStyle = getFillColor(countryId, feature);
         ctx.fill();
         ctx.lineWidth = 0.5;
         ctx.strokeStyle = MAP_THEME_COLORS.countryStroke;
@@ -204,8 +262,7 @@ export default function GlobeChoroplethChart({
         ctx.save();
         ctx.beginPath();
         path(activeFeature);
-        ctx.fillStyle = getFillColor(activeCountryIdRef.current);
-        ctx.fill();
+        ctx.fillStyle = getFillColor(activeCountryIdRef.current, activeFeature);
         ctx.lineWidth = 2;
         ctx.strokeStyle = MAP_THEME_COLORS.highlightStroke;
         ctx.shadowColor = MAP_THEME_COLORS.highlightGlow;
@@ -223,7 +280,7 @@ export default function GlobeChoroplethChart({
           const lat2 = center[1] * rad;
           const cosD = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLon);
 
-          if (cosD > 0.1) {
+          if (cosD > 0.05) {
             const bounds = path.bounds(activeFeature);
             let posX = 0;
             let posY = 0;
@@ -240,11 +297,12 @@ export default function GlobeChoroplethChart({
             }
 
             if (posX && posY) {
+              const countryObj = getCountryMetric(activeCountryIdRef.current, activeFeature);
               setBadgeState({
                 visible: true,
                 x: posX,
                 y: posY,
-                country: COUNTRY_DATA[activeCountryIdRef.current] || null,
+                country: countryObj,
               });
             }
           } else {
@@ -259,7 +317,7 @@ export default function GlobeChoroplethChart({
 
     animId = requestAnimationFrame(render);
     return () => cancelAnimationFrame(animId);
-  }, [data, getFillColor]);
+  }, [data, getFillColor, getCountryMetric]);
 
   // Pointer drag & hover
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -270,6 +328,7 @@ export default function GlobeChoroplethChart({
       y: e.clientY,
       rotation: [...baseRotationRef.current],
     };
+    targetRotationRef.current = null;
     gyroRef.current.target = [0, 0];
     (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
   };
@@ -318,9 +377,8 @@ export default function GlobeChoroplethChart({
                 const cId = String(feat.id || feat.properties?.id || i).padStart(3, "0");
                 if (cId !== activeCountryIdRef.current) {
                   activeCountryIdRef.current = cId;
-                  if (COUNTRY_DATA[cId]) {
-                    onSelectCountry?.(COUNTRY_DATA[cId]);
-                  }
+                  const metric = getCountryMetric(cId, feat);
+                  onSelectCountry?.(metric);
                 }
                 break;
               }
@@ -333,11 +391,56 @@ export default function GlobeChoroplethChart({
 
   const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!isPointerDownRef.current) return;
+    const wasDragging = hasDraggedRef.current;
     isPointerDownRef.current = false;
     isDraggingRef.current = false;
     try {
       (e.currentTarget as Element).releasePointerCapture?.(e.pointerId);
     } catch {}
+
+    // If pointer did not drag, it is a click/tap on a country!
+    if (!wasDragging && canvasRef.current && data?.features) {
+      const rect = canvasRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const size = Math.min(rect.width, rect.height);
+      const radius = size / 2 - 10;
+      const dx = x - rect.width / 2;
+      const dy = y - rect.height / 2;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist <= radius) {
+        const proj = geoOrthographic()
+          .scale(Math.max(radius, 30))
+          .translate([rect.width / 2, rect.height / 2])
+          .rotate(rotationRef.current)
+          .clipAngle(90);
+
+        try {
+          const coords = proj.invert?.([x, y]);
+          if (coords && !isNaN(coords[0]) && !isNaN(coords[1])) {
+            for (let i = 0; i < data.features.length; i++) {
+              const feat = data.features[i];
+              if (geoContains(feat, coords)) {
+                const cId = String(feat.id || feat.properties?.id || i).padStart(3, "0");
+                activeCountryIdRef.current = cId;
+                const metric = getCountryMetric(cId, feat);
+                onSelectCountry?.(metric);
+
+                // Smoothly glide the globe to center this country towards the user
+                const center = geoCentroid(feat);
+                if (center && !isNaN(center[0]) && !isNaN(center[1])) {
+                  targetRotationRef.current = [-center[0], -Math.max(-75, Math.min(75, center[1]))];
+                  pauseAutoRotationUntilRef.current = performance.now() + 4500;
+                }
+                break;
+              }
+            }
+          }
+        } catch {}
+      }
+    }
+
     setTimeout(() => {
       hasDraggedRef.current = false;
     }, 60);

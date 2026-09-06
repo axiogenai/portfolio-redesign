@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import "./axiogen-core.css";
 
+@font-face {
+  font-family: 'Rostex';
+  src: url('/fonts/rostex.regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Global safety rules to prevent any horizontal scroll on mobile without breaking position:sticky */

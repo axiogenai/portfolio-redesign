@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import * as topojson from "topojson-client";
 import countriesTopology from "world-atlas/countries-110m.json";
@@ -14,6 +14,8 @@ const geoData = topojson.feature(
 ) as any;
 
 export default function LiveVisitors() {
+  const [selectedCountryId, setSelectedCountryId] = useState<string>("356");
+
   return (
     <section
       id="live-visitors"
@@ -65,7 +67,13 @@ export default function LiveVisitors() {
           aspectRatio: "1 / 1",
         }}
       >
-        <GlobeChoroplethChart data={geoData} selectedCountryId="356" />
+        <GlobeChoroplethChart
+          data={geoData}
+          selectedCountryId={selectedCountryId}
+          onSelectCountry={(country) => {
+            if (country) setSelectedCountryId(country.id);
+          }}
+        />
       </div>
     </section>
   );
