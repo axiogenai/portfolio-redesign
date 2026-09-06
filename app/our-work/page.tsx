@@ -479,22 +479,22 @@ export default function OurWorkPage() {
                 </div>
 
                 {/* "See All Works" CTA Button */}
-                <div className="mt-14 flex justify-center lg:mt-20">
+                <div className="mt-10 sm:mt-14 flex justify-center lg:mt-20">
                   <a
                     href="#full-archive"
-                    className="group inline-flex h-16 items-center gap-3 rounded-full bg-foreground pl-8 pr-3 text-background transition-opacity duration-300 hover:opacity-90 sm:h-[76px] sm:pl-11 sm:pr-4"
+                    className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-foreground pl-5 pr-2 text-background transition-opacity duration-300 hover:opacity-90 active:scale-[0.98] sm:h-16 sm:gap-3 sm:pl-8 sm:pr-3 md:h-[76px] md:pl-11 md:pr-4"
                   >
                     <span
                       style={{
-                        fontSize: "clamp(1.05rem, 1.5vw, 1.5rem)",
+                        fontSize: "clamp(0.9rem, 1.35vw, 1.5rem)",
                         letterSpacing: "-0.03em",
                         fontWeight: 700,
                       }}
                     >
                       See All Works ({projectsData.length})
                     </span>
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-background/15 text-background transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 motion-reduce:transform-none sm:h-12 sm:w-12">
-                      <ArrowUpRight className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.25]" />
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background/15 text-background transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 motion-reduce:transform-none sm:h-10 sm:w-10 md:h-12 md:w-12">
+                      <ArrowUpRight className="h-4 w-4 stroke-[2.25] sm:h-5 sm:w-5 md:h-6 md:w-6" />
                     </span>
                   </a>
                 </div>

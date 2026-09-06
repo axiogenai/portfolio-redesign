@@ -177,23 +177,25 @@ function BottomCallout() {
         {/* Marquee Banner */}
         <div
           aria-hidden="true"
-          className="relative -mx-5 mb-10 flex overflow-hidden border-y border-white/10 py-3 sm:-mx-8 md:-mx-12 md:mb-16 lg:-mx-16"
+          className="relative -mx-5 mb-10 flex select-none overflow-hidden border-y border-white/10 py-3 sm:-mx-8 md:-mx-12 md:mb-16 lg:-mx-16"
         >
-          <div className="flex shrink-0 animate-[marquee-left_32s_linear_infinite] items-center motion-reduce:animate-none">
-            {[0, 1].map((s) => (
-              <div key={s} className="flex shrink-0 items-center">
-                {marqueeItems.map((r) => (
-                  <span
-                    key={r}
-                    className="flex shrink-0 items-center gap-4 whitespace-nowrap px-4 font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 sm:gap-6 sm:px-6 sm:text-[11px]"
-                  >
-                    <span>{r}</span>
-                    <span className="h-1 w-1 rounded-full bg-[#FF6B42]" />
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
+          {[0, 1].map((s) => (
+            <div
+              key={s}
+              className="flex shrink-0 items-center animate-marquee-strip will-change-transform"
+              style={{ animationDuration: "36s" }}
+            >
+              {marqueeItems.map((r) => (
+                <span
+                  key={r}
+                  className="flex shrink-0 items-center gap-4 whitespace-nowrap px-4 font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 sm:gap-6 sm:px-6 sm:text-[11px]"
+                >
+                  <span>{r}</span>
+                  <span className="h-1 w-1 rounded-full bg-[#FF6B42]" />
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
 
         {/* 12-col Quote + Grid */}
