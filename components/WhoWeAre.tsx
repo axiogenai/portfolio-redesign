@@ -53,7 +53,7 @@ export default function WhoWeAre() {
       id="about"
       className="w-full overflow-hidden bg-background font-['Schibsted_Grotesk',sans-serif]"
       style={{
-        paddingTop: "clamp(64px, 8vw, 140px)",
+        paddingTop: "clamp(40px, 6vw, 140px)",
         paddingBottom: "clamp(56px, 7vw, 120px)",
       }}
     >

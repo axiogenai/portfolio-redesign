@@ -202,13 +202,13 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-svh w-full bg-background text-foreground transition-colors duration-300 md:min-h-0"
+      className="relative w-full bg-background text-foreground transition-colors duration-300"
     >
       <div
         className="w-full px-4 sm:px-6 md:px-[clamp(28px,4.5vw,120px)]"
         style={{
-          paddingTop: "clamp(88px, 10vw, 112px)",
-          paddingBottom: "clamp(30px, 4vw, 76px)",
+          paddingTop: "clamp(80px, 9vw, 112px)",
+          paddingBottom: "clamp(16px, 3.5vw, 76px)",
         }}
       >
         <div
@@ -330,13 +330,13 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Showreel Video: 16:9 on mobile, SVG Path Cutout on desktop */}
+          {/* Showreel Video: 16:10 on mobile, SVG Path Cutout on desktop */}
           <div
-            className="hero-video-cutout mt-6 sm:mt-8 md:mt-0 border border-white/10 dark:border-white/10 md:border-none"
+            className="hero-video-cutout mt-4 sm:mt-6 md:mt-0 border border-white/10 dark:border-white/10 md:border-none"
             style={{
               clipPath: clipPathStr ? `path("${clipPathStr}")` : undefined,
               WebkitClipPath: clipPathStr ? `path("${clipPathStr}")` : undefined,
-              borderRadius: clipPathStr ? undefined : "clamp(18px, 2.6vw, 34px)",
+              borderRadius: clipPathStr ? undefined : "clamp(16px, 2.4vw, 34px)",
             }}
           >
             {/* Agency Showreel Video */}

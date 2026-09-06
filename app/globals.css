@@ -129,8 +129,8 @@ html.lenis, html.lenis body {
 .hero-video-cutout {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 20px;
+  aspect-ratio: 16 / 10;
+  border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
   background-color: #161616;
