@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
+import BlurLines from "@/components/BlurLines";
+import { usePageIntro } from "@/components/PageTransitionProvider";
 import SmoothScroll from "@/components/SmoothScroll";
 import ServicesDeck, { ServiceItem } from "@/components/ServicesDeck";
 
@@ -259,13 +260,9 @@ const techStack = [
   ".NET",
 ];
 
-const badges = [
-  "Production-Grade Code",
-  "On-Time Delivery",
-  "Affordable Pricing",
-];
-
 export default function WhatWeDoPage() {
+  const { revealed } = usePageIntro();
+
   return (
     <SmoothScroll>
       <div className="min-h-screen bg-background text-foreground font-['Schibsted_Grotesk',sans-serif]">
@@ -274,35 +271,56 @@ export default function WhatWeDoPage() {
         <main
           className="px-4 md:px-[clamp(20px,2.6vw,52px)]"
           style={{
-            paddingTop: "clamp(104px, 12vw, 168px)",
             paddingBottom: "clamp(56px, 7vw, 120px)",
           }}
         >
-          <div className="mx-auto max-w-[1920px]">
-            {/* Page Header */}
-            <PageHeader
-              eyebrow="Services We Provide"
-              lines={["AI, Web, Mobile,", "Cloud & Intelligent Systems."]}
-              support="From research to deployment — we build powerful, intelligent digital products for enterprises, startups & students. You envision it, we engineer it."
-            />
+          {/* Signature Coral Orange Header */}
+          <header
+            className="-mx-4 flex min-h-[100svh] flex-col rounded-b-[24px] px-4 md:-mx-[clamp(20px,2.6vw,52px)] md:rounded-b-[40px] md:px-[clamp(20px,2.6vw,52px)]"
+            style={{
+              backgroundColor: "#FF6B42",
+              paddingTop: "clamp(104px, 12vw, 168px)",
+            }}
+          >
+            <div className="flex flex-1 flex-col justify-center">
+              <div className="mb-4 flex items-center gap-2 text-[11px] font-medium tracking-[0.04em] text-black/70 sm:hidden">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-black/60" />
+                Services
+              </div>
 
-            {/* Value Guarantees Badges - NO ICONS, NO COLORED BULLETS */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: customEase }}
-              className="mt-6 flex flex-wrap items-center gap-3"
-            >
-              {badges.map((b) => (
-                <div
-                  key={b}
-                  className="rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground shadow-sm"
-                >
-                  <span>{b}</span>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+              <h1
+                className="block text-black"
+                style={{
+                  fontSize: "clamp(2.05rem, 7.2vw, 7.25rem)",
+                  lineHeight: 0.99,
+                  letterSpacing: "-0.045em",
+                  fontWeight: 700,
+                }}
+              >
+                <BlurLines
+                  active={revealed}
+                  className="block text-black"
+                  lines={["We’re a creative", "studio with deep", "expertise"]}
+                />
+              </h1>
+
+              <div className="mt-8 grid grid-cols-1 lg:mt-14 lg:grid-cols-12">
+                <p className="max-w-[30ch] text-lg leading-[1.35] text-black sm:text-xl md:text-[1.4rem] lg:col-span-5 lg:col-start-7">
+                  We bring craft and clear thinking to ambitious brands, and build work that earns attention.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 pb-10 text-[11px] font-semibold uppercase tracking-[0.18em] text-black/70">
+              <span>Scroll</span>
+              <motion.span
+                className="block h-6 w-px bg-black/40"
+                initial={{ y: 0, opacity: 0.35 }}
+                animate={{ y: [0, 8, 0], opacity: [0.35, 1, 0.35] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </div>
+          </header>
 
           {/* Signature Interactive Stacked Card Deck - 9 Services */}
           <div className="mt-14 lg:mt-20 -mx-4 md:-mx-[clamp(20px,2.6vw,52px)]">
