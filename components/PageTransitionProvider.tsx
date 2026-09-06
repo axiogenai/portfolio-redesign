@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, MotionConfig } from "framer-motion";
 
@@ -17,6 +17,7 @@ const transitionMap: Record<string, "accent" | "theme"> = {
   "/about-us": "theme",
   "/insights": "theme",
   "/contact": "theme",
+  "/portfolio-gallery": "theme",
 };
 
 // Durations strictly calibrated for Axiogen signature zoom transitions
@@ -31,9 +32,11 @@ const HM = pS + fS * 1000;   // 1270ms: transition complete (gone)
 function ZoomCurtain({
   variant = "theme",
   onHandoff,
+  onComplete,
 }: {
   variant?: "accent" | "theme";
   onHandoff: () => void;
+  onComplete?: () => void;
 }) {
   const [phase, setPhase] = useState<"box" | "expand" | "clear" | "gone">("box");
   const [windowSize, setWindowSize] = useState<{ w: number; h: number }>(() => {
@@ -61,13 +64,16 @@ function ZoomCurtain({
         setPhase("clear");
         onHandoff();
       }, pS),
-      window.setTimeout(() => setPhase("gone"), HM),
+      window.setTimeout(() => {
+        setPhase("gone");
+        onComplete?.();
+      }, HM),
     ];
 
     return () => {
       timers.forEach((t) => window.clearTimeout(t));
     };
-  }, [onHandoff]);
+  }, [onHandoff, onComplete]);
 
   if (phase === "gone") return null;
 
@@ -146,15 +152,34 @@ export default function PageTransitionProvider({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const variant = transitionMap[pathname];
-  const [revealed, setRevealed] = useState(!variant);
+  const [revealed, setRevealed] = useState(true);
+  const [activeCurtain, setActiveCurtain] = useState<{
+    key: string;
+    variant: "accent" | "theme";
+  } | null>(null);
+
+  const isInitialMount = useRef(true);
+  const prevPathname = useRef(pathname);
 
   useEffect(() => {
-    if (!transitionMap[pathname]) {
-      setRevealed(true);
+    // Skip curtain on normal refresh or initial site load
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      prevPathname.current = pathname;
       return;
     }
+
+    // Only trigger if route actually changed during client-side navigation
+    if (prevPathname.current === pathname) return;
+    prevPathname.current = pathname;
+
+    const variant = transitionMap[pathname] || "theme";
     setRevealed(false);
+    setActiveCurtain({
+      key: `${pathname}-${Date.now()}`,
+      variant,
+    });
+
     const fallbackTimer = window.setTimeout(() => {
       setRevealed(true);
     }, 1100);
@@ -165,14 +190,19 @@ export default function PageTransitionProvider({
     setRevealed(true);
   }, []);
 
+  const onComplete = useCallback(() => {
+    setActiveCurtain(null);
+  }, []);
+
   return (
     <PageIntroContext.Provider value={revealed}>
       {children}
-      {variant && (
+      {activeCurtain && (
         <ZoomCurtain
-          key={pathname}
-          variant={variant}
+          key={activeCurtain.key}
+          variant={activeCurtain.variant}
           onHandoff={onHandoff}
+          onComplete={onComplete}
         />
       )}
     </PageIntroContext.Provider>
