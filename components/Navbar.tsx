@@ -23,6 +23,11 @@ export default function Navbar() {
   const { toggleTheme } = useTheme();
   const pathname = usePathname();
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
   useEffect(() => {
     let lastScrollY = window.scrollY;
     let ticking = 0;
@@ -219,7 +224,9 @@ export default function Navbar() {
                 >
                   <Link
                     href={l.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => {
+                      setTimeout(() => setMenuOpen(false), 40);
+                    }}
                     className="text-3xl font-bold text-foreground hover:opacity-60 transition-opacity"
                   >
                     {l.label}
@@ -246,7 +253,9 @@ export default function Navbar() {
 
               <Link
                 href="/contact"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  setTimeout(() => setMenuOpen(false), 40);
+                }}
                 className="w-full inline-flex items-center justify-center gap-2 bg-foreground text-background text-sm font-bold py-4 rounded-full shadow-md"
               >
                 <span>Start a project</span>
