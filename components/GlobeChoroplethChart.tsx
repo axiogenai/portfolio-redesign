@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
-import { geoOrthographic, geoPath, geoGraticule, geoCentroid } from "d3-geo";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { geoOrthographic, geoPath, geoGraticule, geoCentroid, geoContains } from "d3-geo";
 import type { FeatureCollection, Geometry } from "geojson";
 import { MapPin } from "lucide-react";
 import { COUNTRY_DATA, type CountryMetric } from "@/data/countries";
 
-// Exact palette matching C:\Users\aditya\.gemini\antigravity\scratch\globe-choropleth-demo
+// Exact palette matching demo
 export const MAP_THEME_COLORS = {
   background: "#05060a",
   sphere: "#0e1017",
@@ -22,6 +22,7 @@ export const MAP_THEME_COLORS = {
     "#d2d7e8", // 05 highest (silver/white)
   ],
   highlightStroke: "#ffffff",
+  highlightGlow: "rgba(255, 255, 255, 0.5)",
 };
 
 export interface GlobeChoroplethProps {
@@ -38,126 +39,218 @@ export default function GlobeChoroplethChart({
   onSelectCountry,
 }: GlobeChoroplethProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 700, height: 600 });
-  const [rotation, setRotation] = useState<[number, number, number]>([-78, -20, 0]); // Start angled on India
-  const [isDragging, setIsDragging] = useState(false);
-  const [activeCountryId, setActiveCountryId] = useState<string | null>(externalSelectedId || "356");
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [badgeState, setBadgeState] = useState<{
+    visible: boolean;
+    x: number;
+    y: number;
+    country: CountryMetric | null;
+  }>({
+    visible: true,
+    x: 0,
+    y: 0,
+    country: COUNTRY_DATA["356"] || null,
+  });
 
+  const activeCountryIdRef = useRef<string>("356");
+  const rotationRef = useRef<[number, number, number]>([-78, -20, 0]);
+  const baseRotationRef = useRef<[number, number, number]>([-78, -20, 0]);
+  const isDraggingRef = useRef(false);
   const isPointerDownRef = useRef(false);
   const hasDraggedRef = useRef(false);
-  const baseRotationRef = useRef<[number, number, number]>([-78, -20, 0]);
   const dragStartRef = useRef<{ x: number; y: number; rotation: [number, number, number] }>({
     x: 0,
     y: 0,
     rotation: [-78, -20, 0],
   });
 
-  // Gyroscope tracking (Desktop cursor parallax + Mobile DeviceOrientation)
   const gyroRef = useRef<{ current: [number, number]; target: [number, number] }>({
     current: [0, 0],
     target: [0, 0],
   });
 
+  const getFillColor = useCallback((id: string) => {
+    const metric = COUNTRY_DATA[id];
+    if (!metric) return MAP_THEME_COLORS.countryBase;
+    const users = metric.activeUsers;
+    if (users > 5000000) return MAP_THEME_COLORS.scales[4];
+    if (users > 2500000) return MAP_THEME_COLORS.scales[3];
+    if (users > 1200000) return MAP_THEME_COLORS.scales[2];
+    if (users > 500000) return MAP_THEME_COLORS.scales[1];
+    return MAP_THEME_COLORS.scales[0];
+  }, []);
+
   useEffect(() => {
-    if (externalSelectedId !== undefined) {
-      setActiveCountryId(externalSelectedId);
+    if (externalSelectedId) {
+      activeCountryIdRef.current = externalSelectedId;
     }
   }, [externalSelectedId]);
 
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const observer = new ResizeObserver(([entry]) => {
-      if (entry) {
-        setDimensions({
-          width: Math.max(entry.contentRect.width, 260),
-          height: Math.max(entry.contentRect.height, 260),
-        });
-      }
-    });
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  // Mobile DeviceOrientation Gyro Sensor Listener
+  // Mobile DeviceOrientation Gyro Sensor
   useEffect(() => {
     const handleOrientation = (e: DeviceOrientationEvent) => {
       if (e.gamma === null || e.beta === null) return;
-      const gamma = Math.max(-45, Math.min(45, e.gamma));
-      const beta = Math.max(-45, Math.min(45, e.beta - 40));
-      gyroRef.current.target = [gamma * 0.35, -beta * 0.3];
+      const gamma = Math.max(-35, Math.min(35, e.gamma));
+      const beta = Math.max(-35, Math.min(35, e.beta - 40));
+      gyroRef.current.target = [gamma * 0.3, -beta * 0.25];
     };
 
     window.addEventListener("deviceorientation", handleOrientation);
     return () => window.removeEventListener("deviceorientation", handleOrientation);
   }, []);
 
-  // Animation Loop: Ambient Drift + Gyroscope Spring Interpolation
-  useEffect(() => {
-    let animId: number;
-    let lastTime = performance.now();
-
-    const animate = (time: number) => {
-      const dt = time - lastTime;
-      lastTime = time;
-
-      // Smoothly interpolate (lerp) gyro tilt with spring damping
-      const g = gyroRef.current;
-      g.current[0] += (g.target[0] - g.current[0]) * 0.08;
-      g.current[1] += (g.target[1] - g.current[1]) * 0.08;
-
-      // Ambient drift when idle
-      if (!isPointerDownRef.current && !isDragging) {
-        const delta = (dt / 1000) * 2.2;
-        baseRotationRef.current[0] = (baseRotationRef.current[0] + delta) % 360;
-      }
-
-      // Compute total effective rotation: base + gyro tilt
-      const effectiveYaw = (baseRotationRef.current[0] + g.current[0]) % 360;
-      const effectivePitch = Math.max(-85, Math.min(85, baseRotationRef.current[1] + g.current[1]));
-
-      setRotation([effectiveYaw, effectivePitch, 0]);
-
-      animId = requestAnimationFrame(animate);
-    };
-
-    animId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animId);
-  }, [isDragging]);
-
-  // Desktop Mouse Gyro Parallax Handler
+  // Desktop Mouse Parallax
   const handleMouseMoveGyro = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isPointerDownRef.current || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const nx = (e.clientX - rect.left) / rect.width - 0.5;
     const ny = (e.clientY - rect.top) / rect.height - 0.5;
-
-    // Smooth gyro tilt offset: ±14° yaw, ±9° pitch
-    gyroRef.current.target = [nx * 14, -ny * 9];
+    gyroRef.current.target = [nx * 12, -ny * 8];
   };
 
   const handleMouseLeaveGyro = () => {
     gyroRef.current.target = [0, 0];
   };
 
-  // Compute projection and path generator
-  const { projection, pathGenerator } = useMemo(() => {
-    const size = Math.min(dimensions.width, dimensions.height);
-    const radius = size / 2 - 12;
+  // High-performance 60fps Canvas Loop
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !data?.features) return;
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
 
-    const proj = geoOrthographic()
-      .scale(Math.max(radius, 30))
-      .translate([dimensions.width / 2, dimensions.height / 2])
-      .rotate(rotation)
-      .clipAngle(90);
+    const graticule = geoGraticule().step([15, 15])();
+    let animId: number;
+    let lastTime = performance.now();
 
-    return {
-      projection: proj,
-      pathGenerator: geoPath(proj),
+    const render = (time: number) => {
+      const dt = time - lastTime;
+      lastTime = time;
+
+      const g = gyroRef.current;
+      g.current[0] += (g.target[0] - g.current[0]) * 0.08;
+      g.current[1] += (g.target[1] - g.current[1]) * 0.08;
+
+      if (!isPointerDownRef.current && !isDraggingRef.current) {
+        const delta = (dt / 1000) * 2.2;
+        baseRotationRef.current[0] = (baseRotationRef.current[0] + delta) % 360;
+      }
+
+      const effectiveYaw = (baseRotationRef.current[0] + g.current[0]) % 360;
+      const effectivePitch = Math.max(-85, Math.min(85, baseRotationRef.current[1] + g.current[1]));
+      rotationRef.current = [effectiveYaw, effectivePitch, 0];
+
+      const width = canvas.clientWidth || 220;
+      const height = canvas.clientHeight || 220;
+      const dpr = window.devicePixelRatio || 1;
+
+      if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+      }
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      ctx.clearRect(0, 0, width, height);
+
+      const size = Math.min(width, height);
+      // 5cm radius (~95px to 105px radius depending on container)
+      const radius = size / 2 - 8;
+
+      const projection = geoOrthographic()
+        .scale(Math.max(radius, 20))
+        .translate([width / 2, height / 2])
+        .rotate(rotationRef.current)
+        .clipAngle(90);
+
+      const path = geoPath(projection, ctx);
+
+      // 1. Ocean Sphere
+      ctx.beginPath();
+      path({ type: "Sphere" });
+      ctx.fillStyle = MAP_THEME_COLORS.sphere;
+      ctx.fill();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = MAP_THEME_COLORS.sphereStroke;
+      ctx.stroke();
+
+      // 2. Graticules
+      ctx.beginPath();
+      path(graticule);
+      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = MAP_THEME_COLORS.graticule;
+      ctx.stroke();
+
+      // 3. Countries
+      let activeFeature: any = null;
+      for (let i = 0; i < data.features.length; i++) {
+        const feature = data.features[i];
+        const countryId = String(feature.id || feature.properties?.id || i).padStart(3, "0");
+        const isCurrentActive = countryId === activeCountryIdRef.current;
+
+        if (isCurrentActive) {
+          activeFeature = feature;
+        }
+
+        ctx.beginPath();
+        path(feature);
+        ctx.fillStyle = getFillColor(countryId);
+        ctx.fill();
+        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = MAP_THEME_COLORS.countryStroke;
+        ctx.stroke();
+      }
+
+      // 4. Highlighted Country
+      if (activeFeature) {
+        ctx.save();
+        ctx.beginPath();
+        path(activeFeature);
+        ctx.fillStyle = getFillColor(activeCountryIdRef.current);
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = MAP_THEME_COLORS.highlightStroke;
+        ctx.shadowColor = MAP_THEME_COLORS.highlightGlow;
+        ctx.shadowBlur = 10;
+        ctx.stroke();
+        ctx.restore();
+
+        try {
+          const center = geoCentroid(activeFeature);
+          const centerLon = -rotationRef.current[0];
+          const centerLat = -rotationRef.current[1];
+          const rad = Math.PI / 180;
+          const dLon = (center[0] - centerLon) * rad;
+          const lat1 = centerLat * rad;
+          const lat2 = center[1] * rad;
+          const cosD = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLon);
+
+          if (cosD > 0.1) {
+            const projected = projection(center);
+            if (projected && !isNaN(projected[0]) && !isNaN(projected[1])) {
+              setBadgeState({
+                visible: true,
+                x: projected[0],
+                y: projected[1],
+                country: COUNTRY_DATA[activeCountryIdRef.current] || null,
+              });
+            }
+          } else {
+            setBadgeState((prev) => (prev.visible ? { ...prev, visible: false } : prev));
+          }
+        } catch {}
+      }
+
+      ctx.restore();
+      animId = requestAnimationFrame(render);
     };
-  }, [dimensions, rotation]);
 
-  // Smooth pointer drag rotation handlers
-  const handlePointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
+    animId = requestAnimationFrame(render);
+    return () => cancelAnimationFrame(animId);
+  }, [data, getFillColor]);
+
+  // Pointer drag & hover
+  const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
     isPointerDownRef.current = true;
     hasDraggedRef.current = false;
     dragStartRef.current = {
@@ -169,100 +262,73 @@ export default function GlobeChoroplethChart({
     (e.currentTarget as Element).setPointerCapture?.(e.pointerId);
   };
 
-  const handlePointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
-    if (!isPointerDownRef.current) return;
-    const dx = e.clientX - dragStartRef.current.x;
-    const dy = e.clientY - dragStartRef.current.y;
+  const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!canvasRef.current || !data?.features) return;
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    if (!hasDraggedRef.current && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
-      hasDraggedRef.current = true;
-      setIsDragging(true);
-    }
+    if (isPointerDownRef.current) {
+      const dx = e.clientX - dragStartRef.current.x;
+      const dy = e.clientY - dragStartRef.current.y;
 
-    if (hasDraggedRef.current) {
-      const sensitivity = 0.35;
-      const newYaw = (dragStartRef.current.rotation[0] + dx * sensitivity) % 360;
-      const newPitch = Math.max(-85, Math.min(85, dragStartRef.current.rotation[1] - dy * sensitivity));
-      baseRotationRef.current = [newYaw, newPitch, 0];
+      if (!hasDraggedRef.current && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
+        hasDraggedRef.current = true;
+        isDraggingRef.current = true;
+      }
+
+      if (hasDraggedRef.current) {
+        const sensitivity = 0.35;
+        const newYaw = (dragStartRef.current.rotation[0] + dx * sensitivity) % 360;
+        const newPitch = Math.max(-85, Math.min(85, dragStartRef.current.rotation[1] - dy * sensitivity));
+        baseRotationRef.current = [newYaw, newPitch, 0];
+      }
+    } else {
+      const size = Math.min(rect.width, rect.height);
+      const radius = size / 2 - 8;
+      const dx = x - rect.width / 2;
+      const dy = y - rect.height / 2;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist <= radius) {
+        const proj = geoOrthographic()
+          .scale(Math.max(radius, 20))
+          .translate([rect.width / 2, rect.height / 2])
+          .rotate(rotationRef.current)
+          .clipAngle(90);
+
+        try {
+          const coords = proj.invert?.([x, y]);
+          if (coords && !isNaN(coords[0]) && !isNaN(coords[1])) {
+            for (let i = 0; i < data.features.length; i++) {
+              const feat = data.features[i];
+              if (geoContains(feat, coords)) {
+                const cId = String(feat.id || feat.properties?.id || i).padStart(3, "0");
+                if (cId !== activeCountryIdRef.current) {
+                  activeCountryIdRef.current = cId;
+                  if (COUNTRY_DATA[cId]) {
+                    onSelectCountry?.(COUNTRY_DATA[cId]);
+                  }
+                }
+                break;
+              }
+            }
+          }
+        } catch {}
+      }
     }
   };
 
-  const handlePointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
+  const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!isPointerDownRef.current) return;
     isPointerDownRef.current = false;
-    setIsDragging(false);
+    isDraggingRef.current = false;
     try {
       (e.currentTarget as Element).releasePointerCapture?.(e.pointerId);
     } catch {}
     setTimeout(() => {
       hasDraggedRef.current = false;
     }, 60);
-  };
-
-  // Country Fill logic based on traffic metrics
-  const getFill = useCallback((id: string) => {
-    const metric = COUNTRY_DATA[id];
-    if (!metric) return MAP_THEME_COLORS.countryBase;
-
-    const users = metric.activeUsers;
-    if (users > 5000000) return MAP_THEME_COLORS.scales[4];
-    if (users > 2500000) return MAP_THEME_COLORS.scales[3];
-    if (users > 1200000) return MAP_THEME_COLORS.scales[2];
-    if (users > 500000) return MAP_THEME_COLORS.scales[1];
-    return MAP_THEME_COLORS.scales[0];
-  }, []);
-
-  const activeCountry = activeCountryId ? COUNTRY_DATA[activeCountryId] : null;
-
-  // Find active feature
-  const activeFeature = useMemo(() => {
-    if (!activeCountryId || !data?.features) return null;
-    return (
-      data.features.find((f: any) => {
-        const id = String(f.id || f.properties?.id).padStart(3, "0");
-        return id === activeCountryId;
-      }) || null
-    );
-  }, [data, activeCountryId]);
-
-  // Compute active path
-  const activePath = useMemo(() => {
-    if (!activeFeature) return null;
-    return pathGenerator(activeFeature);
-  }, [activeFeature, pathGenerator]);
-
-  // Synchronous Badge position calculation (zero frame lag, hemisphere-aware)
-  const badgePos = useMemo(() => {
-    if (!activeFeature) return null;
-    try {
-      const center = geoCentroid(activeFeature);
-      const centerLon = -rotation[0];
-      const centerLat = -rotation[1];
-      const rad = Math.PI / 180;
-      const dLon = (center[0] - centerLon) * rad;
-      const lat1 = centerLat * rad;
-      const lat2 = center[1] * rad;
-      const cosD = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLon);
-      // If center is on the back hemisphere or too close to horizon edge, hide badge
-      if (cosD <= 0.1) return null;
-      const projected = projection(center);
-      if (!projected || isNaN(projected[0]) || isNaN(projected[1])) return null;
-      return { x: projected[0], y: projected[1] };
-    } catch {
-      return null;
-    }
-  }, [activeFeature, projection, rotation]);
-
-  const graticuleLines = useMemo(() => {
-    return pathGenerator(geoGraticule().step([15, 15])());
-  }, [pathGenerator]);
-
-  const handleCountryInteraction = (countryId: string) => {
-    if (isPointerDownRef.current || hasDraggedRef.current) return;
-    setActiveCountryId(countryId);
-    if (COUNTRY_DATA[countryId]) {
-      onSelectCountry?.(COUNTRY_DATA[countryId]);
-    }
   };
 
   return (
@@ -272,83 +338,28 @@ export default function GlobeChoroplethChart({
       onMouseLeave={handleMouseLeaveGyro}
       className={`relative w-full h-full select-none overflow-hidden touch-none flex items-center justify-center bg-transparent ${className}`}
     >
-      <svg
-        width={dimensions.width}
-        height={dimensions.height}
-        className={`w-full h-full select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full cursor-grab active:cursor-grabbing select-none"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-      >
-        {/* Globe Base Ocean / Sphere */}
-        <path
-          d={pathGenerator({ type: "Sphere" }) || ""}
-          fill={MAP_THEME_COLORS.sphere}
-          stroke={MAP_THEME_COLORS.sphereStroke}
-          strokeWidth={1}
-        />
+      />
 
-        {/* Graticule Grid Lines */}
-        {graticuleLines && (
-          <path
-            d={graticuleLines}
-            fill="none"
-            stroke={MAP_THEME_COLORS.graticule}
-            strokeWidth={0.5}
-            className="pointer-events-none"
-          />
-        )}
-
-        {/* Base Countries Mesh */}
-        <g className="globe-countries">
-          {data?.features?.map((feature, idx) => {
-            const countryId = String(feature.id || feature.properties?.id || idx).padStart(3, "0");
-            const path = pathGenerator(feature);
-            if (!path) return null;
-
-            return (
-              <path
-                key={countryId}
-                d={path}
-                fill={getFill(countryId)}
-                stroke={MAP_THEME_COLORS.countryStroke}
-                strokeWidth={0.5}
-                className="cursor-pointer transition-[fill] duration-150 hover:brightness-125"
-                onMouseEnter={() => handleCountryInteraction(countryId)}
-                onClick={() => handleCountryInteraction(countryId)}
-              />
-            );
-          })}
-        </g>
-
-        {/* Selected / Highlighted Country Layer (Crisp White Outline on top) */}
-        {activePath && (
-          <path
-            d={activePath}
-            fill={getFill(activeCountryId!)}
-            stroke={MAP_THEME_COLORS.highlightStroke}
-            strokeWidth={1.8}
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            className="pointer-events-none drop-shadow-[0_0_12px_rgba(255,255,255,0.45)]"
-          />
-        )}
-      </svg>
-
-      {/* Synchronized Floating Pill Badge matching user reference media_1788692601270.png */}
-      {badgePos && activeCountry && (
+      {/* Synchronized Floating Pill Badge */}
+      {badgeState.visible && badgeState.country && (
         <div
-          className="pointer-events-none absolute z-50 -translate-x-1/2 -translate-y-full mb-2 flex items-center gap-1.5 rounded-full border border-[#2b3047] bg-[#121522]/95 px-3 py-1 text-xs text-white shadow-2xl backdrop-blur-md whitespace-nowrap will-change-transform select-none"
+          className="pointer-events-none absolute z-50 -translate-x-1/2 -translate-y-full mb-2 flex items-center gap-1.5 rounded-full border border-[#2b3047] bg-[#121522]/95 px-2.5 py-0.5 text-[11px] text-white shadow-2xl backdrop-blur-md whitespace-nowrap will-change-transform select-none"
           style={{
-            left: `${badgePos.x}px`,
-            top: `${badgePos.y - 8}px`,
+            left: `${badgeState.x}px`,
+            top: `${badgeState.y - 6}px`,
           }}
         >
-          <MapPin className="w-3.5 h-3.5 text-purple-400 fill-purple-400/20 shrink-0" />
-          <span className="font-semibold text-slate-100">{activeCountry.name}</span>
+          <MapPin className="w-3 h-3 text-purple-400 fill-purple-400/20 shrink-0" />
+          <span className="font-semibold text-slate-100">{badgeState.country.name}</span>
           <span className="text-slate-600 font-light mx-0.5">|</span>
-          <span className="text-slate-300 font-medium">{activeCountry.tier || "Global Node"}</span>
+          <span className="text-slate-300 font-medium">{badgeState.country.tier || "Global Node"}</span>
         </div>
       )}
     </div>
