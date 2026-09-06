@@ -22,7 +22,7 @@ export const MAP_THEME_COLORS = {
     "#d2d7e8", // 05 highest (silver/white)
   ],
   highlightStroke: "#ffffff",
-  highlightGlow: "rgba(255, 255, 255, 0.5)",
+  highlightGlow: "rgba(255, 255, 255, 0.6)",
 };
 
 export interface GlobeChoroplethProps {
@@ -140,8 +140,8 @@ export default function GlobeChoroplethChart({
       const effectivePitch = Math.max(-85, Math.min(85, baseRotationRef.current[1] + g.current[1]));
       rotationRef.current = [effectiveYaw, effectivePitch, 0];
 
-      const width = canvas.clientWidth || 220;
-      const height = canvas.clientHeight || 220;
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
       const dpr = window.devicePixelRatio || 1;
 
       if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
@@ -154,11 +154,10 @@ export default function GlobeChoroplethChart({
       ctx.clearRect(0, 0, width, height);
 
       const size = Math.min(width, height);
-      // 5cm radius (~95px to 105px radius depending on container)
-      const radius = size / 2 - 8;
+      const radius = size / 2 - 10;
 
       const projection = geoOrthographic()
-        .scale(Math.max(radius, 20))
+        .scale(Math.max(radius, 30))
         .translate([width / 2, height / 2])
         .rotate(rotationRef.current)
         .clipAngle(90);
@@ -211,7 +210,7 @@ export default function GlobeChoroplethChart({
         ctx.lineWidth = 2;
         ctx.strokeStyle = MAP_THEME_COLORS.highlightStroke;
         ctx.shadowColor = MAP_THEME_COLORS.highlightGlow;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 12;
         ctx.stroke();
         ctx.restore();
 
@@ -285,14 +284,14 @@ export default function GlobeChoroplethChart({
       }
     } else {
       const size = Math.min(rect.width, rect.height);
-      const radius = size / 2 - 8;
+      const radius = size / 2 - 10;
       const dx = x - rect.width / 2;
       const dy = y - rect.height / 2;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist <= radius) {
         const proj = geoOrthographic()
-          .scale(Math.max(radius, 20))
+          .scale(Math.max(radius, 30))
           .translate([rect.width / 2, rect.height / 2])
           .rotate(rotationRef.current)
           .clipAngle(90);
@@ -347,16 +346,16 @@ export default function GlobeChoroplethChart({
         onPointerCancel={handlePointerUp}
       />
 
-      {/* Synchronized Floating Pill Badge */}
+      {/* Synchronized Floating Pill Badge matching Image 3 */}
       {badgeState.visible && badgeState.country && (
         <div
-          className="pointer-events-none absolute z-50 -translate-x-1/2 -translate-y-full mb-2 flex items-center gap-1.5 rounded-full border border-[#2b3047] bg-[#121522]/95 px-2.5 py-0.5 text-[11px] text-white shadow-2xl backdrop-blur-md whitespace-nowrap will-change-transform select-none"
+          className="pointer-events-none absolute z-50 -translate-x-1/2 -translate-y-full mb-2 flex items-center gap-1.5 rounded-full border border-[#2b3047] bg-[#121522]/95 px-3 py-1 text-xs text-white shadow-2xl backdrop-blur-md whitespace-nowrap will-change-transform select-none"
           style={{
             left: `${badgeState.x}px`,
-            top: `${badgeState.y - 6}px`,
+            top: `${badgeState.y - 8}px`,
           }}
         >
-          <MapPin className="w-3 h-3 text-purple-400 fill-purple-400/20 shrink-0" />
+          <MapPin className="w-3.5 h-3.5 text-purple-400 fill-purple-400/20 shrink-0" />
           <span className="font-semibold text-slate-100">{badgeState.country.name}</span>
           <span className="text-slate-600 font-light mx-0.5">|</span>
           <span className="text-slate-300 font-medium">{badgeState.country.tier || "Global Node"}</span>
