@@ -67,7 +67,7 @@ const socialLinks = [
   },
   {
     name: "WhatsApp",
-    href: "https://wa.me/918010127704",
+    href: "https://wa.me/917030807704",
     style: { backgroundColor: "#25D366" },
     icon: (
       <svg className="w-4.5 h-4.5 fill-white" viewBox="0 0 24 24">
@@ -357,10 +357,10 @@ export default function Footer() {
                     <SlideInBlur delay={0.3} className="flex items-center gap-2.5">
                       <Phone className="h-3.5 w-3.5 text-white/90 shrink-0" />
                       <a
-                        href="tel:+918010127704"
+                        href="tel:+917030807704"
                         className="group relative inline-block hover:text-white transition-colors"
                       >
-                        <span>+91 80101 27704</span>
+                        <span>+91 70308 07704</span>
                         <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
                       </a>
                     </SlideInBlur>

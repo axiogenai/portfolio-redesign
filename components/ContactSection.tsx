@@ -84,7 +84,7 @@ export default function ContactSection() {
 
               <div className="space-y-4">
                 <a
-                  href="https://wa.me/918010127704"
+                  href="https://wa.me/917030807704"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between p-4 rounded-2xl bg-secondary/50 border border-border hover:border-emerald-500/40 group transition-all"
@@ -100,7 +100,7 @@ export default function ContactSection() {
                         WhatsApp Instant
                       </div>
                       <div className="text-xs font-mono text-muted-foreground">
-                        +91 80101 27704
+                        +91 70308 07704
                       </div>
                     </div>
                   </div>
@@ -128,7 +128,7 @@ export default function ContactSection() {
                 </a>
 
                 <a
-                  href="tel:+918010127704"
+                  href="tel:+917030807704"
                   className="flex items-center justify-between p-4 rounded-2xl bg-secondary/50 border border-border hover:border-[#9B8AFF]/40 group transition-all"
                 >
                   <div className="flex items-center gap-3">
@@ -140,7 +140,7 @@ export default function ContactSection() {
                         Telephone
                       </div>
                       <div className="text-xs font-mono text-muted-foreground">
-                        +91 80101 27704
+                        +91 70308 07704
                       </div>
                     </div>
                   </div>

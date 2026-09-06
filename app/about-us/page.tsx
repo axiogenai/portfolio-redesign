@@ -12,39 +12,24 @@ import SmoothScroll from "@/components/SmoothScroll";
 
 const timeline = [
   {
-    year: "2021",
-    tag: "Edit room",
-    body: "Post-production as the core of the studio. Hook, structure, rhythm, sound and colour treated as one system rather than as separate passes, and cut for the platform a piece would live on instead of resized at the end.",
-  },
-  {
-    year: "2022",
-    tag: "Build",
-    body: "Engineering alongside the edit. Marketing sites, web apps and mobile builds scoped around users, content and integrations rather than started from a template.",
-  },
-  {
-    year: "2023",
-    tag: "Brand",
-    body: "Positioning turned into something publishable. Content pillars, repeatable formats and art direction a team can actually hold to once the launch is over.",
-  },
-  {
     year: "2024",
-    tag: "Measure",
-    body: "Acquisition work joined the studio, judged on qualified actions rather than reach. Tracking validated before spend, and every decision documented against the signal it was made on.",
+    tag: "Studio Genesis",
+    body: "Founded as an independent deep-tech and digital engineering studio in India. Bringing AI architectures, full-stack web platforms, mobile apps, and cybersecurity together under one roof.",
   },
   {
     year: "2025",
     tag: "Deep Tech & AI",
-    body: "Expanded into bespoke neural architectures, LLM agents, and high-performance inference pipelines alongside our digital engineering stack.",
+    body: "Expanded into bespoke neural architectures, autonomous LLM agent systems, and enterprise cloud infrastructure alongside high-performance digital platforms.",
   },
   {
     year: "2026",
-    tag: "One team",
-    body: "Five disciplines under one roof, scoped honestly. A project no longer has to be split across three agencies and stitched back together at the end.",
+    tag: "One Team, Global Reach",
+    body: "Five core disciplines under one roof, deploying worldwide. Direct craftsperson communication without agency layers or disconnected handoffs.",
   },
 ];
 
 const studioStats = [
-  { label: "Founded", value: "2021", detail: "Self-funded & independent" },
+  { label: "Founded", value: "2024", detail: "Self-funded & independent" },
   { label: "Core disciplines", value: "05", detail: "AI, Web, Apps, Cloud, Security" },
   { label: "Team model", value: "Direct", detail: "Direct craftsperson communication" },
   { label: "Global scope", value: "Worldwide", detail: "Deploying globally from India" },
@@ -168,7 +153,7 @@ export default function AboutUsPage() {
                   id="timeline-heading"
                   className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground"
                 >
-                  Studio Milestones (2021 — 2026)
+                  Studio Milestones (2024 — 2026)
                 </p>
                 <h3 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
                   How our multidisciplinary model was forged

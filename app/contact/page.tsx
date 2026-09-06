@@ -46,7 +46,7 @@ export default function ContactPage() {
     );
 
     // Open WhatsApp directly with the pre-filled enquiry
-    window.open(`https://wa.me/918010127704?text=${text}`, "_blank", "noopener");
+    window.open(`https://wa.me/917030807704?text=${text}`, "_blank", "noopener");
   };
 
   return (
@@ -88,10 +88,10 @@ export default function ContactPage() {
                   Phone / WhatsApp
                 </span>
                 <a
-                  href="tel:+918010127704"
+                  href="tel:+917030807704"
                   className="mt-2 block text-2xl font-bold tracking-tight text-foreground hover:opacity-75 transition-opacity"
                 >
-                  +91 80101 27704
+                  +91 70308 07704
                 </a>
               </div>
 
@@ -110,7 +110,7 @@ export default function ContactPage() {
                 </span>
                 <div className="mt-3 flex items-center gap-3">
                   <a
-                    href="https://wa.me/918010127704"
+                    href="https://wa.me/917030807704"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-11 w-11 items-center justify-center rounded-full border border-foreground/15 text-foreground hover:bg-foreground hover:text-background transition-all"
