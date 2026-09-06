@@ -17,7 +17,7 @@ export default function LiveVisitors() {
   return (
     <section
       id="live-visitors"
-      className="w-full bg-[#05060a] px-4 font-['Schibsted_Grotesk',sans-serif] md:px-[clamp(32px,6vw,160px)] flex flex-col items-center justify-center overflow-hidden"
+      className="w-full bg-background px-4 font-['Schibsted_Grotesk',sans-serif] md:px-[clamp(32px,6vw,160px)] flex flex-col items-center justify-center overflow-hidden"
       style={{
         paddingTop: "clamp(36px, 5vw, 72px)",
         paddingBottom: "clamp(36px, 5vw, 72px)",
@@ -27,7 +27,7 @@ export default function LiveVisitors() {
       <div className="mx-auto mb-6 sm:mb-8 flex max-w-2xl flex-col items-center text-center">
         {/* Top Tag Pill */}
         <motion.div
-          className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-slate-400"
+          className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground"
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -42,7 +42,7 @@ export default function LiveVisitors() {
 
         {/* Section Headline */}
         <h2
-          className="text-white text-center"
+          className="text-foreground text-center"
           style={{
             fontSize: "clamp(2rem, 4vw, 4rem)",
             lineHeight: 1.05,

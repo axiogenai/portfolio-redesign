@@ -7,7 +7,7 @@ import { COUNTRY_DATA, type CountryMetric } from "@/data/countries";
 
 // Exact palette matching demo
 export const MAP_THEME_COLORS = {
-  background: "#05060a",
+  background: "transparent",
   sphere: "#0e1017",
   sphereStroke: "#1a1d29",
   graticule: "rgba(255, 255, 255, 0.04)",
