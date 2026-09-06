@@ -13,11 +13,6 @@ import {
   Play,
   Pause,
   Search,
-  Brain,
-  Shield,
-  Cpu,
-  Activity,
-  Layers,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -170,21 +165,6 @@ function mapToFilterCategory(cat: string): string {
   return "Enterprise & Cloud";
 }
 
-function getCategoryIcon(cat: string) {
-  const filterGroup = mapToFilterCategory(cat);
-  switch (filterGroup) {
-    case "Artificial Intelligence":
-      return <Brain className="h-3.5 w-3.5 text-amber-500" />;
-    case "Cybersecurity":
-      return <Shield className="h-3.5 w-3.5 text-red-500" />;
-    case "Healthcare & SaaS":
-      return <Activity className="h-3.5 w-3.5 text-emerald-500" />;
-    case "Developer Tools":
-      return <Cpu className="h-3.5 w-3.5 text-cyan-500" />;
-    default:
-      return <Layers className="h-3.5 w-3.5 text-indigo-500" />;
-  }
-}
 
 export default function OurWorkPage() {
   const autoplay = useRef(
@@ -590,9 +570,8 @@ export default function OurWorkPage() {
                       <div>
                         {/* Top Category Badge & Year */}
                         <div className="flex items-center justify-between gap-2 border-b border-border/50 pb-4">
-                          <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
-                            {getCategoryIcon(project.category)}
-                            <span>{project.category}</span>
+                          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                            {project.category}
                           </span>
                           <span className="font-mono text-xs font-bold text-muted-foreground/70">
                             {project.year}
