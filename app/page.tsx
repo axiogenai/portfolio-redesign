@@ -8,6 +8,7 @@ import OurExpertise from "@/components/OurExpertise";
 import ClientStory from "@/components/ClientStory";
 import InfiniteMarquee from "@/components/InfiniteMarquee";
 import AskAI from "@/components/AskAI";
+import LiveVisitors from "@/components/LiveVisitors";
 import GetInTouch from "@/components/GetInTouch";
 import Footer from "@/components/Footer";
 
@@ -23,6 +24,7 @@ export default function Home() {
         <ClientStory />
         <InfiniteMarquee />
         <AskAI />
+        <LiveVisitors />
         <GetInTouch />
         <Footer />
       </main>
