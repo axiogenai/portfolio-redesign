@@ -112,20 +112,20 @@ export default function Footer() {
         className="relative w-full overflow-hidden"
         style={{
           // @ts-expect-error custom CSS properties
-          "--rail-icon": "2.25rem",
-          "--rail-gap": "0.625rem",
-          "--rail-inset": "0.625rem",
-          "--rail-top": "1rem",
-          "--rail-notch": "24px",
+          "--rail-icon": "2rem",
+          "--rail-gap": "0.5rem",
+          "--rail-inset": "0.5rem",
+          "--rail-top": "0.75rem",
+          "--rail-notch": "20px",
           "--rail-count": 4,
           "--rail-w": "calc(2 * var(--rail-inset) + var(--rail-icon))",
           "--rail-h":
             "calc(var(--rail-top) + var(--rail-count) * var(--rail-icon) + (var(--rail-count) - 1) * var(--rail-gap) + var(--rail-inset) + var(--rail-notch))",
         }}
       >
-        {/* Top-Left Notched Rail for Social Icons (Responsive across all screens) */}
+        {/* Top-Left Notched Rail for Social Icons (Desktop only to prevent mobile squishing) */}
         <div
-          className="absolute top-0 left-0 bg-[var(--footer-frame)] rounded-br-[24px] rounded-tl-[24px] md:rounded-tl-[32px] z-20"
+          className="absolute top-0 left-0 bg-[var(--footer-frame)] rounded-br-[20px] rounded-tl-[24px] md:rounded-tl-[32px] z-20 hidden md:block"
           style={{ width: "var(--rail-w)", height: "var(--rail-h)" }}
         >
           {/* Inner fillet notch corner pieces */}
@@ -138,7 +138,7 @@ export default function Footer() {
               height: "var(--rail-notch)",
             }}
           >
-            <div className="w-full h-full bg-[var(--footer-frame)] rounded-br-[24px]" />
+            <div className="w-full h-full bg-[var(--footer-frame)] rounded-br-[20px]" />
           </div>
           <div
             className="absolute top-0 bg-[var(--footer-frame)] z-20"
@@ -148,7 +148,7 @@ export default function Footer() {
               height: "var(--rail-notch)",
             }}
           >
-            <div className="w-full h-full bg-[var(--footer-card)] rounded-tl-[24px]" />
+            <div className="w-full h-full bg-[var(--footer-card)] rounded-tl-[20px]" />
           </div>
           <div
             className="absolute left-0 bg-[var(--footer-frame)] z-20"
@@ -158,13 +158,13 @@ export default function Footer() {
               height: "var(--rail-notch)",
             }}
           >
-            <div className="w-full h-full bg-[var(--footer-card)] rounded-tl-[24px]" />
+            <div className="w-full h-full bg-[var(--footer-card)] rounded-tl-[20px]" />
           </div>
         </div>
 
-        {/* The 4 Floating Real Brand Social Buttons inside the rail */}
+        {/* The 4 Floating Real Brand Social Buttons inside the rail (Desktop) */}
         <div
-          className="absolute flex flex-col z-30"
+          className="absolute hidden md:flex flex-col z-30"
           style={{
             top: "var(--rail-top)",
             left: "var(--rail-inset)",
@@ -208,7 +208,7 @@ export default function Footer() {
         {/* Main Footer Card */}
         <footer className="relative bg-[var(--footer-card)] text-white pt-8 md:pt-12 lg:pt-16 pb-12 md:pb-12 px-4 sm:px-8 lg:px-20 overflow-hidden rounded-[24px] md:rounded-[32px]">
           <div className="max-w-7xl mx-auto relative">
-            <div className="pl-16 sm:pl-20 pt-2 md:pt-4 pb-10 md:pb-12 flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-16">
+            <div className="pt-2 md:pt-4 pb-10 md:pb-12 md:pl-20 flex flex-col lg:flex-row justify-between items-start gap-8 sm:gap-10 lg:gap-16">
               {/* Brand & Call to Action with Blur-in Animation */}
               <div className="flex flex-col gap-6 items-start max-w-sm w-full">
                 <FadeUpBlur delay={0.05}>
@@ -249,6 +249,29 @@ export default function Footer() {
                         Built around your brief
                       </span>
                     </div>
+                  </div>
+                </FadeUpBlur>
+
+                {/* Mobile Horizontal Brand Social Buttons */}
+                <FadeUpBlur delay={0.25} className="w-full">
+                  <div className="flex md:hidden items-center gap-3 pt-1">
+                    {socialLinks.map((s) => (
+                      <a
+                        key={s.name}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          width: "2.35rem",
+                          height: "2.35rem",
+                          ...s.style,
+                        }}
+                        className="rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-md select-none text-white"
+                        aria-label={s.name}
+                      >
+                        {s.icon}
+                      </a>
+                    ))}
                   </div>
                 </FadeUpBlur>
               </div>

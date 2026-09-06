@@ -28,6 +28,15 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+/* Critical utility fallbacks for Tailwind */
+.pl-10 { padding-left: 2.5rem !important; }
+.pl-11 { padding-left: 2.75rem !important; }
+.pl-12 { padding-left: 3rem !important; }
+.pl-14 { padding-left: 3.5rem !important; }
+.pr-11 { padding-right: 2.75rem !important; }
+.pr-14 { padding-right: 3.5rem !important; }
+.min-h-0 { min-height: 0 !important; }
+
 /* 60fps GPU-accelerated marquee animations matching WhyCreatives standard */
 @keyframes marquee-left {
   0% {

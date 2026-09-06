@@ -432,17 +432,24 @@ export default function OurWorkPage() {
                 {/* Carousel Controls: Capsule Dots, Progress Bar, Play/Pause */}
                 <div className="mx-auto mt-8 flex w-full max-w-md items-center justify-center gap-5 px-4 sm:justify-between lg:mt-10">
                   {/* Dot Indicators */}
-                  <div className="flex max-w-full shrink-0 flex-wrap items-center justify-center gap-2">
+                  <div className="flex max-w-full shrink-0 items-center justify-center gap-2">
                     {showcaseProjects.map((_, dIdx) => (
                       <button
                         key={dIdx}
                         type="button"
                         onClick={() => scrollTo(dIdx)}
                         aria-label={`Go to slide ${dIdx + 1}`}
-                        className={`h-2.5 shrink-0 rounded-full outline-none transition-all duration-300 ${
+                        style={{
+                          minHeight: 0,
+                          height: "8px",
+                          width: dIdx === selectedIndex ? "28px" : "8px",
+                          padding: 0,
+                          margin: 0,
+                        }}
+                        className={`shrink-0 rounded-full border-0 outline-none transition-all duration-300 ${
                           dIdx === selectedIndex
-                            ? "w-7 bg-foreground"
-                            : "w-2.5 bg-foreground/20 hover:bg-foreground/40"
+                            ? "bg-foreground"
+                            : "bg-foreground/25 hover:bg-foreground/45"
                         }`}
                       />
                     ))}
@@ -512,18 +519,22 @@ export default function OurWorkPage() {
 
                 {/* Search Bar */}
                 <div className="relative w-full md:w-80">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search by name, tech or role..."
-                    className="w-full rounded-full border border-border bg-card/60 pl-11 pr-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-[#FF6B42] focus:outline-none focus:ring-2 focus:ring-[#FF6B42]/20 transition-all backdrop-blur-sm"
+                    style={{
+                      paddingLeft: "2.75rem",
+                      paddingRight: searchQuery ? "4rem" : "1.25rem",
+                    }}
+                    className="w-full rounded-full border border-border bg-card/60 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-[#FF6B42] focus:outline-none focus:ring-2 focus:ring-[#FF6B42]/20 transition-all backdrop-blur-sm"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery("")}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground hover:text-foreground"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-muted-foreground hover:text-foreground px-2 py-1"
                     >
                       Clear
                     </button>

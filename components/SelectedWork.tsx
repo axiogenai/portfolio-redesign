@@ -169,9 +169,9 @@ function KineticStage({
               className="block"
               style={{
                 color: curr.color,
-                fontSize: "clamp(2.75rem, 8.5vw, 6.5rem)",
-                lineHeight: 0.88,
-                letterSpacing: "-0.055em",
+                fontSize: "clamp(1.9rem, 6.8vw, 6.5rem)",
+                lineHeight: 0.92,
+                letterSpacing: "-0.05em",
                 fontWeight: 800,
               }}
               variants={{
@@ -307,9 +307,19 @@ function ProjectCard({
     setDims({ w, h });
     const tagsDim = { w: tags.offsetWidth + 14, h: tags.offsetHeight + 10 };
     const metaDim = { w: meta.offsetWidth + 14, h: meta.offsetHeight + 10 };
+
+    // On mobile screens (< 768px) or if tags and meta would overlap horizontally,
+    // disable the complex notch clipPath to prevent card squishing and path corruption.
+    const isSmallScreen = w < 768;
+    const canFitNotch = tagsDim.w + metaDim.w + 60 < w;
+
+    if (isSmallScreen || !canFitNotch) {
+      setClipPath(null);
+      return;
+    }
+
     const radius = 28;
     const fillet = 16;
-
     setClipPath(xO(w, h, tagsDim, metaDim, radius, fillet));
   }, []);
 
@@ -368,12 +378,14 @@ function ProjectCard({
           onPointerEnter={handlePointerEnter}
           onPointerMove={handlePointerMove}
           onPointerLeave={() => setIsHovered(false)}
-          className="relative mb-5 aspect-[4/3] w-full rounded-[28px] lg:cursor-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_8px_32px_rgba(0,0,0,0.7)] group-hover:drop-shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-[filter] duration-500"
+          className="relative mb-5 aspect-[4/3] w-full rounded-[20px] sm:rounded-[28px] lg:cursor-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_8px_32px_rgba(0,0,0,0.7)] group-hover:drop-shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-[filter] duration-500"
         >
           {/* Top-Right Notch Tags */}
           <div
             ref={tagsRef}
-            className="absolute right-0 top-0 z-30 flex items-center gap-2 pr-4 pt-3.5"
+            className={`absolute right-0 top-0 z-30 flex items-center gap-1.5 sm:gap-2 ${
+              clipPath ? "pr-2.5 sm:pr-4 pt-2.5 sm:pt-3.5" : "p-3 sm:p-4"
+            }`}
           >
             {project.tags.map((tag, tIdx) => (
               <motion.span
@@ -389,7 +401,11 @@ function ProjectCard({
                   damping: 26,
                   delay: isHovered ? tIdx * 0.05 : 0,
                 }}
-                className="whitespace-nowrap rounded-full bg-white px-4 py-1.5 text-xs font-bold text-black shadow-md border border-black/5"
+                className={`whitespace-nowrap rounded-full px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold shadow-md border ${
+                  clipPath
+                    ? "bg-white text-black border-black/5"
+                    : "bg-white/95 text-black border-black/10 dark:bg-black/75 dark:text-white dark:border-white/20 backdrop-blur-md"
+                }${tIdx >= 2 ? " hidden sm:inline-flex" : ""}`}
               >
                 {tag}
               </motion.span>
@@ -399,7 +415,11 @@ function ProjectCard({
           {/* Bottom-Left Notch Meta Info */}
           <div
             ref={metaRef}
-            className="absolute bottom-0 left-0 z-30 flex items-center gap-2 pb-3.5 pl-5 text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-400"
+            className={`absolute bottom-0 left-0 z-30 flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.14em] sm:tracking-[0.16em] ${
+              clipPath
+                ? "pb-2.5 sm:pb-3.5 pl-3 sm:pl-5 text-neutral-400"
+                : "m-2.5 sm:m-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-white/90 border border-white/10"
+            }`}
           >
             <span>{project.year}</span>
             <span aria-hidden="true">•</span>
@@ -408,7 +428,9 @@ function ProjectCard({
 
           {/* Card Canvas with Notched ClipPath */}
           <div
-            className="relative h-full w-full overflow-hidden rounded-[28px] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+            className={`relative h-full w-full overflow-hidden rounded-[20px] sm:rounded-[28px] transition-transform duration-500 ease-out group-hover:scale-[1.02] ${
+              !clipPath ? "border border-border/60 dark:border-white/15" : ""
+            }`}
             style={{
               clipPath: clipPath ? `path("${clipPath}")` : undefined,
               WebkitClipPath: clipPath ? `path("${clipPath}")` : undefined,
