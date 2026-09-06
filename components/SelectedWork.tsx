@@ -38,9 +38,9 @@ const projects: ProjectItem[] = [
     client: "AXIOGEN NEURAL",
     title: "Core neural network training workspace powering predictive analytics & cognitive assistant agents",
     image: "/axiogen-neural.jpg",
-    tags: ["PyTorch"],
+    tags: ["Neural Systems", "PyTorch"],
     href: "/our-work",
-    bezelColor: "#dcdcd9",
+    bezelColor: "#1C1C1E",
     stage: {
       tone: "light",
       phrases: [
@@ -57,9 +57,9 @@ const projects: ProjectItem[] = [
     client: "RANSOMGUARD AI",
     title: "Real-time ransomware detection & response engine powered by watchdog traps & ML entropy analysis",
     image: "/axiogen-cyber.jpg",
-    tags: ["XGBoost"],
+    tags: ["Active Shield", "XGBoost"],
     href: "/our-work",
-    bezelColor: "#333333",
+    bezelColor: "#222224",
     stage: {
       tone: "dark",
       phrases: [
@@ -76,9 +76,9 @@ const projects: ProjectItem[] = [
     client: "SEOHUB PRO",
     title: "All-in-one enterprise SEO platform auditing, fixing & monitoring website search performance",
     image: "/axiogen-seo.jpg",
-    tags: ["Next.js"],
+    tags: ["SEO Engine", "Gemini AI"],
     href: "https://seohubpro.vercel.app",
-    bezelColor: "#d94e22",
+    bezelColor: "#1C1C1E",
     stage: {
       tone: "accent",
       phrases: [
@@ -453,7 +453,7 @@ function ProjectCard({
                   d={clipPath}
                   fill="none"
                   stroke={project.bezelColor}
-                  strokeWidth={8}
+                  strokeWidth={14}
                 />
               </svg>
             )}
@@ -467,11 +467,11 @@ function ProjectCard({
               }}
             />
 
-            {/* "View project ↗" slides up on hover - High Contrast Capsule */}
-            <div className="pointer-events-none absolute bottom-5 right-5 sm:bottom-6 sm:right-6 overflow-hidden z-20">
-              <span className="flex translate-y-full items-center gap-2 text-xs sm:text-sm font-bold text-white px-4 py-1.5 rounded-full bg-black/85 backdrop-blur-md border border-white/15 shadow-xl transition-transform duration-[450ms] ease-out group-hover:translate-y-0">
+            {/* "View project ↗" in bottom-right corner */}
+            <div className="pointer-events-none absolute bottom-4 right-5 sm:bottom-5 sm:right-6 z-20">
+              <span className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white transition-all duration-300 drop-shadow-sm group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 View project
-                <ArrowUpRight className="h-4 w-4 stroke-[2.5]" />
+                <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 stroke-[2.5]" />
               </span>
             </div>
           </div>
