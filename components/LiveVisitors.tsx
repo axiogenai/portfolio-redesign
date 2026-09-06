@@ -1,42 +1,19 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import * as topojson from "topojson-client";
+import countriesTopology from "world-atlas/countries-110m.json";
 import BlurLines from "./BlurLines";
 import GlobeChoroplethChart from "./GlobeChoroplethChart";
 
+// Pre-convert topology to GeoJSON feature collection synchronously so it is always immediately available
+const geoData = topojson.feature(
+  countriesTopology as any,
+  (countriesTopology as any).objects.countries
+) as any;
+
 export default function LiveVisitors() {
-  const [geoData, setGeoData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/countries-110m.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Local fetch failed");
-        return res.json();
-      })
-      .then((topology) => {
-        const geojson = topojson.feature(topology, topology.objects.countries);
-        setGeoData(geojson);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.warn("Falling back to CDN for GeoJSON mesh:", err);
-        fetch("https://unpkg.com/world-atlas@2.0.2/countries-110m.json")
-          .then((r) => r.json())
-          .then((topology) => {
-            const geojson = topojson.feature(topology, topology.objects.countries);
-            setGeoData(geojson);
-            setLoading(false);
-          })
-          .catch((cdnErr) => {
-            console.error("GeoJSON CDN load failed:", cdnErr);
-            setLoading(false);
-          });
-      });
-  }, []);
-
   return (
     <section
       id="live-visitors"
@@ -77,22 +54,9 @@ export default function LiveVisitors() {
         </h2>
       </div>
 
-      {/* Standalone 3D Globe */}
-      <div
-        className="flex items-center justify-center relative select-none max-w-[90vw]"
-        style={{
-          width: "min(78vh, 560px)",
-          height: "min(78vh, 560px)",
-        }}
-      >
-        {loading ? (
-          <div className="text-xs text-slate-500 font-mono flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            Loading Geographic Mesh...
-          </div>
-        ) : (
-          <GlobeChoroplethChart data={geoData} selectedCountryId="356" />
-        )}
+      {/* Standalone 3D Globe - Responsive: Fits mobile viewports cleanly & matches desktop size */}
+      <div className="flex items-center justify-center relative select-none w-[min(88vw,min(75vh,540px))] h-[min(88vw,min(75vh,540px))] max-w-full aspect-square">
+        <GlobeChoroplethChart data={geoData} selectedCountryId="356" />
       </div>
     </section>
   );

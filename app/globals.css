@@ -1,5 +1,7 @@
 @import "./axiogen-core.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Global safety rules to prevent any horizontal scroll on mobile without breaking position:sticky */
 html, body {
   overflow-x: clip;

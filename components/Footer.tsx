@@ -59,22 +59,22 @@ const socialLinks = [
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/company/axiogen",
-    icon: <FaLinkedinIn className="w-[18px] h-[18px] text-neutral-900 dark:text-neutral-100 transition-all duration-200 group-hover:scale-110 group-hover:text-black dark:group-hover:text-white" />,
+    icon: <FaLinkedinIn className="w-[18px] h-[18px] transition-transform duration-200 group-hover:scale-110" />,
   },
   {
     name: "WhatsApp",
     href: "https://wa.me/917030807704",
-    icon: <FaWhatsapp className="w-5 h-5 text-neutral-900 dark:text-neutral-100 transition-all duration-200 group-hover:scale-110 group-hover:text-black dark:group-hover:text-white" />,
+    icon: <FaWhatsapp className="w-5 h-5 transition-transform duration-200 group-hover:scale-110" />,
   },
   {
     name: "X",
     href: "https://x.com/axiogen",
-    icon: <FaXTwitter className="w-4 h-4 text-neutral-900 dark:text-neutral-100 transition-all duration-200 group-hover:scale-110 group-hover:text-black dark:group-hover:text-white" />,
+    icon: <FaXTwitter className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />,
   },
   {
     name: "Instagram",
     href: "https://instagram.com/axiogen",
-    icon: <FaInstagram className="w-5 h-5 text-neutral-900 dark:text-neutral-100 transition-all duration-200 group-hover:scale-110 group-hover:text-black dark:group-hover:text-white" />,
+    icon: <FaInstagram className="w-5 h-5 transition-transform duration-200 group-hover:scale-110" />,
   },
 ];
 
@@ -156,7 +156,8 @@ export default function Footer() {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group w-10 h-10 flex items-center justify-center select-none"
+              style={{ color: "hsl(var(--foreground))" }}
+              className="group w-10 h-10 flex items-center justify-center select-none text-foreground hover:opacity-75 transition-opacity"
               aria-label={s.name}
             >
               {s.icon}

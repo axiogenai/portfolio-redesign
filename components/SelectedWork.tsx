@@ -38,16 +38,16 @@ const projects: ProjectItem[] = [
     client: "AXIOGEN NEURAL",
     title: "Core neural network training workspace powering predictive analytics & cognitive assistant agents",
     image: "/axiogen-neural.jpg",
-    tags: ["Neural Systems", "PyTorch"],
+    tags: ["PyTorch"],
     href: "/our-work",
-    bezelColor: "#1C1C1E",
+    bezelColor: "#dcdcd9",
     stage: {
       tone: "light",
       phrases: [
+        { words: ["Cognitive", "Agents"], color: "#111111" },
         { words: ["Neural", "Intelligence"], color: "#111111" },
         { words: ["Predictive", "Analytics"], color: "#4F46E5" },
-        { words: ["Cognitive", "Agents"], color: "#DB2777" },
-        { words: ["Real-time", "Inference"], color: "#EA580C" },
+        { words: ["Real-time", "Inference"], color: "#111111" },
       ],
     },
   },
@@ -57,9 +57,9 @@ const projects: ProjectItem[] = [
     client: "RANSOMGUARD AI",
     title: "Real-time ransomware detection & response engine powered by watchdog traps & ML entropy analysis",
     image: "/axiogen-cyber.jpg",
-    tags: ["Active Shield", "XGBoost"],
+    tags: ["XGBoost"],
     href: "/our-work",
-    bezelColor: "#222224",
+    bezelColor: "#333333",
     stage: {
       tone: "dark",
       phrases: [
@@ -76,16 +76,16 @@ const projects: ProjectItem[] = [
     client: "SEOHUB PRO",
     title: "All-in-one enterprise SEO platform auditing, fixing & monitoring website search performance",
     image: "/axiogen-seo.jpg",
-    tags: ["SEO Engine", "Gemini AI"],
+    tags: ["Next.js"],
     href: "https://seohubpro.vercel.app",
-    bezelColor: "#1C1C1E",
+    bezelColor: "#d94e22",
     stage: {
       tone: "accent",
       phrases: [
-        { words: ["Search", "Dominance"], color: "#0C2E22" },
-        { words: ["Built", "to Rank"], color: "#141414" },
+        { words: ["Search", "Dominance"], color: "#111111" },
+        { words: ["Built", "to Rank"], color: "#111111" },
         { words: ["Gemini AI", "Keywords"], color: "#141414" },
-        { words: ["Core Web", "Vitals"], color: "#3B1002" },
+        { words: ["Core Web", "Vitals"], color: "#111111" },
       ],
     },
   },
@@ -453,7 +453,7 @@ function ProjectCard({
                   d={clipPath}
                   fill="none"
                   stroke={project.bezelColor}
-                  strokeWidth={14}
+                  strokeWidth={8}
                 />
               </svg>
             )}
