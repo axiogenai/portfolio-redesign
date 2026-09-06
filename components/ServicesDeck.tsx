@@ -6,12 +6,15 @@ import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } fro
 import { ArrowUpRight } from "lucide-react";
 
 export const cardColors = [
-  "#FF6B42", // 01 AI - Coral
-  "#9B8AFF", // 02 Build - Purple
-  "#FFB43D", // 03 Brand - Warm Amber
-  "#4FD16B", // 04 Growth - Vivid Green
-  "#5BB8E5", // 05 Security - Sky Blue
-  "#FF8CA6", // 06 Design - Rose Pink
+  "#FF6B42", // 01 AI / ML - Vibrant Coral
+  "#9B8AFF", // 02 Web Dev - Lavender Purple
+  "#38BDF8", // 03 Mobile Apps - Sky Cyan
+  "#4FD16B", // 04 Cloud Solutions - Vivid Mint Green
+  "#FFB43D", // 05 Database Design - Warm Amber
+  "#EC4899", // 06 Voice Synthesis - Neon Pink
+  "#8B5CF6", // 07 Document Intelligence - Violet
+  "#10B981", // 08 Deep Research - Emerald Green
+  "#F97316", // 09 Meta & Google Ads - Bold Tangerine
 ];
 
 export interface ServiceItem {
@@ -145,7 +148,7 @@ function DeckCardItem({
             <span>{service.display}</span>
           </div>
           <span className="tabular-nums" aria-hidden="true">
-            {service.num} — 0{total}
+            {service.num} — {String(total).padStart(2, "0")}
           </span>
         </div>
 

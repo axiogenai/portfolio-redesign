@@ -175,7 +175,7 @@ export default function PortfolioGalleryPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.45, delay: (pIdx % 6) * 0.05 }}
-                    className="group relative flex flex-col justify-between rounded-[22px] md:rounded-[28px] border border-border/80 bg-card p-6 sm:p-7 shadow-[0_2px_4px_rgba(0,0,0,0.04),0_12px_24px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_4px_rgba(0,0,0,0.4),0_16px_32px_rgba(0,0,0,0.5)] hover:border-[#FF6B42]/50 hover:-translate-y-1.5 transition-all duration-300"
+                    className="group relative flex flex-col justify-between rounded-[30px] sm:rounded-[34px] border border-border bg-gradient-to-b from-foreground/[0.035] to-foreground/[0.008] hover:from-foreground/[0.065] hover:to-foreground/[0.015] p-7 sm:p-8 shadow-sm hover:shadow-2xl hover:border-[#FF6B42]/50 hover:-translate-y-1.5 transition-all duration-400"
                   >
                     <div>
                       {/* Top Category Badge & Year */}

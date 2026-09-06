@@ -3,18 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Cpu,
-  Globe,
-  ShieldCheck,
-  Zap,
-  Terminal,
-  Database,
-  Search,
-  Server,
-  Layers,
-  ArrowUpRight,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import BlurLines from "./BlurLines";
 
 const introLines = [
@@ -25,14 +14,15 @@ const introLines = [
 ];
 
 const capabilitiesStrip = [
-  { label: "AI Neural Systems", Icon: Cpu },
-  { label: "Cybersecurity AI", Icon: ShieldCheck },
-  { label: "Cloud Architecture", Icon: Server },
-  { label: "APIs & Microservices", Icon: Terminal },
-  { label: "Web Development", Icon: Globe },
-  { label: "App Development", Icon: Layers },
-  { label: "Brand Identity & UX", Icon: Search },
-  { label: "Performance Systems", Icon: Zap },
+  "AI / ML SOLUTIONS",
+  "WEB DEVELOPMENT",
+  "MOBILE APPS",
+  "CLOUD SOLUTIONS",
+  "DATABASE DESIGN",
+  "VOICE SYNTHESIS",
+  "DOCUMENT INTELLIGENCE",
+  "DEEP RESEARCH",
+  "META & GOOGLE ADS",
 ];
 
 export default function WhoWeAre() {
@@ -136,16 +126,13 @@ export default function WhoWeAre() {
               key={r}
               className="flex shrink-0 items-center animate-marquee-strip will-change-transform"
             >
-              {capabilitiesStrip.map(({ label, Icon }) => (
+              {capabilitiesStrip.map((label) => (
                 <span
                   key={label}
-                  className="flex shrink-0 items-center gap-2.5 pr-8 text-foreground sm:gap-4 sm:pr-20 lg:pr-24"
+                  className="flex shrink-0 items-center gap-4 pr-8 text-foreground sm:gap-6 sm:pr-16 lg:pr-20"
                 >
-                  <Icon
-                    className="h-[18px] w-[18px] shrink-0 sm:h-6 sm:w-6 text-[#FF6B42]"
-                    strokeWidth={2.25}
-                  />
-                  <span className="whitespace-nowrap text-[17px] font-bold tracking-[-0.03em] sm:text-2xl lg:text-[30px]">
+                  <span className="font-mono text-xs text-foreground/40" aria-hidden="true">/</span>
+                  <span className="whitespace-nowrap text-[17px] font-bold tracking-[-0.03em] sm:text-2xl lg:text-[28px]">
                     {label}
                   </span>
                 </span>

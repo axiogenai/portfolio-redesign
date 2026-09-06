@@ -261,11 +261,11 @@ export default function Footer() {
                   <ul className="flex flex-col gap-2.5 text-neutral-300 text-xs sm:text-sm">
                     {[
                       { label: "About", href: "/about-us", delay: 0.2 },
-                      { label: "Culture", href: "/about-us", delay: 0.23 },
+                      { label: "Culture", href: "/culture", delay: 0.23 },
                       { label: "Client work", href: "/our-work", delay: 0.26 },
-                      { label: "Processes", href: "/what-we-do", delay: 0.29 },
-                      { label: "FAQs", href: "/contact", delay: 0.32 },
-                      { label: "Branding FAQs", href: "/contact", delay: 0.35 },
+                      { label: "Processes", href: "/processes", delay: 0.29 },
+                      { label: "FAQs", href: "/faqs", delay: 0.32 },
+                      { label: "Branding FAQs", href: "/branding-faqs", delay: 0.35 },
                       { label: "Blog", href: "/insights", delay: 0.38 },
                     ].map((item) => (
                       <li key={item.label}>
@@ -295,8 +295,8 @@ export default function Footer() {
                       { label: "Home", href: "/", delay: 0.25 },
                       { label: "Work", href: "/our-work", delay: 0.28, isNew: true },
                       { label: "Services", href: "/what-we-do", delay: 0.31 },
-                      { label: "Careers", href: "/contact", delay: 0.34 },
-                      { label: "Sectors", href: "/what-we-do", delay: 0.37 },
+                      { label: "Careers", href: "/careers", delay: 0.34 },
+                      { label: "Sectors", href: "/sectors", delay: 0.37 },
                       { label: "Contact", href: "/contact", delay: 0.43 },
                     ].map((item) => (
                       <li key={item.label}>

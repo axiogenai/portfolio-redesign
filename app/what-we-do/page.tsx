@@ -2,334 +2,434 @@
 
 import React from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BlurLines from "@/components/BlurLines";
+import PageHeader from "@/components/PageHeader";
 import SmoothScroll from "@/components/SmoothScroll";
-import { usePageIntro } from "@/components/PageTransitionProvider";
+import ServicesDeck, { ServiceItem } from "@/components/ServicesDeck";
 
-const ServicesDeck = dynamic(() => import("@/components/ServicesDeck"), {
-  ssr: false,
-  loading: () => (
-    <article className="relative bg-background" style={{ height: "600svh" }}>
-      <div className="sticky top-0 h-[100svh] flex items-center px-4 py-[76px] sm:px-8 md:py-[92px] lg:px-12">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col rounded-[18px] border border-black/10 px-5 py-6 min-h-[56svh] bg-[#FF6B42] text-black md:rounded-[26px] md:px-8 md:py-8">
-          <div className="flex items-baseline justify-between gap-4 border-b border-black/20 pb-3 font-mono text-[10px] tracking-[0.16em] uppercase text-black/70">
-            <span>01 / AI</span>
-            <span>01 — 06</span>
-          </div>
-          <div className="flex flex-1 flex-col justify-center py-6 md:py-8">
-            <h3 className="text-[clamp(1.5rem,2.9vw,2.75rem)] font-bold uppercase leading-[1.04] text-black">
-              AI & Neural Systems
-            </h3>
-          </div>
-        </div>
-      </div>
-    </article>
-  ),
-});
+const customEase = [0.16, 1, 0.3, 1] as const;
 
-const services = [
+// The 9 Real Services from verified production offerings
+const services: ServiceItem[] = [
   {
-    slug: "ai-neural-systems",
-    display: "AI",
+    slug: "ai-ml",
+    display: "AI & NEURAL",
     num: "01",
-    title: "AI & Neural Systems",
-    subtitle: "Bespoke neural network architectures, custom LLM fine-tuning, autonomous agents and predictive models.",
-    description: "We engineer production-grade AI systems, from custom neural network training and computer vision pipelines to multi-agent reasoning architectures and high-throughput inference engines. Designed to run reliably in production with deterministic speed and accuracy.",
+    title: "AI / ML Solutions",
+    subtitle:
+      "Custom models, pipelines, and intelligent automation built to solve complex computational problems.",
+    description:
+      "From fine-tuning open-weights models to building end-to-end RAG pipelines and deploying edge computer vision models, we engineer intelligent systems that scale reliably.",
     outcomes: [
-      "Deterministic low latency and high accuracy",
-      "Robust, hallucination-free retrieval pipelines",
-      "Scalable cloud inference infrastructure",
+      "Automated decision making at scale",
+      "Higher operational accuracy and speed",
+      "Zero manual intervention on repetitive tasks",
     ],
     deliverables: [
-      "Custom LLM fine-tuning and agentic workflows",
-      "Neural network training & dataset pipelines",
-      "Voice synthesis, vision models & embeddings",
-      "Production API endpoints and real-time inference",
+      "Custom model training & neural architectures",
+      "TensorFlow & PyTorch production inference",
+      "Automated machine learning pipelines",
+      "Predictive analytics & intelligent workflows",
     ],
   },
   {
     slug: "web-development",
-    display: "Build",
+    display: "FULL-STACK WEB",
     num: "02",
-    title: "Web & App Development",
-    subtitle: "Fast, maintainable digital products designed around real business workflows.",
-    description: "We design and engineer marketing sites, web applications, SaaS products, dashboards, e-commerce experiences and mobile apps. Every build is scoped around users, content, integrations, security and measurable performance — not a pre-selected template.",
+    title: "Web Development",
+    subtitle:
+      "Modern full-stack applications with premium UX/UI and robust database routing configurations.",
+    description:
+      "We design and build production-grade web platforms with Next.js App Router, typed TypeScript architectures, sub-second latency, and pixel-accurate interactive layouts.",
     outcomes: [
-      "A product people can use confidently",
-      "Fast pages and resilient infrastructure",
-      "A codebase your team can extend",
+      "Sub-second page load times and 100 Core Web Vitals",
+      "Scalable and maintainable modular architecture",
+      "Production-ready codebase from day one",
     ],
     deliverables: [
-      "Product discovery, UX flows and UI systems",
-      "Responsive websites and progressive web apps",
-      "Flutter and React Native apps, or fully native iOS and Android",
-      "APIs, authentication, databases, CMS and payments",
+      "Next.js App Router & React 19 architecture",
+      "TypeScript full-stack codebase",
+      "Responsive UI systems & design tokens",
+      "REST, GraphQL & serverless API routes",
     ],
   },
   {
-    slug: "brand-presence",
-    display: "Brand",
+    slug: "mobile-apps",
+    display: "NATIVE MOBILE",
     num: "03",
-    title: "Brand Presence & Social Systems",
-    subtitle: "A recognisable brand voice and content system across every active channel.",
-    description: "We turn positioning into a practical publishing system: clear themes, repeatable formats, consistent art direction and reporting that helps the next month improve on the last.",
+    title: "Mobile Apps",
+    subtitle:
+      "Cross-platform native iOS & Android applications engineered for speed and fluid animations.",
+    description:
+      "Fluid, gesture-driven mobile applications built with Flutter and React Native. Engineered to feel indistinguishable from high-end platform-native software with offline state sync.",
     outcomes: [
-      "A consistent public identity",
-      "Faster, easier content decisions",
-      "Useful audience and content insights",
+      "Unified codebase across iOS and Android",
+      "Native device speed and responsiveness",
+      "High user retention and store ratings",
     ],
     deliverables: [
-      "Channel and competitor audit",
-      "Content pillars and monthly planning",
-      "Design templates, copy and publishing support",
-      "Community workflows and performance reports",
+      "Cross-platform Flutter & React Native applications",
+      "Native device hardware integration (GPS, camera, biometrics)",
+      "60fps gesture micro-animations & smooth transitions",
+      "App Store & Google Play Store release management",
     ],
   },
   {
-    slug: "performance-marketing",
-    display: "Growth",
+    slug: "cloud-solutions",
+    display: "DEVOPS & CLOUD",
     num: "04",
-    title: "Performance Marketing & Paid Creative",
-    subtitle: "Creative testing and campaign management judged on qualified actions, not vanity reach.",
-    description: "Paid creative planned, produced and run as an engine. We design angle variations, test hooks, configure tracking and iterate on the signals that actually move customer acquisition costs.",
+    title: "Cloud Solutions",
+    subtitle:
+      "Scalable cloud infrastructure, container orchestration, and continuous DevOps deployment pipelines.",
+    description:
+      "Resilient cloud architectures built on AWS and GCP. Automated CI/CD pipelines, Docker container meshes, zero-downtime rolling releases, and 24/7 telemetry monitoring.",
     outcomes: [
-      "Clear visibility on customer acquisition",
-      "Creative variations ready to deploy",
-      "Weekly performance notes and next-test plans",
+      "99.99% uptime and auto-scaling resilience",
+      "Automated testing and painless deploys",
+      "Optimized cloud compute and storage bills",
     ],
     deliverables: [
-      "Paid account and attribution setup",
-      "Ad creative batches and hook variations",
-      "Campaign management across Meta, Google and LinkedIn",
-      "Dashboards, reporting and optimisation notes",
+      "AWS & GCP multi-region cloud architecture",
+      "Docker containerization & Kubernetes clusters",
+      "Automated CI/CD deployment pipelines",
+      "Zero-downtime releases & edge caching",
     ],
   },
   {
-    slug: "cybersecurity-cloud",
-    display: "Security",
+    slug: "database-design",
+    display: "DATA ARCHITECTURE",
     num: "05",
-    title: "Cybersecurity & Cloud Infrastructure",
-    subtitle: "Hardened zero-trust architecture, automated threat detection and containerized cloud sandboxes.",
-    description: "We build secure distributed infrastructure, cryptographic verification engines, automated vulnerability scanning and hardened cloud deployments designed to withstand targeted intrusion and maintain complete compliance.",
+    title: "Database Design",
+    subtitle:
+      "High-performance database architectures, query optimization, and secure data relation schemas.",
+    description:
+      "Relational and document database architectures engineered for high concurrency. Index profiling, query latency reduction, automated migration scripts, and strict row-level security.",
     outcomes: [
-      "Zero-day attack mitigation and active telemetry",
-      "Resilient, highly available cloud infrastructure",
-      "Cryptographic data integrity and end-to-end encryption",
+      "Sub-millisecond query responses under high load",
+      "Strict data integrity and compliance",
+      "Seamless scaling without schema lock-ins",
     ],
     deliverables: [
-      "Penetration testing and automated security auditing",
-      "Zero-trust IAM and microservice network isolation",
-      "Kubernetes, Docker and serverless orchestration",
-      "Real-time security telemetry and anomaly detection",
+      "PostgreSQL, Supabase & relational schema design",
+      "Query index profiling & latency reduction",
+      "Automated migrations & zero-downtime rollouts",
+      "Row-level security, replication & backup strategies",
     ],
   },
   {
-    slug: "brand-identity",
-    display: "Design",
+    slug: "voice-synthesis",
+    display: "VOICE AI",
     num: "06",
-    title: "Logo & Brand Identity",
-    subtitle: "Distinct visual identities designed to work from an app icon to a storefront.",
-    description: "We begin with context — category, audience, competition and ambition — then build a coherent identity rather than an isolated logo. Every decision is tested for legibility, flexibility and real-world use.",
+    title: "Voice Synthesis",
+    subtitle:
+      "Real-time AI voice generation, speech-to-text integration, and interactive voice interfaces.",
+    description:
+      "Neural voice synthesis engines and conversational audio systems. Ultra-low latency streaming, custom voice cloning, emotional prosody tuning, and multilingual Whisper transcription.",
     outcomes: [
-      "A distinctive, ownable identity",
-      "Consistent application across channels",
-      "Practical files your team can use",
+      "Lifelike conversational audio experiences",
+      "Ultra-low latency real-time voice responses",
+      "Seamless multi-language speech capabilities",
     ],
     deliverables: [
-      "Research and visual direction",
-      "Logo system and responsive variations",
-      "Colour, typography and supporting graphic language",
-      "Usage guidelines and production-ready assets",
+      "Neural text-to-speech (TTS) synthesis engines",
+      "Whisper-based speech-to-text transcription",
+      "Low-latency interactive voice conversational agents",
+      "Custom voice cloning & emotional prosody tuning",
+    ],
+  },
+  {
+    slug: "document-intelligence",
+    display: "NLP & EXTRACTION",
+    num: "07",
+    title: "Document Intelligence",
+    subtitle:
+      "AI-driven document parsing, automated text extraction, and contextual knowledge insights.",
+    description:
+      "High-precision document processing pipelines. OCR layout analysis, tabular extraction from scanned PDFs, schema validation, and dense vector embeddings for instantaneous search.",
+    outcomes: [
+      "Instant extraction from unstructured documents",
+      "99%+ accuracy on complex tabular formats",
+      "Direct question answering over private knowledge bases",
+    ],
+    deliverables: [
+      "Layout-aware OCR & PDF table parsing",
+      "Structured entity extraction & validation",
+      "Contextual vector embeddings & RAG search",
+      "Dense retrieval pipelines for massive doc sets",
+    ],
+  },
+  {
+    slug: "deep-research",
+    display: "RESEARCH & PAPERS",
+    num: "08",
+    title: "Deep Research",
+    subtitle:
+      "Automated academic research, intelligent documentation, and domain knowledge synthesis.",
+    description:
+      "Automated scholarly literature exploration, IEEE-standard documentation, and domain knowledge mapping. Bridging complex academic papers into working software implementations.",
+    outcomes: [
+      "Weeks of literature review condensed into hours",
+      "Publication-grade technical documentation",
+      "Clear competitive and academic positioning",
+    ],
+    deliverables: [
+      "Automated ArXiv & academic paper literature reviews",
+      "Comprehensive IEEE formatted documentation & reports",
+      "Deep domain insight extraction & synthesis",
+      "Citation validation & experimental benchmark analysis",
+    ],
+  },
+  {
+    slug: "meta-google-ads",
+    display: "PERFORMANCE MARKETING",
+    num: "09",
+    title: "Meta & Google Ads",
+    subtitle:
+      "Data-driven paid customer acquisition across Meta and Google Ads with conversion tracking and ROAS scaling.",
+    description:
+      "Full-funnel digital advertising engineered around measurable business returns. Server-side Conversion API (CAPI), Google Performance Max, creative hook testing, and attribution analytics.",
+    outcomes: [
+      "High-converting traffic with measurable ROAS",
+      "Precise conversion tracking with zero signal loss",
+      "Systematic creative iteration and lower CAC",
+    ],
+    deliverables: [
+      "Meta Ads & Instagram campaign architecture",
+      "Google Search & Performance Max campaign build",
+      "Server-side Conversions API (CAPI) & Pixel tracking",
+      "Creative hook testing, copy variants & ROAS reporting",
     ],
   },
 ];
 
-const marqueeItems = [
-  "AI & Neural Systems",
-  "Web & App Development",
-  "Brand & Digital Strategy",
-  "Performance Marketing",
-  "Cybersecurity & Cloud",
-  "UI/UX & Product Design",
+const solutionsFor = [
+  {
+    num: "01",
+    tag: "Academic",
+    title: "Student Projects",
+    description:
+      "Final year, mini, academic & research projects with comprehensive documentation & step-by-step support.",
+    deliverables: [
+      "Final Year & Major Projects",
+      "Research Paper Implementations",
+      "Complete Code Documentation",
+      "Viva & Presentation Walkthrough",
+    ],
+  },
+  {
+    num: "02",
+    tag: "Enterprise",
+    title: "Real-World Industry",
+    description:
+      "Enterprise workflow integrations, startup MVPs, and customized business process automation systems.",
+    deliverables: [
+      "Business Process Automation",
+      "Enterprise Workflow Integrations",
+      "Custom Internal Tooling",
+      "Legacy Infrastructure Modernization",
+    ],
+  },
+  {
+    num: "03",
+    tag: "Founders",
+    title: "Startups & Founders",
+    description:
+      "Rapid interactive product development, scalable application architectures, and end-to-end launch support.",
+    deliverables: [
+      "0-to-1 Rapid MVP Launches",
+      "Scalable SaaS Architectures",
+      "Cross-Platform Mobile Apps",
+      "Production CI/CD Pipelines",
+    ],
+  },
 ];
 
-function BottomCallout() {
-  return (
-    <section className="px-3 pb-[clamp(24px,4vw,56px)] pt-[clamp(72px,11vw,176px)] sm:px-5 md:px-6">
-      <div className="relative isolate overflow-hidden rounded-[24px] bg-[#0a0a0a] px-5 py-14 text-white sm:px-8 sm:py-20 md:rounded-[40px] md:px-12 md:py-28 lg:px-16 lg:py-32">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.028)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.028)_1px,transparent_1px)] bg-[size:120px_120px] [mask-image:radial-gradient(ellipse_72%_44%_at_50%_12%,#000_0%,transparent_80%)] md:bg-[size:160px_160px]"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.11]"
-          style={{
-            background: "radial-gradient(50% 38% at 50% 0%, #FF6B42 0%, #FF6B4240 32%, transparent 72%)",
-          }}
-        />
+const techStack = [
+  "PYTHON",
+  "REACT",
+  "NODE.JS",
+  "NEXT.JS",
+  "JAVA",
+  "TENSORFLOW",
+  "AWS / GCP",
+  "POSTGRESQL",
+  ".NET",
+];
 
-        {/* Marquee Banner */}
-        <div
-          aria-hidden="true"
-          className="relative -mx-5 mb-10 flex select-none overflow-hidden border-y border-white/10 py-3 sm:-mx-8 md:-mx-12 md:mb-16 lg:-mx-16"
-        >
-          {[0, 1].map((s) => (
-            <div
-              key={s}
-              className="flex shrink-0 items-center animate-marquee-strip will-change-transform"
-              style={{ animationDuration: "36s" }}
-            >
-              {marqueeItems.map((r) => (
-                <span
-                  key={r}
-                  className="flex shrink-0 items-center gap-4 whitespace-nowrap px-4 font-mono text-[10px] uppercase tracking-[0.2em] text-white/45 sm:gap-6 sm:px-6 sm:text-[11px]"
-                >
-                  <span>{r}</span>
-                  <span className="h-1 w-1 rounded-full bg-[#FF6B42]" />
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-
-        {/* 12-col Quote + Grid */}
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-12">
-          <figure className="lg:col-span-5">
-            <blockquote className="text-[clamp(1.25rem,2.1vw,2rem)] font-semibold leading-[1.3] tracking-[-0.025em] text-white">
-              “Six services, one team, and the same standard across all of them. We would rather scope the work honestly than sell you a package you do not need.”
-            </blockquote>
-            <figcaption className="mt-7 flex items-center gap-3 border-l-2 border-[#FF6B42] pl-4">
-              <span className="leading-tight">
-                <span className="block text-xs font-bold uppercase tracking-[0.14em] text-white">
-                  Team Axiogen. Studio
-                </span>
-                <span className="mt-1 block text-xs text-white/50">
-                  Creative, product & growth team
-                </span>
-              </span>
-            </figcaption>
-          </figure>
-
-          <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-3 lg:col-span-7">
-            {services.map((s, r) => (
-              <li key={s.slug} className="bg-[#0a0a0a] p-4 sm:p-5">
-                <span className="font-mono text-[10px] tracking-[0.16em] text-white/40">
-                  {String(r + 1).padStart(2, "0")}
-                </span>
-                <p className="mt-4 text-sm font-bold leading-tight tracking-[-0.02em] text-white sm:mt-6 sm:text-base">
-                  {s.display}
-                </p>
-                <p className="mt-1.5 text-[11px] leading-snug text-white/50 sm:text-xs">
-                  {s.title}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-12 border-t border-white/10 pt-10 md:mt-20 md:pt-14">
-          <h2 className="max-w-[22ch] text-[clamp(2.25rem,7vw,6rem)] font-bold leading-[0.95] tracking-[-0.045em] text-white">
-            Let’s build the next one together.
-          </h2>
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center md:mt-10">
-            <Link
-              href="/contact"
-              className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-[#FF6B42] px-7 py-4 text-sm font-bold text-black transition-transform duration-300 ease-out hover:scale-[1.02] active:scale-[0.99] sm:w-auto sm:text-base"
-            >
-              <span>Connect with us</span>
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black/15 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                <ArrowUpRight className="h-3.5 w-3.5 stroke-[3]" />
-              </span>
-            </Link>
-            <p className="text-sm text-white/50 sm:ml-2">
-              Tell us the goal. We will tell you what it actually needs.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+const badges = [
+  "Production-Grade Code",
+  "On-Time Delivery",
+  "Affordable Pricing",
+];
 
 export default function WhatWeDoPage() {
-  const { revealed } = usePageIntro();
-
   return (
     <SmoothScroll>
-      <div className="min-h-screen bg-background font-['Schibsted_Grotesk',sans-serif]">
+      <div className="min-h-screen bg-background text-foreground font-['Schibsted_Grotesk',sans-serif]">
         <Navbar />
 
         <main
-          className="px-4 md:px-[clamp(32px,6vw,120px)]"
-          style={{ paddingBottom: "clamp(56px, 7vw, 120px)" }}
+          className="px-4 md:px-[clamp(20px,2.6vw,52px)]"
+          style={{
+            paddingTop: "clamp(104px, 12vw, 168px)",
+            paddingBottom: "clamp(56px, 7vw, 120px)",
+          }}
         >
-          {/* Signature Coral Orange Header */}
-          <header
-            className="-mx-4 flex min-h-[100svh] flex-col rounded-b-[24px] px-4 md:-mx-[clamp(32px,6vw,120px)] md:rounded-b-[40px] md:px-[clamp(32px,6vw,120px)]"
-            style={{
-              backgroundColor: "#FF6B42",
-              paddingTop: "clamp(104px, 12vw, 168px)",
-            }}
-          >
-            <div className="flex flex-1 flex-col justify-center">
-              <div className="mb-4 flex items-center gap-2 text-[11px] font-medium tracking-[0.04em] text-black/70 sm:hidden">
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-black/60" />
-                Services
-              </div>
+          <div className="mx-auto max-w-[1920px]">
+            {/* Page Header */}
+            <PageHeader
+              eyebrow="Services We Provide"
+              lines={["AI, Web, Mobile,", "Cloud & Intelligent Systems."]}
+              support="From research to deployment — we build powerful, intelligent digital products for enterprises, startups & students. You envision it, we engineer it."
+            />
 
-              <h1
-                className="block text-black"
-                style={{
-                  fontSize: "clamp(2.05rem, 7.2vw, 7.25rem)",
-                  lineHeight: 0.99,
-                  letterSpacing: "-0.045em",
-                  fontWeight: 700,
-                }}
-              >
-                <BlurLines
-                  active={revealed}
-                  className="block text-black"
-                  lines={[
-                    "We’re a creative",
-                    "studio with deep",
-                    "expertise",
-                  ]}
-                />
-              </h1>
+            {/* Value Guarantees Badges - NO ICONS, NO COLORED BULLETS */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: customEase }}
+              className="mt-6 flex flex-wrap items-center gap-3"
+            >
+              {badges.map((b) => (
+                <div
+                  key={b}
+                  className="rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground shadow-sm"
+                >
+                  <span>{b}</span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
 
-              <div className="mt-8 grid grid-cols-1 lg:mt-14 lg:grid-cols-12">
-                <p className="max-w-[30ch] text-lg leading-[1.35] text-black sm:text-xl md:text-[1.4rem] lg:col-span-5 lg:col-start-7">
-                  We bring craft and clear thinking to ambitious brands, and build work that earns attention.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 pb-10 text-[11px] font-semibold uppercase tracking-[0.18em] text-black/70">
-              <span>Scroll</span>
-              <motion.span
-                className="block h-6 w-px bg-black/40"
-                initial={{ y: 0, opacity: 0.35 }}
-                animate={{ y: [0, 8, 0], opacity: [0.35, 1, 0.35] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </div>
-          </header>
-
-          {/* Exact WhyCreatives 3D Card Deck Stacking Section */}
-          <div className="-mx-4 md:-mx-[clamp(32px,6vw,120px)]">
+          {/* Signature Interactive Stacked Card Deck - 9 Services */}
+          <div className="mt-14 lg:mt-20 -mx-4 md:-mx-[clamp(20px,2.6vw,52px)]">
             <ServicesDeck items={services} />
           </div>
 
-          {/* Bottom Dark Callout Box */}
-          <div className="-mx-4 md:-mx-[clamp(32px,6vw,120px)]">
-            <BottomCallout />
+          <div className="mx-auto max-w-[1920px]">
+
+            {/* Perfect Solutions For Section - ZERO ICONS */}
+            <section className="mt-24 lg:mt-36">
+              <div className="flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground mb-4">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
+                Perfect Solutions For
+              </div>
+              <h2
+                className="text-foreground font-bold tracking-tight leading-[1.04] mb-12"
+                style={{
+                  fontSize: "clamp(1.8rem, 3.8vw, 3.2rem)",
+                  letterSpacing: "-0.03em",
+                }}
+              >
+                Tailored for every stage of development.
+              </h2>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {solutionsFor.map((sol, idx) => (
+                  <motion.div
+                    key={sol.num}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: idx * 0.08,
+                      ease: customEase,
+                    }}
+                    className="group relative flex flex-col justify-between rounded-[36px] border border-border bg-gradient-to-b from-foreground/[0.04] to-foreground/[0.01] hover:from-foreground/[0.07] hover:to-foreground/[0.02] p-8 sm:p-10 shadow-sm hover:border-foreground/30 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-400"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-4 mb-6">
+                        <span className="rounded-full bg-foreground px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-background shadow-sm">
+                          {sol.tag}
+                        </span>
+                        <span className="font-mono text-xs font-semibold text-muted-foreground">
+                          {sol.num} / AUDIENCE
+                        </span>
+                      </div>
+
+                      <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-3">
+                        {sol.title}
+                      </h3>
+
+                      <p className="text-sm sm:text-[15px] text-muted-foreground leading-relaxed">
+                        {sol.description}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-border">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground block mb-3">
+                        Key Deliverables
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {sol.deliverables.map((d) => (
+                          <span
+                            key={d}
+                            className="rounded-full bg-foreground/[0.04] border border-border px-3.5 py-1.5 text-xs font-medium text-foreground/80"
+                          >
+                            {d}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+
+            {/* Tech Stack Banner */}
+            <section className="mt-20 lg:mt-32">
+              <div className="rounded-[36px] border border-border bg-gradient-to-b from-foreground/[0.03] to-foreground/[0.01] p-8 sm:p-12">
+                <div className="flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground mb-4">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
+                  Engineering Tech Stack
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-6">
+                  Production stacks we build with daily.
+                </h3>
+                <div className="flex flex-wrap gap-2.5">
+                  {techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-full border border-border bg-foreground/[0.04] px-5 py-2.5 font-mono text-xs sm:text-sm font-bold text-foreground transition-colors hover:border-foreground/30 hover:bg-foreground/[0.08]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Bottom Dark CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: customEase }}
+              className="mt-20 lg:mt-32 rounded-[32px] bg-[#141414] text-white p-8 sm:p-14 lg:p-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8"
+            >
+              <div>
+                <span className="font-mono text-xs uppercase tracking-[0.18em] text-[#FF6B42]">
+                  From Research to Deployment
+                </span>
+                <h3 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-white">
+                  You envision it, we engineer it.
+                </h3>
+                <p className="mt-2 text-neutral-400 max-w-xl text-base">
+                  Whether you are a student preparing your major project, an enterprise automating workflows, or a startup founder launching an MVP — we deliver production-grade code on time.
+                </p>
+              </div>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-black hover:bg-neutral-200 transition-colors shrink-0"
+              >
+                <span>Start a project</span>
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
           </div>
         </main>
 
