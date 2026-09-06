@@ -28,7 +28,9 @@ export default function ContactPage() {
     message: "",
   });
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const toggleService = (chip: string) => {
     setSelectedServices((prev) =>
@@ -36,17 +38,47 @@ export default function ContactPage() {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMessage("");
 
-    const s = selectedServices.length ? selectedServices.join(", ") : "General inquiry";
-    const text = encodeURIComponent(
-      `Hello Team Axiogen!\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || "Not provided"}\nServices: ${s}\n\nBrief: ${formData.message}`
-    );
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          services: selectedServices,
+          message: formData.message,
+        }),
+      });
 
-    // Open WhatsApp directly with the pre-filled enquiry
-    window.open(`https://wa.me/917030807704?text=${text}`, "_blank", "noopener");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send email inquiry.");
+      }
+
+      setSubmitted(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+      setSelectedServices([]);
+    } catch (err: any) {
+      setErrorMessage(
+        err.message || "Could not send inquiry. Please try again or reach out directly."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -147,102 +179,134 @@ export default function ContactPage() {
                   Four fields, then pick what you need. Nothing else required.
                 </p>
 
-                <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-2">
-                      Your name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Full name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-base text-white placeholder:text-neutral-500 focus:border-white/40 focus:outline-none transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="you@company.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-base text-white placeholder:text-neutral-500 focus:border-white/40 focus:outline-none transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-2">
-                      Phone (optional)
-                    </label>
-                    <input
-                      type="tel"
-                      placeholder="+91"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-base text-white placeholder:text-neutral-500 focus:border-white/40 focus:outline-none transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-2">
-                      What are you trying to achieve? *
-                    </label>
-                    <textarea
-                      rows={4}
-                      required
-                      placeholder="The goal, the deadline, and anything that already exists."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-base text-white placeholder:text-neutral-500 focus:border-white/40 focus:outline-none transition-colors"
-                    />
-                  </div>
-
-                  {/* Multi-Select Service Chips */}
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-3">
-                      What do you need? (pick any)
-                    </label>
-                    <div className="flex flex-wrap gap-2.5">
-                      {serviceChips.map((chip) => {
-                        const isSelected = selectedServices.includes(chip);
-                        return (
-                          <button
-                            key={chip}
-                            type="button"
-                            onClick={() => toggleService(chip)}
-                            className={`rounded-full px-4 py-2 text-xs font-bold transition-all inline-flex items-center gap-1.5 ${
-                              isSelected
-                                ? "bg-white text-black shadow-md scale-[1.03]"
-                                : "bg-white/10 text-white/80 hover:bg-white/20 border border-white/5"
-                            }`}
-                          >
-                            <span>{chip}</span>
-                            {isSelected && <Check className="h-3 w-3 stroke-[3]" />}
-                          </button>
-                        );
-                      })}
+                {submitted ? (
+                  <div className="mt-8 rounded-2xl border border-white/15 bg-white/[0.03] p-8 text-center sm:p-12">
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white text-black shadow-lg">
+                      <Check className="h-6 w-6 stroke-[2.5]" />
                     </div>
-                  </div>
-
-                  <div className="pt-4">
-                    <button
-                      type="submit"
-                      className="w-full rounded-full bg-white text-black py-4 font-bold text-sm hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 shadow-lg active:scale-[0.99]"
-                    >
-                      <span>Send enquiry</span>
-                      <ArrowUpRight className="h-4 w-4" />
-                    </button>
-                    <p className="mt-3 text-center text-xs text-neutral-500 font-mono">
-                      Sent straight to the studio. We never pass your details on.
+                    <h4 className="text-2xl font-bold text-white">Inquiry Received</h4>
+                    <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-neutral-400">
+                      Your brief has been delivered directly to the Axiogen studio inbox via secure SMTP. We'll review your scope and follow up promptly.
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => setSubmitted(false)}
+                      className="mt-6 rounded-full border border-white/20 px-6 py-2.5 text-xs font-semibold text-white transition-all hover:bg-white hover:text-black cursor-pointer"
+                    >
+                      Send another message
+                    </button>
                   </div>
-                </form>
+                ) : (
+                  <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                    {errorMessage && (
+                      <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-4 text-xs font-medium text-red-400">
+                        {errorMessage}
+                      </div>
+                    )}
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-2">
+                        Your name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Full name"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-base text-white placeholder:text-neutral-500 focus:border-white/40 focus:outline-none transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-2">
+                        Email *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="you@company.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-base text-white placeholder:text-neutral-500 focus:border-white/40 focus:outline-none transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-2">
+                        Phone (optional)
+                      </label>
+                      <input
+                        type="tel"
+                        placeholder="+91"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-base text-white placeholder:text-neutral-500 focus:border-white/40 focus:outline-none transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-2">
+                        What are you trying to achieve? *
+                      </label>
+                      <textarea
+                        rows={4}
+                        required
+                        placeholder="The goal, the deadline, and anything that already exists."
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-base text-white placeholder:text-neutral-500 focus:border-white/40 focus:outline-none transition-colors"
+                      />
+                    </div>
+
+                    {/* Multi-Select Service Chips */}
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-[0.14em] text-neutral-400 mb-3">
+                        What do you need? (pick any)
+                      </label>
+                      <div className="flex flex-wrap gap-2.5">
+                        {serviceChips.map((chip) => {
+                          const isSelected = selectedServices.includes(chip);
+                          return (
+                            <button
+                              key={chip}
+                              type="button"
+                              onClick={() => toggleService(chip)}
+                              className={`rounded-full px-4 py-2 text-xs font-bold transition-all inline-flex items-center gap-1.5 cursor-pointer ${
+                                isSelected
+                                  ? "bg-white text-black shadow-md scale-[1.03]"
+                                  : "bg-white/10 text-white/80 hover:bg-white/20 border border-white/5"
+                              }`}
+                            >
+                              <span>{chip}</span>
+                              {isSelected && <Check className="h-3 w-3 stroke-[3]" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="pt-4">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full rounded-full bg-white text-black py-4 font-bold text-sm hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] disabled:opacity-50 cursor-pointer"
+                      >
+                        {isSubmitting ? (
+                          <span>Sending inquiry via SMTP...</span>
+                        ) : (
+                          <>
+                            <span>Send inquiry</span>
+                            <ArrowUpRight className="h-4 w-4" />
+                          </>
+                        )}
+                      </button>
+                      <p className="mt-3 text-center text-xs text-neutral-500 font-mono">
+                        Sent securely to studio inbox. We never pass your details on.
+                      </p>
+                    </div>
+                  </form>
+                )}
               </div>
             </div>
           </div>

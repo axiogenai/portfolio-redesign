@@ -17,6 +17,8 @@ const serviceOptions = [
 
 export default function ContactSection() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -30,15 +32,47 @@ export default function ContactSection() {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { y: 0.7 },
-      colors: ["#FF6B42", "#9B8AFF", "#4FD16B", "#FFFFFF"],
-    });
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          services: selectedServices,
+          message: formData.message,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to deliver message via SMTP.");
+      }
+
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+      setSelectedServices([]);
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.7 },
+        colors: ["#FF6B42", "#9B8AFF", "#4FD16B", "#FFFFFF"],
+      });
+    } catch (err: any) {
+      setErrorMessage(
+        err.message || "Failed to deliver inquiry. Please try again or email us directly."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -247,11 +281,18 @@ export default function ContactSection() {
                     />
                   </div>
 
+                  {errorMessage && (
+                    <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3.5 text-xs text-red-400 font-medium">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full inline-flex items-center justify-center gap-2 py-4 rounded-2xl font-semibold text-white bg-gradient-to-r from-[#FF6B42] to-[#FF8CA6] hover:shadow-[0_0_30px_rgba(255,107,66,0.35)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
+                    disabled={isSubmitting}
+                    className="w-full inline-flex items-center justify-center gap-2 py-4 rounded-2xl font-semibold text-white bg-gradient-to-r from-[#FF6B42] to-[#FF8CA6] hover:shadow-[0_0_30px_rgba(255,107,66,0.35)] active:scale-[0.99] transition-all duration-200 disabled:opacity-50 cursor-pointer"
                   >
-                    <span>Submit Inquiry</span>
+                    <span>{isSubmitting ? "Sending via SMTP..." : "Submit Inquiry"}</span>
                     <Send className="w-4 h-4" />
                   </button>
                 </form>
