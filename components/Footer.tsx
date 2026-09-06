@@ -206,9 +206,9 @@ export default function Footer() {
         </div>
 
         {/* Main Footer Card */}
-        <footer className="relative bg-[var(--footer-card)] text-white pt-8 md:pt-12 lg:pt-16 pb-12 md:pb-12 px-4 sm:px-8 lg:px-20 overflow-hidden rounded-[24px] md:rounded-[32px]">
+        <footer className="footer-card-responsive relative bg-[var(--footer-card)] text-white pt-8 md:pt-12 lg:pt-16 pb-12 md:pb-12 overflow-hidden rounded-[24px] md:rounded-[32px]">
           <div className="max-w-7xl mx-auto relative">
-            <div className="pt-2 md:pt-4 pb-10 md:pb-12 md:pl-20 flex flex-col lg:flex-row justify-between items-start gap-8 sm:gap-10 lg:gap-16">
+            <div className="footer-content-padded pt-2 md:pt-4 pb-10 md:pb-12 flex flex-col lg:flex-row justify-between items-start gap-8 sm:gap-10 lg:gap-16">
               {/* Brand & Call to Action with Blur-in Animation */}
               <div className="flex flex-col gap-6 items-start max-w-sm w-full">
                 <FadeUpBlur delay={0.05}>
