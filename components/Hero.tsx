@@ -101,7 +101,7 @@ export default function Hero() {
       m = y.height;
     if (b < 2 || m < 2) return;
 
-    const g = Math.max(14, Math.min(30, b * 0.024));
+    const g = Math.max(14, Math.min(34, b * 0.026));
     const w = (_: HTMLElement) => {
       const B = _.getBoundingClientRect();
       return { right: B.right - y.left, bottom: B.bottom - y.top };
@@ -207,8 +207,8 @@ export default function Hero() {
       <div
         className="w-full px-4 sm:px-6 md:px-[clamp(28px,4.5vw,120px)]"
         style={{
-          paddingTop: "clamp(80px, 9vw, 112px)",
-          paddingBottom: "clamp(16px, 3.5vw, 76px)",
+          paddingTop: "clamp(88px, 11vw, 112px)",
+          paddingBottom: "clamp(24px, 4vw, 76px)",
         }}
       >
         <div
@@ -219,7 +219,7 @@ export default function Hero() {
           {/* Overlaid Floating Text Block in Corner on Desktop, Normal flow on Mobile */}
           <div
             ref={panelRef}
-            className="relative z-10 flex flex-col items-start w-full md:absolute md:left-[min(5vw,64px)] md:top-0 md:w-auto md:max-w-none [--pad-l:0px] [--pad-r:8px] md:[--pad-l:clamp(16px,1.8vw,28px)] md:[--pad-r:clamp(18px,1.8vw,26px)]"
+            className="relative z-10 flex flex-col items-start w-full md:absolute md:left-[min(7vw,104px)] md:top-0 md:w-auto md:max-w-none [--pad-l:0px] [--pad-r:8px] md:[--pad-l:clamp(20px,2.2vw,34px)] md:[--pad-r:clamp(20px,2vw,30px)]"
           >
             {/* Top Indicator: Team Axiogen */}
             <div
@@ -228,8 +228,8 @@ export default function Hero() {
               style={{
                 paddingLeft: padL,
                 paddingRight: padR,
-                paddingTop: "clamp(8px, 1.2vw, 18px)",
-                paddingBottom: "clamp(6px, 1vw, 14px)",
+                paddingTop: "clamp(8px, 1.4vw, 20px)",
+                paddingBottom: "clamp(6px, 1.2vw, 18px)",
               }}
             >
               <motion.span
@@ -239,7 +239,7 @@ export default function Hero() {
                 transition={{ duration: 0.5, ease: ju }}
               >
                 <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-foreground" />
-                <span className="whitespace-nowrap text-[12px] font-medium leading-none text-foreground sm:text-[13px] lg:text-[14px]">
+                <span className="whitespace-nowrap text-[12px] font-medium leading-none text-foreground sm:text-[13px] lg:text-[15px]">
                   Team Axiogen
                 </span>
               </motion.span>
@@ -249,7 +249,7 @@ export default function Hero() {
             <h1
               className="font-['Schibsted_Grotesk','Plus_Jakarta_Sans',sans-serif] text-foreground"
               style={{
-                fontSize: "clamp(1.75rem, 4.4vw, 76px)",
+                fontSize: "clamp(1.65rem, 5.8vw, 104px)",
                 fontWeight: 500,
                 letterSpacing: "-0.022em",
                 margin: 0,
@@ -263,11 +263,11 @@ export default function Hero() {
                   }}
                   className="block w-fit overflow-hidden whitespace-nowrap"
                   style={{
-                    lineHeight: 1.04,
+                    lineHeight: 1,
                     paddingLeft: padL,
                     paddingRight: padR,
                     paddingBottom: "0.14em",
-                    marginBottom: d === Nu.length - 1 ? 0 : "-0.22em",
+                    marginBottom: d === Nu.length - 1 ? 0 : "-0.25em",
                   }}
                 >
                   <motion.span
@@ -294,8 +294,8 @@ export default function Hero() {
               style={{
                 paddingLeft: padL,
                 paddingRight: padR,
-                paddingTop: "clamp(14px, 1.8vw, 22px)",
-                paddingBottom: "clamp(12px, 1.6vw, 22px)",
+                paddingTop: "clamp(12px, 1.6vw, 24px)",
+                paddingBottom: "clamp(12px, 1.6vw, 24px)",
               }}
             >
               <motion.div

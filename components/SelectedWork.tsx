@@ -40,14 +40,14 @@ const projects: ProjectItem[] = [
     image: "/axiogen-neural.jpg",
     tags: ["PyTorch"],
     href: "/our-work",
-    bezelColor: "#1C1C1E",
+    bezelColor: "#dcdcd9",
     stage: {
       tone: "light",
       phrases: [
-        { words: ["Cognitive", "Agents"], color: "#111111" },
         { words: ["Neural", "Intelligence"], color: "#111111" },
         { words: ["Predictive", "Analytics"], color: "#4F46E5" },
-        { words: ["Real-time", "Inference"], color: "#111111" },
+        { words: ["Cognitive", "Agents"], color: "#DB2777" },
+        { words: ["Real-time", "Inference"], color: "#EA580C" },
       ],
     },
   },
@@ -78,14 +78,14 @@ const projects: ProjectItem[] = [
     image: "/axiogen-seo.jpg",
     tags: ["Next.js"],
     href: "https://seohubpro.vercel.app",
-    bezelColor: "#1C1C1E",
+    bezelColor: "#d94e22",
     stage: {
       tone: "accent",
       phrases: [
-        { words: ["Search", "Dominance"], color: "#111111" },
-        { words: ["Built", "to Rank"], color: "#111111" },
+        { words: ["Search", "Dominance"], color: "#0C2E22" },
+        { words: ["Built", "to Rank"], color: "#141414" },
         { words: ["Gemini AI", "Keywords"], color: "#141414" },
-        { words: ["Core Web", "Vitals"], color: "#111111" },
+        { words: ["Core Web", "Vitals"], color: "#3B1002" },
       ],
     },
   },
@@ -169,9 +169,9 @@ function KineticStage({
               className="block"
               style={{
                 color: curr.color,
-                fontSize: "clamp(2.4rem, 8vw, 6.5rem)",
-                lineHeight: 0.9,
-                letterSpacing: "-0.05em",
+                fontSize: "clamp(2.75rem, 8.5vw, 6.5rem)",
+                lineHeight: 0.88,
+                letterSpacing: "-0.055em",
                 fontWeight: 800,
               }}
               variants={{
@@ -408,8 +408,7 @@ function ProjectCard({
                   damping: 26,
                   delay: isHovered ? tIdx * 0.05 : 0,
                 }}
-                style={{ backgroundColor: "#E5E5E5", color: "#000000" }}
-                className="whitespace-nowrap rounded-full px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-bold shadow-md border border-black/10"
+                className="whitespace-nowrap rounded-full bg-white px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-bold text-black shadow-md border border-black/5"
               >
                 {tag}
               </motion.span>
@@ -454,7 +453,7 @@ function ProjectCard({
                   d={clipPath}
                   fill="none"
                   stroke={project.bezelColor}
-                  strokeWidth={14}
+                  strokeWidth={8}
                 />
               </svg>
             )}
