@@ -8,6 +8,7 @@ export interface CountryMetric {
   serverLatencyMs: number;
   region: string;
   tier?: "Global Node" | "Primary Edge" | "Regional Hub";
+  verifiedVisits?: string;
 }
 
 export const COUNTRY_DATA: Record<string, CountryMetric> = {
@@ -31,7 +32,7 @@ export const COUNTRY_DATA: Record<string, CountryMetric> = {
   "616": { id: "616", code: "POL", name: "Poland", activeUsers: 890000, dataProcessedTB: 1340, securityScore: 86, serverLatencyMs: 42, region: "Europe", tier: "Regional Hub" },
   "756": { id: "756", code: "CHE", name: "Switzerland", activeUsers: 620000, dataProcessedTB: 1580, securityScore: 99, serverLatencyMs: 16, region: "Europe", tier: "Primary Edge" },
   
-  "356": { id: "356", code: "IND", name: "India", activeUsers: 5920000, dataProcessedTB: 9240, securityScore: 87, serverLatencyMs: 45, region: "Asia-Pacific", tier: "Global Node" },
+  "356": { id: "356", code: "IND", name: "India", activeUsers: 5920000, dataProcessedTB: 9240, securityScore: 87, serverLatencyMs: 45, region: "Asia-Pacific", tier: "Global Node", verifiedVisits: "950 verified visits" },
   "156": { id: "156", code: "CHN", name: "China", activeUsers: 7420000, dataProcessedTB: 14200, securityScore: 82, serverLatencyMs: 82, region: "Asia-Pacific", tier: "Global Node" },
   "392": { id: "392", code: "JPN", name: "Japan", activeUsers: 3180000, dataProcessedTB: 6100, securityScore: 97, serverLatencyMs: 19, region: "Asia-Pacific", tier: "Global Node" },
   "410": { id: "410", code: "KOR", name: "South Korea", activeUsers: 1840000, dataProcessedTB: 4320, securityScore: 95, serverLatencyMs: 14, region: "Asia-Pacific", tier: "Primary Edge" },

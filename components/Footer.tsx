@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, ArrowUp, Phone, Mail, MapPin } from "lucide-react";
 import { FaLinkedinIn, FaWhatsapp, FaXTwitter, FaInstagram } from "react-icons/fa6";
 import AxiogenLogo from "./AxiogenLogo";
+import ShinyText from "./ShinyText";
 
 // Kinetic Fade-Up component
 function FadeUpBlur({
@@ -389,8 +390,18 @@ export default function Footer() {
 
             {/* Massive Brand Watermark: CRAFTING SINCE 2024 */}
             <div className="border-t border-white/10 pt-6 sm:pt-8 pb-8 sm:pb-10 overflow-hidden select-none">
-              <h1 className="text-[clamp(1.5rem,7vw,7vw)] sm:text-5xl md:text-[6.5vw] lg:text-[7vw] font-black text-white tracking-tight leading-none text-center lg:text-left opacity-95 uppercase whitespace-nowrap">
-                CRAFTING SINCE 2024
+              <h1 className="text-[clamp(1.5rem,7vw,7vw)] sm:text-5xl md:text-[6.5vw] lg:text-[7vw] font-black tracking-tight leading-none text-center lg:text-left uppercase whitespace-nowrap">
+                <ShinyText
+                  text="CRAFTING SINCE 2024"
+                  speed={2}
+                  delay={0}
+                  color="#b5b5b5"
+                  shineColor="#ffffff"
+                  spread={120}
+                  direction="left"
+                  yoyo={false}
+                  pauseOnHover={false}
+                />
               </h1>
             </div>
 

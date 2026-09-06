@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { geoOrthographic, geoPath, geoGraticule, geoCentroid, geoContains } from "d3-geo";
 import type { FeatureCollection, Geometry } from "geojson";
-import { MapPin } from "lucide-react";
 import { COUNTRY_DATA, type CountryMetric } from "@/data/countries";
 
 // Exact palette matching demo
@@ -225,12 +224,26 @@ export default function GlobeChoroplethChart({
           const cosD = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLon);
 
           if (cosD > 0.1) {
-            const projected = projection(center);
-            if (projected && !isNaN(projected[0]) && !isNaN(projected[1])) {
+            const bounds = path.bounds(activeFeature);
+            let posX = 0;
+            let posY = 0;
+
+            if (bounds && !isNaN(bounds[0][0]) && !isNaN(bounds[0][1]) && !isNaN(bounds[1][0]) && !isNaN(bounds[1][1])) {
+              posX = (bounds[0][0] + bounds[1][0]) / 2;
+              posY = bounds[0][1] - 8; // Float cleanly ABOVE the northern edge of the country
+            } else {
+              const projected = projection(center);
+              if (projected && !isNaN(projected[0]) && !isNaN(projected[1])) {
+                posX = projected[0];
+                posY = projected[1] - 36;
+              }
+            }
+
+            if (posX && posY) {
               setBadgeState({
                 visible: true,
-                x: projected[0],
-                y: projected[1],
+                x: posX,
+                y: posY,
                 country: COUNTRY_DATA[activeCountryIdRef.current] || null,
               });
             }
@@ -346,19 +359,39 @@ export default function GlobeChoroplethChart({
         onPointerCancel={handlePointerUp}
       />
 
-      {/* Synchronized Floating Pill Badge matching Image 3 */}
+      {/* Synchronized Floating Pill Badge */}
       {badgeState.visible && badgeState.country && (
         <div
-          className="pointer-events-none absolute z-50 -translate-x-1/2 -translate-y-full mb-2 flex items-center gap-1.5 rounded-full border border-[#2b3047] bg-[#121522]/95 px-3 py-1 text-xs text-white shadow-2xl backdrop-blur-md whitespace-nowrap will-change-transform select-none"
+          className="pointer-events-none absolute z-50 -translate-x-1/2 -translate-y-full mb-2 flex items-center gap-2 rounded-full border border-white/15 px-3.5 py-1.5 text-xs text-white shadow-[0_12px_36px_rgba(0,0,0,0.95)] whitespace-nowrap will-change-transform select-none"
           style={{
             left: `${badgeState.x}px`,
-            top: `${badgeState.y - 8}px`,
+            top: `${badgeState.y}px`,
+            backgroundColor: "rgba(0, 0, 0, 0.92)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
           }}
         >
-          <MapPin className="w-3.5 h-3.5 text-purple-400 fill-purple-400/20 shrink-0" />
-          <span className="font-semibold text-slate-100">{badgeState.country.name}</span>
-          <span className="text-slate-600 font-light mx-0.5">|</span>
-          <span className="text-slate-300 font-medium">{badgeState.country.tier || "Global Node"}</span>
+          {/* Purple Map Location Pin */}
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#a855f7"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="shrink-0"
+            style={{ filter: "drop-shadow(0 0 6px rgba(168, 85, 247, 0.75))" }}
+          >
+            <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <span className="font-bold text-white tracking-tight">{badgeState.country.name}</span>
+          <span className="text-white/30 font-light mx-0.5">|</span>
+          <span className="text-slate-200 font-medium">
+            {badgeState.country.verifiedVisits || `${Math.round(badgeState.country.activeUsers / 6200)} verified visits`}
+          </span>
         </div>
       )}
     </div>
