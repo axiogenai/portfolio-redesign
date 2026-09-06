@@ -59,26 +59,22 @@ const socialLinks = [
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/company/axiogen",
-    style: { backgroundColor: "#0A66C2" },
-    icon: <FaLinkedinIn className="w-4 h-4 text-white shrink-0" />,
+    icon: <FaLinkedinIn className="w-[18px] h-[18px] text-neutral-900 dark:text-neutral-100 transition-all duration-200 group-hover:scale-110 group-hover:text-black dark:group-hover:text-white" />,
   },
   {
     name: "WhatsApp",
     href: "https://wa.me/917030807704",
-    style: { backgroundColor: "#25D366" },
-    icon: <FaWhatsapp className="w-4.5 h-4.5 text-white shrink-0" />,
+    icon: <FaWhatsapp className="w-5 h-5 text-neutral-900 dark:text-neutral-100 transition-all duration-200 group-hover:scale-110 group-hover:text-black dark:group-hover:text-white" />,
   },
   {
     name: "X",
     href: "https://x.com/axiogen",
-    style: { backgroundColor: "#000000", border: "1px solid rgba(255,255,255,0.25)" },
-    icon: <FaXTwitter className="w-3.5 h-3.5 text-white shrink-0" />,
+    icon: <FaXTwitter className="w-4 h-4 text-neutral-900 dark:text-neutral-100 transition-all duration-200 group-hover:scale-110 group-hover:text-black dark:group-hover:text-white" />,
   },
   {
     name: "Instagram",
     href: "https://instagram.com/axiogen",
-    style: { background: "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)" },
-    icon: <FaInstagram className="w-4.5 h-4.5 text-white shrink-0" />,
+    icon: <FaInstagram className="w-5 h-5 text-neutral-900 dark:text-neutral-100 transition-all duration-200 group-hover:scale-110 group-hover:text-black dark:group-hover:text-white" />,
   },
 ];
 
@@ -97,25 +93,22 @@ export default function Footer() {
         className="relative w-full overflow-hidden"
         style={{
           // @ts-expect-error custom CSS properties
-          "--rail-icon": "2rem",
-          "--rail-gap": "0.5rem",
-          "--rail-inset": "0.5rem",
-          "--rail-top": "0.75rem",
-          "--rail-notch": "20px",
-          "--rail-count": 4,
-          "--rail-w": "calc(2 * var(--rail-inset) + var(--rail-icon))",
+          "--rail-w": "3.5rem",
+          "--rail-top": "1.25rem",
+          "--rail-gap": "0.75rem",
+          "--rail-notch": "24px",
           "--rail-h":
-            "calc(var(--rail-top) + var(--rail-count) * var(--rail-icon) + (var(--rail-count) - 1) * var(--rail-gap) + var(--rail-inset) + var(--rail-notch))",
+            "calc(var(--rail-top) + 4 * 2.5rem + 3 * var(--rail-gap) + var(--rail-notch) + 0.25rem)",
         }}
       >
         {/* Top-Left Notched Rail for Social Icons (Desktop only to prevent mobile squishing) */}
         <div
-          className="absolute top-0 left-0 bg-[var(--footer-frame)] rounded-br-[20px] rounded-tl-[24px] md:rounded-tl-[32px] z-20 hidden md:block"
+          className="absolute top-0 left-0 bg-[var(--footer-frame)] rounded-br-[24px] z-20 hidden md:block"
           style={{ width: "var(--rail-w)", height: "var(--rail-h)" }}
         >
           {/* Inner fillet notch corner pieces */}
           <div
-            className="absolute bg-[var(--footer-card)] z-20"
+            className="absolute bg-[var(--footer-card)] z-20 pointer-events-none"
             style={{
               top: "calc(var(--rail-h) - var(--rail-notch))",
               left: "calc(var(--rail-w) - var(--rail-notch))",
@@ -123,36 +116,37 @@ export default function Footer() {
               height: "var(--rail-notch)",
             }}
           >
-            <div className="w-full h-full bg-[var(--footer-frame)] rounded-br-[20px]" />
+            <div className="w-full h-full bg-[var(--footer-frame)] rounded-br-[24px]" />
           </div>
           <div
-            className="absolute top-0 bg-[var(--footer-frame)] z-20"
+            className="absolute top-0 bg-[var(--footer-frame)] z-20 pointer-events-none"
             style={{
               left: "var(--rail-w)",
               width: "var(--rail-notch)",
               height: "var(--rail-notch)",
             }}
           >
-            <div className="w-full h-full bg-[var(--footer-card)] rounded-tl-[20px]" />
+            <div className="w-full h-full bg-[var(--footer-card)] rounded-tl-[24px]" />
           </div>
           <div
-            className="absolute left-0 bg-[var(--footer-frame)] z-20"
+            className="absolute left-0 bg-[var(--footer-frame)] z-20 pointer-events-none"
             style={{
               top: "var(--rail-h)",
               width: "var(--rail-notch)",
               height: "var(--rail-notch)",
             }}
           >
-            <div className="w-full h-full bg-[var(--footer-card)] rounded-tl-[20px]" />
+            <div className="w-full h-full bg-[var(--footer-card)] rounded-tl-[24px]" />
           </div>
         </div>
 
-        {/* The 4 Floating Real Brand Social Buttons inside the rail (Desktop) */}
+        {/* The 4 Floating Clean Social Icons inside the rail (Desktop) */}
         <div
-          className="absolute hidden md:flex flex-col z-30"
+          className="absolute hidden md:flex flex-col items-center z-30"
           style={{
             top: "var(--rail-top)",
-            left: "var(--rail-inset)",
+            left: "0",
+            width: "var(--rail-w)",
             gap: "var(--rail-gap)",
           }}
         >
@@ -162,12 +156,7 @@ export default function Footer() {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                width: "var(--rail-icon)",
-                height: "var(--rail-icon)",
-                ...s.style,
-              }}
-              className="rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-md select-none text-white"
+              className="group w-10 h-10 flex items-center justify-center select-none"
               aria-label={s.name}
             >
               {s.icon}
@@ -237,7 +226,7 @@ export default function Footer() {
                   </div>
                 </FadeUpBlur>
 
-                {/* Mobile Horizontal Brand Social Buttons */}
+                {/* Mobile Horizontal Social Icons */}
                 <FadeUpBlur delay={0.25} className="w-full">
                   <div className="flex md:hidden items-center gap-3 pt-1">
                     {socialLinks.map((s) => (
@@ -246,11 +235,12 @@ export default function Footer() {
                         href={s.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={s.style}
-                        className="w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-md select-none text-white shrink-0"
+                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/15 active:scale-95 transition-all select-none shrink-0"
                         aria-label={s.name}
                       >
-                        {s.icon}
+                        {React.cloneElement(s.icon as React.ReactElement<{ className?: string }>, {
+                          className: "w-4.5 h-4.5 text-white",
+                        })}
                       </a>
                     ))}
                   </div>
