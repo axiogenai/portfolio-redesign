@@ -54,8 +54,17 @@ export default function LiveVisitors() {
         </h2>
       </div>
 
-      {/* Standalone 3D Globe - Responsive: Fits mobile viewports cleanly & matches desktop size */}
-      <div className="flex items-center justify-center relative select-none w-[min(88vw,min(75vh,540px))] h-[min(88vw,min(75vh,540px))] max-w-full aspect-square">
+      {/* Standalone 3D Globe - Sized cleanly to fit both desktop and mobile screens */}
+      <div
+        className="flex items-center justify-center relative select-none"
+        style={{
+          width: "min(86vw, min(68vh, 500px))",
+          height: "min(86vw, min(68vh, 500px))",
+          maxWidth: "500px",
+          maxHeight: "500px",
+          aspectRatio: "1 / 1",
+        }}
+      >
         <GlobeChoroplethChart data={geoData} selectedCountryId="356" />
       </div>
     </section>
