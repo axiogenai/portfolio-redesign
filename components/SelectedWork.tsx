@@ -35,19 +35,19 @@ const projects: ProjectItem[] = [
   {
     id: 1,
     year: "2026",
-    client: "AXIOGEN NEURAL ENGINE",
+    client: "AXIOGEN NEURAL",
     title: "Core neural network training workspace powering predictive analytics & cognitive assistant agents",
     image: "/axiogen-neural.jpg",
-    tags: ["Artificial Intelligence", "PyTorch", "FastAPI"],
+    tags: ["PyTorch"],
     href: "/our-work",
-    bezelColor: "#dcdcd9",
+    bezelColor: "#1C1C1E",
     stage: {
       tone: "light",
       phrases: [
+        { words: ["Cognitive", "Agents"], color: "#111111" },
         { words: ["Neural", "Intelligence"], color: "#111111" },
         { words: ["Predictive", "Analytics"], color: "#4F46E5" },
-        { words: ["Cognitive", "Agents"], color: "#DB2777" },
-        { words: ["Real-time", "Inference"], color: "#EA580C" },
+        { words: ["Real-time", "Inference"], color: "#111111" },
       ],
     },
   },
@@ -57,16 +57,16 @@ const projects: ProjectItem[] = [
     client: "RANSOMGUARD AI",
     title: "Real-time ransomware detection & response engine powered by watchdog traps & ML entropy analysis",
     image: "/axiogen-cyber.jpg",
-    tags: ["Cybersecurity AI", "Entropy Watchdog", "XGBoost"],
+    tags: ["XGBoost"],
     href: "/our-work",
     bezelColor: "#333333",
     stage: {
       tone: "dark",
       phrases: [
+        { words: ["Active", "Shield"], color: "#FFFFFF" },
         { words: ["Zero-Day", "Defense"], color: "#F9A8D4" },
         { words: ["Entropy", "Analysis"], color: "#67E8F9" },
         { words: ["Watchdog", "Traps"], color: "#BEF264" },
-        { words: ["Active", "Shield"], color: "#FFFFFF" },
       ],
     },
   },
@@ -76,16 +76,16 @@ const projects: ProjectItem[] = [
     client: "SEOHUB PRO",
     title: "All-in-one enterprise SEO platform auditing, fixing & monitoring website search performance",
     image: "/axiogen-seo.jpg",
-    tags: ["SEO Intelligence", "Gemini AI", "Next.js"],
+    tags: ["Next.js"],
     href: "https://seohubpro.vercel.app",
-    bezelColor: "#d94e22",
+    bezelColor: "#1C1C1E",
     stage: {
       tone: "accent",
       phrases: [
-        { words: ["Search", "Dominance"], color: "#0C2E22" },
+        { words: ["Search", "Dominance"], color: "#111111" },
+        { words: ["Built", "to Rank"], color: "#111111" },
         { words: ["Gemini AI", "Keywords"], color: "#141414" },
-        { words: ["Core Web", "Vitals"], color: "#3B1002" },
-        { words: ["Built", "to Rank"], color: "#141414" },
+        { words: ["Core Web", "Vitals"], color: "#111111" },
       ],
     },
   },
@@ -169,8 +169,8 @@ function KineticStage({
               className="block"
               style={{
                 color: curr.color,
-                fontSize: "clamp(1.9rem, 6.8vw, 6.5rem)",
-                lineHeight: 0.92,
+                fontSize: "clamp(2.4rem, 8vw, 6.5rem)",
+                lineHeight: 0.9,
                 letterSpacing: "-0.05em",
                 fontWeight: 800,
               }}
@@ -204,7 +204,10 @@ function KineticStage({
       </AnimatePresence>
 
       {/* Progress pill indicators */}
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-1.5 sm:bottom-7">
+      <div
+        className="absolute flex gap-1.5"
+        style={{ bottom: "16px", left: "50%", transform: "translateX(-50%)" }}
+      >
         {phrases.map((x, idx) => (
           <span
             key={idx}
@@ -305,21 +308,27 @@ function ProjectCard({
     if (w < 40 || h < 40) return;
 
     setDims({ w, h });
-    const tagsDim = { w: tags.offsetWidth + 14, h: tags.offsetHeight + 10 };
-    const metaDim = { w: meta.offsetWidth + 14, h: meta.offsetHeight + 10 };
 
-    // On mobile screens (< 768px) or if tags and meta would overlap horizontally,
-    // disable the complex notch clipPath to prevent card squishing and path corruption.
-    const isSmallScreen = w < 768;
-    const canFitNotch = tagsDim.w + metaDim.w + 60 < w;
+    const isMobile = w < 768;
+    const radius = isMobile ? 22 : 28;
+    const fillet = isMobile ? 14 : 16;
 
-    if (isSmallScreen || !canFitNotch) {
-      setClipPath(null);
-      return;
+    let tagW = tags.offsetWidth + 12;
+    let tagH = tags.offsetHeight + 10;
+    let metaW = meta.offsetWidth + 12;
+    let metaH = meta.offsetHeight + 10;
+
+    // Safety constraint: ensure top-right cutout and bottom-left cutout never collide horizontally
+    const maxAvailable = w - fillet * 2 - 40;
+    if (tagW + metaW > maxAvailable && maxAvailable > 80) {
+      const ratio = maxAvailable / (tagW + metaW);
+      tagW = Math.floor(tagW * ratio);
+      metaW = Math.floor(metaW * ratio);
     }
 
-    const radius = 28;
-    const fillet = 16;
+    const tagsDim = { w: tagW, h: tagH };
+    const metaDim = { w: metaW, h: metaH };
+
     setClipPath(xO(w, h, tagsDim, metaDim, radius, fillet));
   }, []);
 
@@ -378,14 +387,12 @@ function ProjectCard({
           onPointerEnter={handlePointerEnter}
           onPointerMove={handlePointerMove}
           onPointerLeave={() => setIsHovered(false)}
-          className="relative mb-5 aspect-[4/3] w-full rounded-[20px] sm:rounded-[28px] lg:cursor-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_8px_32px_rgba(0,0,0,0.7)] group-hover:drop-shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-[filter] duration-500"
+          className="relative mb-5 aspect-[4/3] w-full rounded-[22px] sm:rounded-[28px] lg:cursor-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_8px_32px_rgba(0,0,0,0.7)] group-hover:drop-shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-[filter] duration-500"
         >
           {/* Top-Right Notch Tags */}
           <div
             ref={tagsRef}
-            className={`absolute right-0 top-0 z-30 flex items-center gap-1.5 sm:gap-2 ${
-              clipPath ? "pr-2.5 sm:pr-4 pt-2.5 sm:pt-3.5" : "p-3 sm:p-4"
-            }`}
+            className="absolute right-0 top-0 z-30 flex items-center gap-1.5 sm:gap-2 pr-3.5 pt-3 sm:pr-4 sm:pt-3.5"
           >
             {project.tags.map((tag, tIdx) => (
               <motion.span
@@ -393,7 +400,7 @@ function ProjectCard({
                 animate={
                   isHovered
                     ? { y: 4, opacity: 1, scale: 1.04 }
-                    : { y: 0, opacity: 0.9, scale: 1 }
+                    : { y: 0, opacity: 1, scale: 1 }
                 }
                 transition={{
                   type: "spring",
@@ -401,11 +408,8 @@ function ProjectCard({
                   damping: 26,
                   delay: isHovered ? tIdx * 0.05 : 0,
                 }}
-                className={`whitespace-nowrap rounded-full px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold shadow-md border ${
-                  clipPath
-                    ? "bg-white text-black border-black/5"
-                    : "bg-white/95 text-black border-black/10 dark:bg-black/75 dark:text-white dark:border-white/20 backdrop-blur-md"
-                }${tIdx >= 2 ? " hidden sm:inline-flex" : ""}`}
+                style={{ backgroundColor: "#E5E5E5", color: "#000000" }}
+                className="whitespace-nowrap rounded-full px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-bold shadow-md border border-black/10"
               >
                 {tag}
               </motion.span>
@@ -415,11 +419,7 @@ function ProjectCard({
           {/* Bottom-Left Notch Meta Info */}
           <div
             ref={metaRef}
-            className={`absolute bottom-0 left-0 z-30 flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.14em] sm:tracking-[0.16em] ${
-              clipPath
-                ? "pb-2.5 sm:pb-3.5 pl-3 sm:pl-5 text-neutral-400"
-                : "m-2.5 sm:m-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md text-white/90 border border-white/10"
-            }`}
+            className="absolute bottom-0 left-0 z-30 flex items-center gap-2 pb-3 pl-3.5 sm:pb-3.5 sm:pl-5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-400"
           >
             <span>{project.year}</span>
             <span aria-hidden="true">•</span>
@@ -428,9 +428,7 @@ function ProjectCard({
 
           {/* Card Canvas with Notched ClipPath */}
           <div
-            className={`relative h-full w-full overflow-hidden rounded-[20px] sm:rounded-[28px] transition-transform duration-500 ease-out group-hover:scale-[1.02] ${
-              !clipPath ? "border border-border/60 dark:border-white/15" : ""
-            }`}
+            className="relative h-full w-full overflow-hidden rounded-[22px] sm:rounded-[28px] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
             style={{
               clipPath: clipPath ? `path("${clipPath}")` : undefined,
               WebkitClipPath: clipPath ? `path("${clipPath}")` : undefined,
@@ -456,7 +454,7 @@ function ProjectCard({
                   d={clipPath}
                   fill="none"
                   stroke={project.bezelColor}
-                  strokeWidth={8}
+                  strokeWidth={14}
                 />
               </svg>
             )}
