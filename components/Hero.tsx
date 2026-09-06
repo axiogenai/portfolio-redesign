@@ -83,6 +83,12 @@ export default function Hero() {
   const [clipPathStr, setClipPathStr] = useState<string | null>(null);
 
   const calculatePath = useCallback(() => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    if (isMobile) {
+      setClipPathStr(null);
+      return;
+    }
+
     const u = containerRef.current,
       d = panelRef.current,
       f = badgeRef.current,
@@ -95,8 +101,7 @@ export default function Hero() {
       m = y.height;
     if (b < 2 || m < 2) return;
 
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    const g = isMobile ? 16 : Math.max(14, Math.min(34, b * 0.026));
+    const g = Math.max(14, Math.min(30, b * 0.024));
     const w = (_: HTMLElement) => {
       const B = _.getBoundingClientRect();
       return { right: B.right - y.left, bottom: B.bottom - y.top };
@@ -115,8 +120,7 @@ export default function Hero() {
       { right: Math.max(S.right, k[0].right), bottom: k[0].bottom },
       ...k.slice(1),
     ];
-    // On phone screens, ensure the cutout leaves at least 15-20% for the video strip on the right
-    const M = isMobile ? Math.min(b - g - 4, b * 0.85) : b - g - 4,
+    const M = b - g - 4,
       j: { right: number; bottom: number }[] = [];
 
     for (const _ of C) {
@@ -160,9 +164,11 @@ export default function Hero() {
     const x = new ResizeObserver(p);
     x.observe(u);
     x.observe(d);
+    window.addEventListener("resize", p);
 
     return () => {
       x.disconnect();
+      window.removeEventListener("resize", p);
       if (f) cancelAnimationFrame(f);
     };
   }, [calculatePath]);
@@ -199,21 +205,21 @@ export default function Hero() {
       className="relative min-h-svh w-full bg-background text-foreground transition-colors duration-300 md:min-h-0"
     >
       <div
-        className="w-full px-3 md:px-[clamp(28px,4.5vw,120px)]"
+        className="w-full px-4 sm:px-6 md:px-[clamp(28px,4.5vw,120px)]"
         style={{
-          paddingTop: "clamp(100px, 11vw, 112px)",
+          paddingTop: "clamp(88px, 10vw, 112px)",
           paddingBottom: "clamp(30px, 4vw, 76px)",
         }}
       >
         <div
           ref={containerRef}
-          className="hero-video-container"
+          className="hero-video-container flex flex-col md:block"
           style={{ "--panel-w": "calc(100vw - 24px)" } as React.CSSProperties}
         >
-          {/* Overlaid Floating Text Block in Corner */}
+          {/* Overlaid Floating Text Block in Corner on Desktop, Normal flow on Mobile */}
           <div
             ref={panelRef}
-            className="absolute left-0 top-0 z-10 flex flex-col items-start max-w-[86%] sm:max-w-[78%] md:max-w-none [--pad-l:clamp(8px,2.5vw,16px)] [--pad-r:clamp(12px,3vw,24px)] md:left-[min(7vw,104px)] md:[--pad-l:clamp(20px,2.2vw,34px)] md:[--pad-r:clamp(20px,2vw,30px)]"
+            className="relative z-10 flex flex-col items-start w-full md:absolute md:left-[min(5vw,64px)] md:top-0 md:w-auto md:max-w-none [--pad-l:0px] [--pad-r:8px] md:[--pad-l:clamp(16px,1.8vw,28px)] md:[--pad-r:clamp(18px,1.8vw,26px)]"
           >
             {/* Top Indicator: Team Axiogen */}
             <div
@@ -222,8 +228,8 @@ export default function Hero() {
               style={{
                 paddingLeft: padL,
                 paddingRight: padR,
-                paddingTop: "clamp(10px, 1.4vw, 20px)",
-                paddingBottom: "clamp(8px, 1.2vw, 18px)",
+                paddingTop: "clamp(8px, 1.2vw, 18px)",
+                paddingBottom: "clamp(6px, 1vw, 14px)",
               }}
             >
               <motion.span
@@ -233,7 +239,7 @@ export default function Hero() {
                 transition={{ duration: 0.5, ease: ju }}
               >
                 <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-foreground" />
-                <span className="whitespace-nowrap text-[12px] font-medium leading-none text-foreground sm:text-[13px] lg:text-[15px]">
+                <span className="whitespace-nowrap text-[12px] font-medium leading-none text-foreground sm:text-[13px] lg:text-[14px]">
                   Team Axiogen
                 </span>
               </motion.span>
@@ -243,7 +249,7 @@ export default function Hero() {
             <h1
               className="font-['Schibsted_Grotesk','Plus_Jakarta_Sans',sans-serif] text-foreground"
               style={{
-                fontSize: "clamp(1.65rem, 5.8vw, 104px)",
+                fontSize: "clamp(1.75rem, 4.4vw, 76px)",
                 fontWeight: 500,
                 letterSpacing: "-0.022em",
                 margin: 0,
@@ -257,11 +263,11 @@ export default function Hero() {
                   }}
                   className="block w-fit overflow-hidden whitespace-nowrap"
                   style={{
-                    lineHeight: 1,
+                    lineHeight: 1.04,
                     paddingLeft: padL,
                     paddingRight: padR,
                     paddingBottom: "0.14em",
-                    marginBottom: d === Nu.length - 1 ? 0 : "-0.25em",
+                    marginBottom: d === Nu.length - 1 ? 0 : "-0.22em",
                   }}
                 >
                   <motion.span
@@ -284,12 +290,12 @@ export default function Hero() {
             {/* Action Buttons */}
             <div
               ref={btnRef}
-              className="w-fit"
+              className="w-full md:w-fit"
               style={{
                 paddingLeft: padL,
                 paddingRight: padR,
-                paddingTop: "clamp(12px, 1.6vw, 24px)",
-                paddingBottom: "clamp(12px, 1.6vw, 24px)",
+                paddingTop: "clamp(14px, 1.8vw, 22px)",
+                paddingBottom: "clamp(12px, 1.6vw, 22px)",
               }}
             >
               <motion.div
@@ -312,7 +318,7 @@ export default function Hero() {
                 <a
                   href="#contact"
                   onClick={(e) => scrollTo(e, "#contact")}
-                  className="group flex items-center gap-1.5 px-3 py-2 rounded-full border border-foreground/15 text-[13px] sm:text-[14px] font-semibold text-foreground transition-all hover:bg-foreground/5 md:border-none md:px-0 md:py-0 lg:text-[15px]"
+                  className="group flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-foreground/15 text-[13px] sm:text-[14px] font-semibold text-foreground transition-all hover:bg-foreground/5 md:border-none md:px-0 md:py-0 lg:text-[15px]"
                 >
                   <span>Start a project</span>
                   <ArrowUpRight
@@ -324,13 +330,13 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Dynamic Video Cutout (SVG Path Cutout on both phone screens and desktop screens) */}
+          {/* Showreel Video: 16:9 on mobile, SVG Path Cutout on desktop */}
           <div
-            className="hero-video-cutout"
+            className="hero-video-cutout mt-6 sm:mt-8 md:mt-0 border border-white/10 dark:border-white/10 md:border-none"
             style={{
               clipPath: clipPathStr ? `path("${clipPathStr}")` : undefined,
               WebkitClipPath: clipPathStr ? `path("${clipPathStr}")` : undefined,
-              borderRadius: clipPathStr ? undefined : "clamp(20px, 2.6vw, 34px)",
+              borderRadius: clipPathStr ? undefined : "clamp(18px, 2.6vw, 34px)",
             }}
           >
             {/* Agency Showreel Video */}
@@ -340,7 +346,7 @@ export default function Hero() {
               loop
               muted
               playsInline
-              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
             />
           </div>
         </div>
