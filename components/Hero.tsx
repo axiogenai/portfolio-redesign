@@ -81,6 +81,18 @@ export default function Hero() {
   const lineRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const btnRef = useRef<HTMLDivElement>(null);
   const [clipPathStr, setClipPathStr] = useState<string | null>(null);
+  const [heroVideoSrc, setHeroVideoSrc] = useState<string>("/video/axiogen_showreel.mp4");
+
+  useEffect(() => {
+    fetch("/api/media")
+      .then((res) => res.json())
+      .then((resData) => {
+        if (resData.success && resData.data?.heroVideo) {
+          setHeroVideoSrc(resData.data.heroVideo);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const calculatePath = useCallback(() => {
     const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
@@ -328,7 +340,8 @@ export default function Hero() {
           >
             {/* Agency Showreel Video */}
             <video
-              src="/video/axiogen_showreel.mp4"
+              key={heroVideoSrc}
+              src={heroVideoSrc}
               autoPlay
               loop
               muted

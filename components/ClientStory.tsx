@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
@@ -13,6 +13,18 @@ const ly = {
 };
 
 export default function ClientStory() {
+  const [teamImg, setTeamImg] = useState("/team-collab.webp");
+
+  useEffect(() => {
+    fetch("/api/media")
+      .then((res) => res.json())
+      .then((resData) => {
+        if (resData.success && resData.data?.teamCollab) {
+          setTeamImg(resData.data.teamCollab);
+        }
+      })
+      .catch(() => {});
+  }, []);
   return (
     <div
       id="client-story"
@@ -29,7 +41,7 @@ export default function ClientStory() {
       >
         {/* Background Image */}
         <img
-          src="/team-collab.webp"
+          src={teamImg}
           alt="The Team Axiogen crew working together on a client project"
           width={1600}
           height={900}
