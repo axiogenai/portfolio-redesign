@@ -3,6 +3,7 @@ import { Schibsted_Grotesk, Space_Mono, Plus_Jakarta_Sans } from "next/font/goog
 import { ThemeProvider } from "@/components/ThemeProvider";
 import PageTransitionProvider from "@/components/PageTransitionProvider";
 import VisitorTracker from "@/components/VisitorTracker";
+import AxiogenSupportWidget from "@/components/AxiogenSupportWidget";
 import "./globals.css";
 
 const schibstedGrotesk = Schibsted_Grotesk({
@@ -98,6 +99,7 @@ export default function RootLayout({
           <PageTransitionProvider>
             {children}
           </PageTransitionProvider>
+          <AxiogenSupportWidget />
         </ThemeProvider>
       </body>
     </html>
