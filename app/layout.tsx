@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Schibsted_Grotesk, Space_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import PageTransitionProvider from "@/components/PageTransitionProvider";
+import VisitorTracker from "@/components/VisitorTracker";
 import "./globals.css";
 
 const schibstedGrotesk = Schibsted_Grotesk({
@@ -93,6 +94,7 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-foreground font-sans antialiased selection:bg-[#FF6B42] selection:text-white transition-colors duration-300">
         <ThemeProvider defaultTheme="dark">
+          <VisitorTracker />
           <PageTransitionProvider>
             {children}
           </PageTransitionProvider>

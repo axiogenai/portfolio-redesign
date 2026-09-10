@@ -31,7 +31,7 @@ interface ProjectItem {
 const customEase = [0.16, 1, 0.3, 1] as const;
 const springCursor = { stiffness: 400, damping: 28, mass: 0.5 };
 
-const projects: ProjectItem[] = [
+const defaultProjects: ProjectItem[] = [
   {
     id: 1,
     year: "2026",
@@ -538,6 +538,36 @@ function ProjectCard({
 }
 
 export default function SelectedWork() {
+  const [projectList, setProjectList] = useState<ProjectItem[]>(defaultProjects);
+  const [headline, setHeadline] = useState<string[]>(["Design in the", "real world ↗"]);
+  const [subtitle, setSubtitle] = useState<string>(
+    "Brand, AI systems, web and apps handled by one team — built so the work scales up as your business does, instead of being rebuilt."
+  );
+  const [eyebrow, setEyebrow] = useState<string>("Selected work");
+
+  useEffect(() => {
+    fetch("/api/selected-work")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.data) {
+          const cfg = data.data;
+          if (Array.isArray(cfg.projects) && cfg.projects.length >= 3) {
+            setProjectList(cfg.projects);
+          }
+          if (Array.isArray(cfg.headline) && cfg.headline.length > 0) {
+            setHeadline(cfg.headline);
+          }
+          if (typeof cfg.subtitle === "string" && cfg.subtitle) {
+            setSubtitle(cfg.subtitle);
+          }
+          if (typeof cfg.eyebrow === "string" && cfg.eyebrow) {
+            setEyebrow(cfg.eyebrow);
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <section
       id="work"
@@ -559,7 +589,7 @@ export default function SelectedWork() {
             transition={{ duration: 0.55, ease: customEase }}
           >
             <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
-            Selected work
+            {eyebrow}
           </motion.div>
 
           <a href="#work" className="group inline-block">
@@ -573,7 +603,7 @@ export default function SelectedWork() {
                 fontWeight: 600,
               }}
             >
-              <BlurLines lines={["Design in the", "real world ↗"]} className="block" nowrapFromLg />
+              <BlurLines lines={headline} className="block" nowrapFromLg />
             </h2>
           </a>
 
@@ -584,33 +614,39 @@ export default function SelectedWork() {
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.65, ease: customEase, delay: 0.2 }}
           >
-            Brand, AI systems, web and apps handled by one team — built so the work scales up as your business does, instead of being rebuilt.
+            {subtitle}
           </motion.p>
         </div>
 
         {/* Card 1: Left Column, Rows 1-2 */}
-        <ProjectCard
-          project={projects[0]}
-          index={0}
-          column="left"
-          className="lg:col-start-1 lg:row-start-1 lg:row-span-2"
-        />
+        {projectList[0] && (
+          <ProjectCard
+            project={projectList[0]}
+            index={0}
+            column="left"
+            className="lg:col-start-1 lg:row-start-1 lg:row-span-2"
+          />
+        )}
 
         {/* Card 2: Right Column, Row 2 with offset */}
-        <ProjectCard
-          project={projects[1]}
-          index={1}
-          column="right"
-          className="lg:col-start-2 lg:row-start-2 lg:mt-28"
-        />
+        {projectList[1] && (
+          <ProjectCard
+            project={projectList[1]}
+            index={1}
+            column="right"
+            className="lg:col-start-2 lg:row-start-2 lg:mt-28"
+          />
+        )}
 
         {/* Card 3: Left Column, Row 3 */}
-        <ProjectCard
-          project={projects[2]}
-          index={2}
-          column="left"
-          className="lg:col-start-1 lg:row-start-3"
-        />
+        {projectList[2] && (
+          <ProjectCard
+            project={projectList[2]}
+            index={2}
+            column="left"
+            className="lg:col-start-1 lg:row-start-3"
+          />
+        )}
       </div>
     </section>
   );

@@ -26,6 +26,7 @@ export interface ServiceItem {
   description: string;
   outcomes: string[];
   deliverables: string[];
+  cardColor?: string;
 }
 
 /* -------------------------------------------------------------
@@ -133,7 +134,7 @@ function DeckCardItem({
       <motion.div
         className="mx-auto flex w-full max-w-[1280px] flex-col rounded-[18px] border border-black/10 px-5 py-6 text-black min-h-[56svh] md:rounded-[26px] md:px-8 md:py-8 md:shadow-[0_12px_32px_-12px_rgba(0,0,0,0.28)] lg:bg-[linear-gradient(90deg,rgba(255,255,255,0.14)_0_50%,rgba(255,255,255,0)_50%)] lg:px-10"
         style={{
-          backgroundColor: cardColors[index % cardColors.length],
+          backgroundColor: service.cardColor || cardColors[index % cardColors.length],
           y,
           scale,
           opacity,

@@ -1,5 +1,18 @@
-﻿import nodemailer from "nodemailer";
+import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
+
+function mapServicesToCrmCategory(services: string[]): string {
+  if (!Array.isArray(services) || services.length === 0) return 'website';
+  const s = services.join(' ').toLowerCase();
+  if (s.includes('mobile') || s.includes('app')) return 'app';
+  if (s.includes('e-commerce') || s.includes('ecommerce') || s.includes('store')) return 'ecommerce';
+  if (s.includes('brand') || s.includes('identity')) return 'branding';
+  if (s.includes('ui') || s.includes('ux') || s.includes('design')) return 'uiux';
+  if (s.includes('landing')) return 'landing';
+  if (s.includes('web') || s.includes('site')) return 'website';
+  return 'other';
+}
 
 export async function POST(req: Request) {
   try {
@@ -12,32 +25,45 @@ export async function POST(req: Request) {
       );
     }
 
-    const user = process.env.SMTP_USER || "axiogen01@gmail.com";
-    const rawPass = process.env.SMTP_PASS || "";
-    const pass = rawPass.replace(/\s+/g, ""); // strip any whitespace from 16-character app password
-    const to = process.env.SMTP_TO || user;
-
-    if (!pass) {
-      return NextResponse.json(
-        {
-          error: "Email SMTP service is not configured yet. Please add SMTP_PASS in .env.local.",
-        },
-        { status: 500 }
-      );
-    }
-
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user,
-        pass,
-      },
-    });
-
     const servicesList =
       Array.isArray(services) && services.length > 0
         ? services.join(", ")
         : "General Inquiry";
+
+    // 1. Immediately record inbound lead into Supabase CRM
+    if (supabaseAdmin) {
+      try {
+        const crmService = mapServicesToCrmCategory(services);
+        const { error: crmError } = await supabaseAdmin.from('leads').insert([
+          {
+            name,
+            email: email || null,
+            phone: phone || null,
+            service: crmService,
+            niche: servicesList,
+            status: 'lead',
+            priority: 'high',
+            source: 'portfolio_contact',
+            notes: `Project Brief:\n${message}\n\nSelected Services: ${servicesList}`,
+            has_website: true,
+            follow_up_done: false,
+          },
+        ]);
+        if (crmError) {
+          console.error('[CRM Lead Error] Supabase insert failed:', crmError);
+        } else {
+          console.log(`[CRM Lead Synced] Successfully captured lead '${name}' in Dashboard CRM.`);
+        }
+      } catch (crmErr) {
+        console.error('[CRM Lead Exception]', crmErr);
+      }
+    }
+
+    // 2. Deliver email via SMTP
+    const user = process.env.SMTP_USER || "axiogen01@gmail.com";
+    const rawPass = process.env.SMTP_PASS || "";
+    const pass = rawPass.replace(/\s+/g, ""); // strip any whitespace from 16-character app password
+    const to = process.env.SMTP_TO || user;
 
     const mailOptions = {
       from: `"${name}" <${user}>`,
@@ -91,7 +117,18 @@ export async function POST(req: Request) {
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    if (pass) {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: { user, pass },
+        });
+        await transporter.sendMail(mailOptions);
+        console.log(`[SMTP Sent] Email notification delivered to ${to}`);
+      } catch (smtpErr) {
+        console.error("[SMTP Error] Email dispatch failed:", smtpErr);
+      }
+    }
 
     return NextResponse.json({
       success: true,
