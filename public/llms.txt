@@ -1,0 +1,47 @@
+# Team Axiogen
+
+> AI & Digital Engineering Studio from India
+
+Team Axiogen is an AI and digital engineering studio based in Kolhapur and Sangli, Maharashtra, India. We engineer intelligent software systems, bespoke AI models, full-stack web and mobile platforms, cybersecurity architectures, and high-performance cloud solutions.
+
+## What We Do
+
+- **AI & Machine Learning**: Custom AI models, neural networks, NLP systems, computer vision, and generative AI solutions
+- **Full-Stack Web Development**: Next.js, React, Node.js, and modern web architectures
+- **Mobile App Development**: Cross-platform and native mobile applications
+- **Cybersecurity**: AI-powered security systems, penetration testing, and secure architecture design
+- **Cloud & DevOps**: Scalable cloud infrastructure, CI/CD pipelines, and containerized deployments
+- **Brand Identity & Design**: Logo design, visual systems, typography, and complete brand guidelines
+- **E-Commerce Solutions**: Shopify, custom storefronts, and payment integrations
+- **Student Projects**: Final year projects, mini projects, research implementations with documentation
+
+## Our Clients & Sectors
+
+We work across healthcare, fintech, e-commerce, education, SaaS, real estate, media, hospitality, and government sectors — serving startups, enterprises, and academic institutions.
+
+## Key Pages
+
+- Homepage: https://team.axiogen.in
+- About Us: https://team.axiogen.in/about-us
+- Services: https://team.axiogen.in/what-we-do
+- Our Work (Portfolio): https://team.axiogen.in/our-work
+- Portfolio Gallery: https://team.axiogen.in/portfolio-gallery
+- Blog & Insights: https://team.axiogen.in/insights
+- Contact: https://team.axiogen.in/contact
+- Careers: https://team.axiogen.in/careers
+- Industries & Sectors: https://team.axiogen.in/sectors
+- Our Process: https://team.axiogen.in/processes
+- Culture: https://team.axiogen.in/culture
+- FAQs: https://team.axiogen.in/faqs
+- Branding FAQs: https://team.axiogen.in/branding-faqs
+
+## Contact
+
+- Email: axiogen01@gmail.com
+- Website: https://team.axiogen.in
+- GitHub: https://github.com/axiogenai
+- Location: Kolhapur & Sangli, Maharashtra, India
+
+## Tech Stack
+
+Next.js, React, TypeScript, Tailwind CSS, Supabase, Node.js, Python, TensorFlow, PyTorch, Docker, AWS, Vercel
