@@ -30,20 +30,28 @@ export default function Navbar() {
 
   useEffect(() => {
     let lastScrollY = typeof window !== "undefined" ? window.scrollY : 0;
-    let ticking = 0;
+    let ticking = false;
 
     const update = () => {
-      ticking = 0;
-      const currentScrollY = Math.max(0, window.scrollY);
+      ticking = false;
+      const currentScrollY = Math.max(0, typeof window !== "undefined" ? window.scrollY : 0);
       const delta = currentScrollY - lastScrollY;
 
-      setIsScrolled(currentScrollY > 20);
+      // Hysteresis for isScrolled:
+      // Turn into floating pill when scrolled down past 32px
+      // Revert to full-width edge-to-edge when scrolled back to top (< 14px)
+      if (currentScrollY > 32) {
+        setIsScrolled(true);
+      } else if (currentScrollY < 14) {
+        setIsScrolled(false);
+      }
 
-      if (currentScrollY < 60) {
+      // Hide / Reveal logic with hysteresis to prevent rapid-scroll jitter
+      if (currentScrollY < 72) {
         setHideNav(false);
-      } else if (delta > 15) {
+      } else if (delta > 14) {
         setHideNav(true);
-      } else if (delta < -12) {
+      } else if (delta < -10) {
         setHideNav(false);
       }
 
@@ -52,14 +60,14 @@ export default function Navbar() {
 
     const onScroll = () => {
       if (!ticking) {
-        ticking = window.requestAnimationFrame(update);
+        ticking = true;
+        window.requestAnimationFrame(update);
       }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (ticking) cancelAnimationFrame(ticking);
     };
   }, []);
 
@@ -69,27 +77,27 @@ export default function Navbar() {
   return (
     <>
       <header
-        data-floating="true"
-        className="group/nav fixed left-0 right-0 top-0 z-[60] px-3 sm:px-4 pt-3.5 sm:pt-4 font-['Schibsted_Grotesk',sans-serif] pointer-events-none"
+        data-floating={isScrolled ? "true" : "false"}
+        className="group/nav fixed left-0 right-0 top-0 z-[60] px-3 font-['Schibsted_Grotesk',sans-serif] sm:px-4"
         style={{
-          transform: `translate3d(0, ${shouldHide ? "-150%" : "0px"}, 0)`,
-          transition: "transform 320ms cubic-bezier(0.16, 1, 0.3, 1)",
-          willChange: "transform",
+          transform: `translate3d(0, ${shouldHide ? "-135%" : "0px"}, 0)`,
+          transition: "transform 360ms cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
         <div
-          className={`mx-auto flex items-center justify-between border rounded-full pointer-events-auto transition-colors duration-300 ${
-            isCoralHeader
-              ? "max-w-[1120px] border-black/15 bg-black/[0.08] backdrop-blur-md shadow-sm"
-              : isScrolled
-              ? "max-w-[1120px] border-black/[0.08] bg-[#f2f2ef]/95 dark:border-white/10 dark:bg-[#1c1d1b]/95 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
-              : "max-w-[1120px] border-black/[0.06] bg-[#f2f2ef]/80 dark:border-white/[0.08] dark:bg-[#1c1d1b]/80 backdrop-blur-md shadow-sm"
+          className={`mx-auto flex items-center justify-between border ${
+            isScrolled
+              ? "max-w-[1120px] rounded-full border-black/[0.07] bg-[#f2f2ef] shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#1c1d1b] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] sm:bg-[#f2f2ef]/90 sm:backdrop-blur-md sm:dark:bg-[#1c1d1b]/90"
+              : "max-w-full rounded-none border-transparent bg-transparent shadow-none"
           }`}
           style={{
-            paddingTop: 10,
-            paddingBottom: 10,
-            paddingLeft: 24,
-            paddingRight: 10,
+            transition:
+              "max-width 480ms cubic-bezier(0.16,1,0.3,1), padding 480ms cubic-bezier(0.16,1,0.3,1), margin 480ms cubic-bezier(0.16,1,0.3,1), border-radius 380ms ease, background-color 380ms ease, border-color 380ms ease, box-shadow 380ms ease",
+            paddingTop: isScrolled ? 10 : 20,
+            paddingBottom: isScrolled ? 10 : 20,
+            paddingLeft: isScrolled ? 24 : "clamp(16px, 3.2vw, 80px)",
+            paddingRight: isScrolled ? 10 : "clamp(16px, 3.2vw, 80px)",
+            marginTop: isScrolled ? 14 : 0,
           }}
         >
           {/* Logo: Axiogen Real Vector Logo + Team Axiogen. */}
