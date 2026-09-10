@@ -29,7 +29,7 @@ export default function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
+    let lastScrollY = typeof window !== "undefined" ? window.scrollY : 0;
     let ticking = 0;
 
     const update = () => {
@@ -37,13 +37,13 @@ export default function Navbar() {
       const currentScrollY = Math.max(0, window.scrollY);
       const delta = currentScrollY - lastScrollY;
 
-      setIsScrolled(currentScrollY > 12);
+      setIsScrolled(currentScrollY > 20);
 
-      if (currentScrollY < 96) {
+      if (currentScrollY < 60) {
         setHideNav(false);
-      } else if (delta > 6) {
+      } else if (delta > 15) {
         setHideNav(true);
-      } else if (delta < -6) {
+      } else if (delta < -12) {
         setHideNav(false);
       }
 
@@ -69,27 +69,27 @@ export default function Navbar() {
   return (
     <>
       <header
-        data-floating={isScrolled ? "true" : "false"}
-        className="group/nav fixed left-0 right-0 top-0 z-[60] px-3 font-['Schibsted_Grotesk',sans-serif] sm:px-4"
+        data-floating="true"
+        className="group/nav fixed left-0 right-0 top-0 z-[60] px-3 sm:px-4 pt-3.5 sm:pt-4 font-['Schibsted_Grotesk',sans-serif] pointer-events-none"
         style={{
-          transform: `translate3d(0, ${shouldHide ? "-135%" : isScrolled ? "14px" : "0px"}, 0)`,
-          transition: "transform 520ms cubic-bezier(0.16, 1, 0.3, 1)",
+          transform: `translate3d(0, ${shouldHide ? "-150%" : "0px"}, 0)`,
+          transition: "transform 320ms cubic-bezier(0.16, 1, 0.3, 1)",
           willChange: "transform",
         }}
       >
         <div
-          className={`mx-auto flex items-center justify-between border ${
-            isScrolled
-              ? "max-w-[1120px] rounded-full border-black/[0.07] bg-[#f2f2ef] shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-[#1c1d1b] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] sm:bg-[#f2f2ef]/90 sm:backdrop-blur-md sm:dark:bg-[#1c1d1b]/90"
-              : "max-w-full rounded-none border-transparent bg-transparent shadow-none"
+          className={`mx-auto flex items-center justify-between border rounded-full pointer-events-auto transition-colors duration-300 ${
+            isCoralHeader
+              ? "max-w-[1120px] border-black/15 bg-black/[0.08] backdrop-blur-md shadow-sm"
+              : isScrolled
+              ? "max-w-[1120px] border-black/[0.08] bg-[#f2f2ef]/95 dark:border-white/10 dark:bg-[#1c1d1b]/95 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+              : "max-w-[1120px] border-black/[0.06] bg-[#f2f2ef]/80 dark:border-white/[0.08] dark:bg-[#1c1d1b]/80 backdrop-blur-md shadow-sm"
           }`}
           style={{
-            transition:
-              "max-width 520ms cubic-bezier(0.16,1,0.3,1), padding 520ms cubic-bezier(0.16,1,0.3,1), border-radius 380ms ease, background-color 380ms ease, border-color 380ms ease, box-shadow 380ms ease",
-            paddingTop: isScrolled ? 10 : 20,
-            paddingBottom: isScrolled ? 10 : 20,
-            paddingLeft: isScrolled ? 24 : "clamp(16px, 3.2vw, 80px)",
-            paddingRight: isScrolled ? 10 : "clamp(16px, 3.2vw, 80px)",
+            paddingTop: 10,
+            paddingBottom: 10,
+            paddingLeft: 24,
+            paddingRight: 10,
           }}
         >
           {/* Logo: Axiogen Real Vector Logo + Team Axiogen. */}

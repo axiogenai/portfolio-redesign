@@ -13,7 +13,6 @@ import {
   ShieldCheck, 
   Layers, 
   Terminal, 
-  Sparkles, 
   Activity, 
   Workflow, 
   HeartPulse, 

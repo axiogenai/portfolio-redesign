@@ -19,6 +19,7 @@ import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import NotchedCard from "@/components/NotchedCard";
 import rawProjects from "@/public/projects.json";
+import { DEFAULT_SHOWCASE_PROJECTS, ShowcaseProject } from "@/lib/defaultOurWork";
 
 interface RawProject {
   id: string;
@@ -33,90 +34,6 @@ interface RawProject {
 
 const projectsData: RawProject[] = rawProjects as RawProject[];
 
-// 9 Flagship Showcase Projects matching WhyCreatives reference design
-const showcaseProjects = [
-  {
-    id: "breadberry",
-    name: "Breadberry",
-    category: "Website",
-    year: "2026",
-    desc: "A focused three-page B2B site built to win restaurant and hotel accounts.",
-    image: "/portfolio/breadberry.webp",
-    link: "https://breadberry.co.in/",
-  },
-  {
-    id: "kyoprep",
-    name: "Kyoprep",
-    category: "Web Design",
-    year: "2026",
-    desc: "An Edtech website crafted for modern learning and seamless onboarding.",
-    image: "/portfolio/kyoprep.webp",
-    link: "https://kyoprep.in/",
-  },
-  {
-    id: "zraaya",
-    name: "Zraya",
-    category: "Website",
-    year: "2026",
-    desc: "A calm, premium showcase for an architecture and construction studio.",
-    image: "/portfolio/zraya.webp",
-    link: "https://zraaya.in/",
-  },
-  {
-    id: "clorefy",
-    name: "Clorefy",
-    category: "Website",
-    year: "2026",
-    desc: "Product site for an AI platform that drafts business documents in seconds.",
-    image: "/portfolio/clorefy.webp",
-    link: "https://clorefy.com/",
-  },
-  {
-    id: "addmenu",
-    name: "Addmenu",
-    category: "Website",
-    year: "2026",
-    desc: "A QR menu platform made simple for hotels and restaurants to run.",
-    image: "/portfolio/addmenu.webp",
-    link: "https://addmenu.in/",
-  },
-  {
-    id: "id3cor",
-    name: "iD3cor",
-    category: "Website",
-    year: "2026",
-    desc: "An interior design portfolio with a short path from idea to consultation.",
-    image: "/portfolio/id3cor.webp",
-    link: "https://id3cor.com/",
-  },
-  {
-    id: "rahaman",
-    name: "Rahaman Construction",
-    category: "Website",
-    year: "2026",
-    desc: "A construction and interiors site built on clarity, proof and trust.",
-    image: "/portfolio/rahaman.webp",
-    link: "https://rahamanconstruction.in/",
-  },
-  {
-    id: "dhristi",
-    name: "Dhristi services",
-    category: "Website",
-    year: "2026",
-    desc: "A contracting platform spanning civil, electrical and telecom projects.",
-    image: "/portfolio/dhristi.webp",
-    link: "https://dhristi.co.in/",
-  },
-  {
-    id: "pink-brasserie",
-    name: "The Pink Brasserie",
-    category: "Website",
-    year: "2026",
-    desc: "An immersive restaurant site covering menu, story and reservations.",
-    image: "/portfolio/pink-brasserie.webp",
-    link: "https://www.thepinkbrasserie.com/",
-  },
-];
 
 const categoryFilters = [
   "All",
@@ -167,6 +84,19 @@ function mapToFilterCategory(cat: string): string {
 
 
 export default function OurWorkPage() {
+  const [showcaseList, setShowcaseList] = useState<ShowcaseProject[]>(DEFAULT_SHOWCASE_PROJECTS);
+
+  useEffect(() => {
+    fetch('/api/our-work')
+      .then((res) => res.json())
+      .then((resData) => {
+        if (resData.success && Array.isArray(resData.data) && resData.data.length > 0) {
+          setShowcaseList(resData.data);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const autoplay = useRef(
     Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
@@ -202,6 +132,13 @@ export default function OurWorkPage() {
       emblaApi.off("reInit", onSelect);
     };
   }, [emblaApi, onSelect]);
+
+  // Autoplay progress bar animation timer
+  useEffect(() => {
+    if (emblaApi) {
+      emblaApi.reInit();
+    }
+  }, [emblaApi, showcaseList]);
 
   // Autoplay progress bar animation timer
   useEffect(() => {
@@ -331,7 +268,7 @@ export default function OurWorkPage() {
                 {/* Embla Viewport */}
                 <div className="overflow-hidden" ref={emblaRef}>
                   <div className="flex touch-pan-y touch-pinch-zoom">
-                    {showcaseProjects.map((item, idx) => {
+                    {showcaseList.map((item, idx) => {
                       const isActive = idx === selectedIndex;
                       return (
                         <div
@@ -356,7 +293,7 @@ export default function OurWorkPage() {
                           >
                             {/* Notched Card with dynamic corner cutouts */}
                             <NotchedCard
-                              className="aspect-[16/10] transition-transform duration-500 will-change-transform group-hover:-translate-y-2 motion-reduce:transform-none"
+                              className="aspect-[16/10]"
                               radiusClassName="rounded-[20px] md:rounded-[34px]"
                               surfaceClassName="bg-secondary"
                               tags={
@@ -396,7 +333,7 @@ export default function OurWorkPage() {
                                 }}
                               >
                                 <span>{item.name}</span>
-                                <ArrowUpRight className="h-[0.55em] w-[0.55em] shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 motion-reduce:transform-none" />
+                                <ArrowUpRight className="h-[0.55em] w-[0.55em] shrink-0" />
                               </h3>
                               <p className="mt-3 line-clamp-2 max-w-[58ch] text-base font-medium leading-relaxed text-muted-foreground sm:text-lg">
                                 {item.desc}
@@ -413,7 +350,7 @@ export default function OurWorkPage() {
                 <div className="mx-auto mt-8 flex w-full max-w-md items-center justify-center gap-5 px-4 sm:justify-between lg:mt-10">
                   {/* Dot Indicators */}
                   <div className="flex max-w-full shrink-0 items-center justify-center gap-2">
-                    {showcaseProjects.map((_, dIdx) => (
+                    {showcaseList.map((_, dIdx) => (
                       <button
                         key={dIdx}
                         type="button"
