@@ -86,12 +86,12 @@ export default function AxiogenSupportWidget() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Auto scroll chat
+  // Auto scroll chat on new message or loading
   useEffect(() => {
-    if (activeTab === 'messages') {
+    if (activeTab === 'messages' && (messages.length > 0 || isLoading)) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages, activeTab, isLoading]);
+  }, [messages.length, isLoading]);
 
   // Focus input when messages opened
   useEffect(() => {
@@ -178,16 +178,17 @@ export default function AxiogenSupportWidget() {
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           aria-label={isOpen ? 'Close Team Axiogen Support' : 'Open Team Axiogen Support & AI Chat'}
-          className={`relative w-13 h-13 sm:w-14 sm:h-14 rounded-full border shadow-[0_10px_35px_rgba(0,0,0,0.5)] active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center group ${
+          style={{ backgroundColor: isDark ? '#151622' : '#171717' }}
+          className={`relative w-14 h-14 sm:w-14 sm:h-14 rounded-full border shadow-[0_10px_35px_rgba(0,0,0,0.6)] active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center group !bg-[#151622] text-white ${
             isDark
-              ? 'bg-[#151622] text-white border-white/20 hover:border-white/40'
-              : 'bg-neutral-900 text-white border-neutral-700 hover:border-black'
+              ? 'border-white/20 hover:border-white/40'
+              : 'border-neutral-700 hover:border-black'
           }`}
         >
           {isOpen ? (
             <ChevronDown className="w-6 h-6 text-white transition-transform duration-200" />
           ) : (
-            <div className="flex items-center justify-center w-full h-full p-2.5">
+            <div className="flex items-center justify-center w-full h-full p-3">
               <AxiogenLogo className="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:scale-105 transition-transform duration-200" />
             </div>
           )}
@@ -198,11 +199,12 @@ export default function AxiogenSupportWidget() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            data-lenis-prevent
             initial={{ opacity: 0, scale: 0.94, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 16 }}
             transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-            className={`fixed right-4 sm:right-6 bottom-20 sm:bottom-24 w-[calc(100vw-32px)] sm:w-[390px] h-[570px] max-h-[calc(100svh-100px)] z-[998] rounded-[24px] sm:rounded-[28px] shadow-2xl flex flex-col overflow-hidden font-sans border transition-colors duration-200 ${
+            className={`fixed right-4 sm:right-6 bottom-20 sm:bottom-24 w-[calc(100vw-32px)] sm:w-[390px] h-[570px] max-h-[calc(100svh-100px)] z-[998] rounded-[24px] sm:rounded-[28px] shadow-2xl flex flex-col overflow-hidden font-sans border transition-colors duration-200 overscroll-contain ${
               isDark
                 ? 'bg-[#0e0f14] text-white border-white/10 shadow-[0_24px_70px_rgba(0,0,0,0.85)]'
                 : 'bg-white text-neutral-900 border-neutral-200 shadow-[0_24px_70px_rgba(0,0,0,0.15)]'
@@ -300,7 +302,10 @@ export default function AxiogenSupportWidget() {
 
             {/* TAB CONTENT: HOME */}
             {activeTab === 'home' && (
-              <div className="flex-1 overflow-y-auto p-4 space-y-3.5 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div
+                data-lenis-prevent
+                className="flex-1 overflow-y-auto overscroll-contain touch-pan-y p-4 space-y-3.5 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              >
                 {/* Primary Action Card: "Send us a message" */}
                 <div
                   onClick={() => {
@@ -495,8 +500,15 @@ export default function AxiogenSupportWidget() {
                 ) : (
                   /* Active Chat Stream */
                   <div className="flex-1 flex flex-col overflow-hidden">
-                    {/* Messages Scroll Area - Scrollbar Hidden */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-3.5 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                    {/* Messages Scroll Area */}
+                    <div
+                      data-lenis-prevent
+                      className="flex-1 overflow-y-auto overscroll-contain touch-pan-y p-4 space-y-3.5"
+                      style={{
+                        scrollbarWidth: 'thin',
+                        scrollbarColor: isDark ? 'rgba(255,255,255,0.2) transparent' : 'rgba(0,0,0,0.2) transparent',
+                      }}
+                    >
                       {/* Initial Greeting if only starting */}
                       {messages.length === 0 && (
                         <div className="flex gap-2.5 items-start">
@@ -692,7 +704,10 @@ export default function AxiogenSupportWidget() {
 
             {/* TAB CONTENT: HELP */}
             {activeTab === 'help' && (
-              <div className="flex-1 overflow-y-auto p-4 space-y-3.5 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div
+                data-lenis-prevent
+                className="flex-1 overflow-y-auto overscroll-contain touch-pan-y p-4 space-y-3.5 no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              >
                 {/* Search Bar with centered icon */}
                 <div
                   className={`flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border transition-all shadow-inner ${
