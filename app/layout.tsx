@@ -225,10 +225,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  applicationName: "team.axiogen.in",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/icon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
@@ -241,7 +245,7 @@ export const metadata: Metadata = {
     description:
       "Team Axiogen engineers intelligent software systems, bespoke AI models, full-stack digital platforms, and high-performance cybersecurity architectures from India.",
     url: "https://team.axiogen.in",
-    siteName: "Team Axiogen",
+    siteName: "team.axiogen.in",
     images: [
       {
         url: "/axiogen-logo.png",
@@ -362,8 +366,14 @@ const jsonLd = {
     {
       "@type": "WebSite",
       "@id": "https://team.axiogen.in/#website",
-      url: "https://team.axiogen.in",
-      name: "Team Axiogen",
+      url: "https://team.axiogen.in/",
+      name: "team.axiogen.in",
+      alternateName: [
+        "Team Axiogen",
+        "team.axiogen.in",
+        "axiogen.in",
+        "Team Axiogen Studio"
+      ],
       description:
         "AI & Digital Engineering Studio — Building intelligent systems from India",
       publisher: {
@@ -428,7 +438,10 @@ export default function RootLayout({
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.png" type="image/png" sizes="512x512" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/icon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/icon-96x96.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/icon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
           dangerouslySetInnerHTML={{
