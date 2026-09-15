@@ -282,6 +282,11 @@ export const metadata: Metadata = {
     canonical: "https://team.axiogen.in",
   },
   category: "technology",
+  verification: {
+    other: {
+      "msvalidate.01": "a23d4b89789449e0854989d10df30bde",
+    },
+  },
 };
 
 const jsonLd = {
@@ -443,6 +448,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png" />
         <link rel="icon" type="image/png" sizes="512x512" href="/icon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="msvalidate.01" content="a23d4b89789449e0854989d10df30bde" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
