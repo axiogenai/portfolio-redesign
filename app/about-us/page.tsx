@@ -155,7 +155,7 @@ const studioTimeline = [
   {
     year: "2024",
     title: "Studio Genesis & ClinicOS",
-    detail: "Founded by Aditya Patil & Aditya Minchekar in Maharashtra. Successfully architected and deployed Axiogen ClinicOS healthcare platform alongside bespoke high-performance web systems for enterprise clients.",
+    detail: "Founded by Aditya Patil in Maharashtra. Successfully architected and deployed Axiogen ClinicOS healthcare platform alongside bespoke high-performance web systems for enterprise clients.",
   },
   {
     year: "2025",
@@ -217,8 +217,8 @@ export default function AboutUsPage() {
             {/* Page Header */}
             <PageHeader
               eyebrow="About Team Axiogen"
-              lines={["Two engineers,", "one relentless standard.", "Zero agency bloat."]}
-              support="Founded by Aditya Patil & Aditya Minchekar, Team Axiogen is an independent AI Automation & Systems Engineering Studio in India. We architect autonomous AI models, ClinicOS healthcare suites, and high-performance digital platforms with direct founder-led engineering."
+              lines={["Founder-led engineering,", "one relentless standard.", "Zero agency bloat."]}
+              support="Founded by Aditya Patil, Team Axiogen is an independent AI Automation & Systems Engineering Studio in India. We architect autonomous AI models, ClinicOS healthcare suites, and high-performance digital platforms with direct founder-led engineering."
             />
 
             {/* Dual Studio Visuals Grid */}
@@ -499,7 +499,7 @@ export default function AboutUsPage() {
                           ADITYA MINCHEKAR
                         </h3>
                         <p className="text-xs sm:text-sm text-white/70 font-light tracking-wide mt-1">
-                          Co-Founder &amp; Technology Lead
+                          Technology Lead &amp; Systems Architect
                         </p>
                       </div>
 
@@ -799,7 +799,7 @@ export default function AboutUsPage() {
                     Team Axiogen (team.axiogen.in &amp; axiogen.in)
                   </h4>
                   <p className="text-xs sm:text-sm text-muted-foreground max-w-3xl leading-relaxed">
-                    Team Axiogen is an Indian AI Automation &amp; Systems Engineering Studio founded by Aditya Patil &amp; Aditya Minchekar, headquartered in Maharashtra, India. We architect autonomous AI voice agents, ClinicOS medical platform, and bespoke full-stack applications. Axiogen has zero affiliation with biotechnology, pharmaceuticals, or cosmetics companies that share the name.
+                    Team Axiogen is an Indian AI Automation &amp; Systems Engineering Studio founded by Aditya Patil, headquartered in Maharashtra, India. We architect autonomous AI voice agents, ClinicOS medical platform, and bespoke full-stack applications. Axiogen has zero affiliation with biotechnology, pharmaceuticals, or cosmetics companies that share the name.
                   </p>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">

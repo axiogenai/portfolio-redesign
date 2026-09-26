@@ -164,8 +164,6 @@ export const metadata: Metadata = {
     // Founders & Leadership association
     "Aditya Patil Axiogen",
     "Aditya Patil Team Axiogen",
-    "Aditya Minchekar Axiogen",
-    "Aditya Minchekar Team Axiogen",
     "Axiogen founders",
     "Team Axiogen founders",
     "who founded team axiogen",
@@ -332,12 +330,7 @@ const jsonLd = {
         {
           "@type": "Person",
           name: "Aditya Patil",
-          jobTitle: "Co-Founder & Systems Architect"
-        },
-        {
-          "@type": "Person",
-          name: "Aditya Minchekar",
-          jobTitle: "Co-Founder & Neural Architect"
+          jobTitle: "Founder & Systems Architect"
         }
       ],
       url: "https://team.axiogen.in",

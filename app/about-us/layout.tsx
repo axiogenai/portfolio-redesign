@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Us — Meet Team Axiogen",
+  title: "About Us — Team Axiogen",
   description:
-    "Learn about Team Axiogen — an AI & digital engineering studio from Kolhapur, India. Meet the engineers and designers building intelligent software systems, bespoke AI models, and high-performance digital platforms.",
+    "Founded by Aditya Patil, Team Axiogen is an independent AI Automation & Systems Engineering Studio in India architecting autonomous AI models, ClinicOS, and high-performance digital platforms.",
   openGraph: {
-    title: "About Us — Meet Team Axiogen",
+    title: "About Us — Team Axiogen",
     description:
-      "Meet the engineers and designers behind Team Axiogen. We build AI systems, full-stack platforms, and cybersecurity architectures from India.",
+      "Founded by Aditya Patil, Team Axiogen is an independent AI Automation & Systems Engineering Studio in India architecting autonomous AI models, ClinicOS, and high-performance digital platforms.",
     url: "https://team.axiogen.in/about-us",
   },
   twitter: {
-    title: "About Us — Meet Team Axiogen",
+    title: "About Us — Team Axiogen",
     description:
-      "Meet the engineers and designers behind Team Axiogen.",
+      "Founded by Aditya Patil, Team Axiogen is an independent AI Automation & Systems Engineering Studio in India.",
   },
   alternates: {
     canonical: "https://team.axiogen.in/about-us",
