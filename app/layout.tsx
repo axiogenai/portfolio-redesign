@@ -436,11 +436,7 @@ export default function RootLayout({
       className={`${schibstedGrotesk.variable} ${spaceMono.variable} ${plusJakarta.variable} dark`}
     >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/icon-48x48.png" />
-        <link rel="icon" type="image/png" sizes="96x96" href="/icon-96x96.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/icon.png" />
+        <link id="app-favicon" rel="icon" type="image/png" href="/icon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="msvalidate.01" content="a23d4b89789449e0854989d10df30bde" />
         <script

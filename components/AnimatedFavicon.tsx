@@ -7,20 +7,25 @@ export default function AnimatedFavicon() {
   useEffect(() => {
     if (typeof window === "undefined" || typeof document === "undefined") return;
 
-    // Remove all static icon link tags so Chrome gives 100% priority to the animated one
-    const staticIcons = document.querySelectorAll("link[rel*='icon']");
-    staticIcons.forEach((el) => {
-      if (el.id !== "animated-favicon") {
-        el.remove();
-      }
-    });
+    // Get the primary favicon link element from <head>
+    let link = document.getElementById("app-favicon") as HTMLLinkElement | null;
+    if (!link) {
+      link = document.querySelector<HTMLLinkElement>("link[rel*='icon']");
+    }
+    if (!link) {
+      link = document.createElement("link");
+      link.id = "app-favicon";
+      link.rel = "icon";
+      link.type = "image/png";
+      document.head.appendChild(link);
+    }
 
-    // 64x64 canvas for crisp rendering on both standard and Retina displays
+    // 64x64 canvas for crisp high-DPI rendering
     const S = 64;
     const canvas = document.createElement("canvas");
     canvas.width = S;
     canvas.height = S;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { willReadFrequently: false });
     if (!ctx) return;
 
     const C = [
@@ -48,98 +53,98 @@ export default function AnimatedFavicon() {
     const cl = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 
     const renderFrame = (t: number) => {
-      // 100% TRANSPARENT background (NO black box!)
-      ctx.clearRect(0, 0, S, S);
+      try {
+        // Completely transparent background - NO black box
+        ctx.clearRect(0, 0, S, S);
 
-      const yaw = 0.28 * Math.sin(t * 0.8);
-      const tilt = 0.16 * Math.sin(t * 0.5);
-      const sy = Math.sin(yaw);
-      const cw = Math.cos(yaw);
-      const st = Math.sin(tilt);
-      const ct = Math.cos(tilt);
-      const wave = (((t * 0.6) % 1 + 1) % 1) * 2.6 - 1.3;
+        const yaw = 0.28 * Math.sin(t * 0.8);
+        const tilt = 0.16 * Math.sin(t * 0.5);
+        const sy = Math.sin(yaw);
+        const cw = Math.cos(yaw);
+        const st = Math.sin(tilt);
+        const ct = Math.cos(tilt);
+        const wave = (((t * 0.6) % 1 + 1) % 1) * 2.6 - 1.3;
 
-      const D = [];
-      for (const [gx, gy, e] of ORB_POINTS) {
-        const pz = -gx * sy;
-        const py = -gy * ct - pz * st;
-        const z = -gy * st + pz * ct;
-        const dep = (z + 1) / 2;
-        const cr = Math.exp(-Math.pow(gx * 0.5 + gy * 0.87 - wave, 2) / 0.05);
-        D.push({
-          x: cx + gx * cw * R,
-          y: cx - py * R,
-          z,
-          r: Math.max(1.2, (0.75 + 0.75 * dep + (e ? 0.25 : 0) + 0.5 * cr) * rs),
-          v: cl((e ? 0.65 : 0.5) + 0.16 * dep + 0.35 * cr),
-          c: gc((gy + 1) / 2),
-        });
-      }
-      D.sort((a, b) => a.z - b.z);
-
-      for (const d of D) {
-        const g = d.v * 255;
-        const l = Math.min(1, d.v * 1.25);
-        const k = 0.92;
-        let rgb = [
-          g * (1 - k) + d.c[0] * l * k,
-          g * (1 - k) + d.c[1] * l * k,
-          g * (1 - k) + d.c[2] * l * k,
-        ];
-        if (d.v > 0.8) {
-          const w = ((d.v - 0.8) / 0.2) * 0.5;
-          rgb = [
-            rgb[0] + (255 - rgb[0]) * w,
-            rgb[1] + (255 - rgb[1]) * w,
-            rgb[2] + (255 - rgb[2]) * w,
-          ];
+        const D = [];
+        for (const [gx, gy, e] of ORB_POINTS) {
+          const pz = -gx * sy;
+          const py = -gy * ct - pz * st;
+          const z = -gy * st + pz * ct;
+          const dep = (z + 1) / 2;
+          const cr = Math.exp(-Math.pow(gx * 0.5 + gy * 0.87 - wave, 2) / 0.05);
+          D.push({
+            x: cx + gx * cw * R,
+            y: cx - py * R,
+            z,
+            r: Math.max(1.2, (0.75 + 0.75 * dep + (e ? 0.25 : 0) + 0.5 * cr) * rs),
+            v: cl((e ? 0.65 : 0.5) + 0.16 * dep + 0.35 * cr),
+            c: gc((gy + 1) / 2),
+          });
         }
-        ctx.fillStyle = `rgb(${rgb[0] | 0},${rgb[1] | 0},${rgb[2] | 0})`;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, TAU);
-        ctx.fill();
-      }
+        D.sort((a, b) => a.z - b.z);
 
-      const dataUrl = canvas.toDataURL("image/png");
+        for (const d of D) {
+          const g = d.v * 255;
+          const l = Math.min(1, d.v * 1.25);
+          const k = 0.92;
+          let rgb = [
+            g * (1 - k) + d.c[0] * l * k,
+            g * (1 - k) + d.c[1] * l * k,
+            g * (1 - k) + d.c[2] * l * k,
+          ];
+          if (d.v > 0.8) {
+            const w = ((d.v - 0.8) / 0.2) * 0.5;
+            rgb = [
+              rgb[0] + (255 - rgb[0]) * w,
+              rgb[1] + (255 - rgb[1]) * w,
+              rgb[2] + (255 - rgb[2]) * w,
+            ];
+          }
+          ctx.fillStyle = `rgb(${rgb[0] | 0},${rgb[1] | 0},${rgb[2] | 0})`;
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, d.r, 0, TAU);
+          ctx.fill();
+        }
 
-      // Replace link tag in <head> to force Chrome to immediately redraw the tab favicon
-      const oldLink = document.getElementById("animated-favicon");
-      const newLink = document.createElement("link");
-      newLink.id = "animated-favicon";
-      newLink.rel = "icon";
-      newLink.type = "image/png";
-      newLink.href = dataUrl;
-
-      if (oldLink && oldLink.parentNode) {
-        oldLink.parentNode.replaceChild(newLink, oldLink);
-      } else {
-        document.head.appendChild(newLink);
+        // Update the existing link's href directly without destroying/creating DOM nodes
+        if (link) {
+          link.href = canvas.toDataURL("image/png");
+        }
+      } catch (err) {
+        // Silently catch to prevent loop termination
       }
     };
 
-    // Initial render
+    // Render initial static frame
     renderFrame(1.0);
 
-    // Check prefers-reduced-motion
+    // Stop if user prefers reduced motion
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
-    // ~20 FPS animation loop, automatically paused when tab is in background
-    let isHidden = document.hidden;
-    const onVisibilityChange = () => {
-      isHidden = document.hidden;
-    };
-    document.addEventListener("visibilitychange", onVisibilityChange);
+    // Smooth continuous loop using requestAnimationFrame with 70ms throttle (~14 FPS)
+    let animId: number;
+    let lastTime = 0;
+    const interval = 70; // 70ms gives ~14 FPS: fluid, continuous, never throttled by Chrome
 
-    const intervalId = setInterval(() => {
-      if (isHidden) return;
-      renderFrame(performance.now() / 1000);
-    }, 50);
+    const loop = (currentTime: number) => {
+      animId = requestAnimationFrame(loop);
+
+      // Only skip if user is on a different tab
+      if (document.hidden) return;
+
+      const delta = currentTime - lastTime;
+      if (delta >= interval) {
+        lastTime = currentTime - (delta % interval);
+        renderFrame(currentTime / 1000);
+      }
+    };
+
+    animId = requestAnimationFrame(loop);
 
     return () => {
-      clearInterval(intervalId);
-      document.removeEventListener("visibilitychange", onVisibilityChange);
+      cancelAnimationFrame(animId);
     };
   }, []);
 
