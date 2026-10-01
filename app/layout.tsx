@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import PageTransitionProvider from "@/components/PageTransitionProvider";
 import VisitorTracker from "@/components/VisitorTracker";
 import AxiogenSupportWidget from "@/components/AxiogenSupportWidget";
+import AnimatedFavicon from "@/components/AnimatedFavicon";
 import "./globals.css";
 
 const schibstedGrotesk = Schibsted_Grotesk({
@@ -465,6 +466,7 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-foreground font-sans antialiased selection:bg-[#FF6B42] selection:text-white transition-colors duration-300">
         <ThemeProvider defaultTheme="dark">
+          <AnimatedFavicon />
           <VisitorTracker />
           <PageTransitionProvider>
             {children}
