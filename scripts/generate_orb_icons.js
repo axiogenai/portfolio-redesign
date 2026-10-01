@@ -59,7 +59,7 @@ function renderSvg(S, t = 1.2) {
     circles += `<circle cx="${d.x.toFixed(2)}" cy="${d.y.toFixed(2)}" r="${radius.toFixed(2)}" fill="${color}"/>`;
   }
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${S}" height="${S}"><rect width="${S}" height="${S}" fill="#000000"/>${circles}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${S}" height="${S}">${circles}</svg>`;
 }
 
 async function main() {

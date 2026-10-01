@@ -5,28 +5,22 @@ import ORB_POINTS from "@/lib/orbPoints.json";
 
 export default function AnimatedFavicon() {
   useEffect(() => {
-    // Only run on client desktop / standard browsers
     if (typeof window === "undefined" || typeof document === "undefined") return;
 
-    // Check prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Remove all static icon link tags so Chrome gives 100% priority to the animated one
+    const staticIcons = document.querySelectorAll("link[rel*='icon']");
+    staticIcons.forEach((el) => {
+      if (el.id !== "animated-favicon") {
+        el.remove();
+      }
+    });
 
-    // Locate or create the primary favicon link
-    let link = document.querySelector<HTMLLinkElement>("link#animated-favicon");
-    if (!link) {
-      link = document.createElement("link");
-      link.id = "animated-favicon";
-      link.rel = "icon";
-      link.type = "image/png";
-      document.head.appendChild(link);
-    }
-
-    // Off-screen canvas (48x48 is optimal for high-DPI browser tabs)
-    const S = 48;
+    // 64x64 canvas for crisp rendering on both standard and Retina displays
+    const S = 64;
     const canvas = document.createElement("canvas");
     canvas.width = S;
     canvas.height = S;
-    const ctx = canvas.getContext("2d", { willReadFrequently: false });
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const C = [
@@ -48,22 +42,22 @@ export default function AnimatedFavicon() {
     };
 
     const cx = S / 2;
-    const R = (S / 2) * 0.88;
-    const rs = Math.pow(S / 300, 0.6) * 1.5;
+    const R = (S / 2) * 0.90;
+    const rs = Math.max(1.8, Math.pow(S / 300, 0.6) * 2.2);
     const TAU = Math.PI * 2;
     const cl = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 
     const renderFrame = (t: number) => {
-      ctx.fillStyle = "#000000";
-      ctx.fillRect(0, 0, S, S);
+      // 100% TRANSPARENT background (NO black box!)
+      ctx.clearRect(0, 0, S, S);
 
-      const yaw = 0.26 * Math.sin(t * 0.5);
-      const tilt = 0.14 * Math.sin(t * 0.33);
+      const yaw = 0.28 * Math.sin(t * 0.8);
+      const tilt = 0.16 * Math.sin(t * 0.5);
       const sy = Math.sin(yaw);
       const cw = Math.cos(yaw);
       const st = Math.sin(tilt);
       const ct = Math.cos(tilt);
-      const wave = (((t * 0.38) % 1 + 1) % 1) * 2.6 - 1.3;
+      const wave = (((t * 0.6) % 1 + 1) % 1) * 2.6 - 1.3;
 
       const D = [];
       for (const [gx, gy, e] of ORB_POINTS) {
@@ -76,8 +70,8 @@ export default function AnimatedFavicon() {
           x: cx + gx * cw * R,
           y: cx - py * R,
           z,
-          r: (0.75 + 0.75 * dep + (e ? 0.25 : 0) + 0.5 * cr) * rs,
-          v: cl((e ? 0.62 : 0.5) + 0.14 * dep + 0.3 * cr),
+          r: Math.max(1.2, (0.75 + 0.75 * dep + (e ? 0.25 : 0) + 0.5 * cr) * rs),
+          v: cl((e ? 0.65 : 0.5) + 0.16 * dep + 0.35 * cr),
           c: gc((gy + 1) / 2),
         });
       }
@@ -85,15 +79,15 @@ export default function AnimatedFavicon() {
 
       for (const d of D) {
         const g = d.v * 255;
-        const l = Math.min(1, d.v * 1.12);
-        const k = 0.95;
+        const l = Math.min(1, d.v * 1.25);
+        const k = 0.92;
         let rgb = [
           g * (1 - k) + d.c[0] * l * k,
           g * (1 - k) + d.c[1] * l * k,
           g * (1 - k) + d.c[2] * l * k,
         ];
-        if (d.v > 0.85) {
-          const w = ((d.v - 0.85) / 0.15) * 0.45;
+        if (d.v > 0.8) {
+          const w = ((d.v - 0.8) / 0.2) * 0.5;
           rgb = [
             rgb[0] + (255 - rgb[0]) * w,
             rgb[1] + (255 - rgb[1]) * w,
@@ -102,19 +96,36 @@ export default function AnimatedFavicon() {
         }
         ctx.fillStyle = `rgb(${rgb[0] | 0},${rgb[1] | 0},${rgb[2] | 0})`;
         ctx.beginPath();
-        ctx.arc(d.x, d.y, Math.max(0.75, d.r), 0, TAU);
+        ctx.arc(d.x, d.y, d.r, 0, TAU);
         ctx.fill();
       }
 
-      link!.href = canvas.toDataURL("image/png");
+      const dataUrl = canvas.toDataURL("image/png");
+
+      // Replace link tag in <head> to force Chrome to immediately redraw the tab favicon
+      const oldLink = document.getElementById("animated-favicon");
+      const newLink = document.createElement("link");
+      newLink.id = "animated-favicon";
+      newLink.rel = "icon";
+      newLink.type = "image/png";
+      newLink.href = dataUrl;
+
+      if (oldLink && oldLink.parentNode) {
+        oldLink.parentNode.replaceChild(newLink, oldLink);
+      } else {
+        document.head.appendChild(newLink);
+      }
     };
 
-    if (prefersReducedMotion) {
-      renderFrame(1.2);
+    // Initial render
+    renderFrame(1.0);
+
+    // Check prefers-reduced-motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
-    // ~20 FPS loop (50ms interval), paused automatically if tab is hidden
+    // ~20 FPS animation loop, automatically paused when tab is in background
     let isHidden = document.hidden;
     const onVisibilityChange = () => {
       isHidden = document.hidden;
