@@ -497,7 +497,7 @@ export default function OurWorkPage() {
                   const hasLink = Boolean(project.link);
                   return (
                     <motion.div
-                      key={project.id || pIdx}
+                      key={`project-${project.id}-${pIdx}`}
                       initial={{ opacity: 0, y: 16 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.1 }}
@@ -542,9 +542,9 @@ export default function OurWorkPage() {
                       {/* Tech Stack Footer */}
                       <div className="mt-6 pt-4 border-t border-border/50 flex flex-wrap items-center justify-between gap-3">
                         <div className="flex flex-wrap gap-1.5">
-                          {project.tech.map((t) => (
+                          {project.tech.map((t, tIdx) => (
                             <span
-                              key={t}
+                              key={`tech-${t}-${tIdx}`}
                               className="rounded-md border border-border/60 bg-foreground/[0.04] px-2 py-0.5 text-[11px] font-mono text-muted-foreground"
                             >
                               {t}
