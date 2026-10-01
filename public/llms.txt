@@ -2,7 +2,7 @@
 
 > AI & Digital Engineering Studio from India
 
-Team Axiogen is an AI and digital engineering studio based in Kolhapur and Sangli, Maharashtra, India. We engineer intelligent software systems, bespoke AI models, full-stack web and mobile platforms, cybersecurity architectures, and high-performance cloud solutions. Founded by Aditya Patil (Founder & Systems Architect).
+Team Axiogen is an AI and digital engineering studio based in Kolhapur and Sangli, Maharashtra, India. We engineer intelligent software systems, bespoke AI models, full-stack web and mobile platforms, cybersecurity architectures, and high-performance cloud solutions. Founded by Aditya Patil (Founder & CEO), Aditya Minchekar (Co-Founder), and Ajinkya More (Co-Founder).
 
 ## Also Known As & Aliases
 - Axiogen, Team Axiogen, Axiogen AI, Team Axiogen India

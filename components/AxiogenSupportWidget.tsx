@@ -132,9 +132,14 @@ export default function AxiogenSupportWidget() {
       });
 
       const data = await res.json();
-      const botReply =
+      const rawReply =
         data?.text ||
         'Thank you for contacting Team Axiogen. Our engineering leads will review your inquiry. You can also reach us directly at axiogen01@gmail.com.';
+
+      const botReply = rawReply
+        .replace(/\*\*/g, '')
+        .replace(/\*/g, '')
+        .replace(/(?<!Team\s)Axiogen\b/g, 'Team Axiogen');
 
       setMessages((prev) => [
         ...prev,
@@ -579,7 +584,10 @@ export default function AxiogenSupportWidget() {
                                     : 'bg-neutral-100 border border-neutral-200 text-neutral-900 rounded-tl-sm shadow-sm'
                                 }`}
                               >
-                                {m.content}
+                                {m.content
+                                  .replace(/\*\*/g, '')
+                                  .replace(/\*/g, '')
+                                  .replace(/(?<!Team\s)Axiogen\b/g, 'Team Axiogen')}
                               </div>
                               <span
                                 className={`text-[10px] block px-1 font-mono ${
