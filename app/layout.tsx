@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import PageTransitionProvider from "@/components/PageTransitionProvider";
 import VisitorTracker from "@/components/VisitorTracker";
 import AxiogenSupportWidget from "@/components/AxiogenSupportWidget";
-import AnimatedFavicon from "@/components/AnimatedFavicon";
 import "./globals.css";
 
 const schibstedGrotesk = Schibsted_Grotesk({
@@ -450,7 +449,11 @@ export default function RootLayout({
       className={`${schibstedGrotesk.variable} ${spaceMono.variable} ${plusJakarta.variable} dark`}
     >
       <head>
-        <link id="app-favicon" rel="icon" type="image/png" href="/icon.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/icon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/icon-96x96.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/icon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="msvalidate.01" content="a23d4b89789449e0854989d10df30bde" />
         <script
@@ -476,7 +479,6 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-foreground font-sans antialiased selection:bg-[#FF6B42] selection:text-white transition-colors duration-300">
         <ThemeProvider defaultTheme="dark">
-          <AnimatedFavicon />
           <VisitorTracker />
           <PageTransitionProvider>
             {children}
