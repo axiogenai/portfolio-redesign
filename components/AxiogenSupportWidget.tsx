@@ -26,9 +26,9 @@ interface ChatMessage {
 const FAQ_ITEMS = [
   {
     id: 'services',
-    question: 'Services, AI Engineering & Web Platforms',
+    question: 'Services, AI Engineering & Digital Platforms',
     answer:
-      'Team Axiogen engineers bespoke AI & Neural Systems (custom LLMs, agent pipelines, multimodal vision), high-performance Web Platforms (Next.js, React, Tailwind, Supabase), native Mobile Apps, and hardened Cloud/Cybersecurity systems.',
+      'Team Axiogen engineers bespoke AI & Neural Systems (custom LLMs, agent pipelines, multimodal vision), high-performance Digital Platforms, native Mobile Apps, and hardened Cloud/Cybersecurity systems.',
   },
   {
     id: 'start',
@@ -535,7 +535,7 @@ export default function AxiogenSupportWidget() {
                               }`}
                             >
                               Hi! I am Team Axiogen&apos;s AI Concierge. How can we help you today? Ask
-                              me about our AI systems, web development, custom software, or getting
+                              me about our AI systems, digital platforms, custom software, or getting
                               a project quotation.
                             </div>
                             <span

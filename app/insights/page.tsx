@@ -41,7 +41,7 @@ const articles: Article[] = [
   {
     id: "3",
     slug: "beyond-templates-bespoke-engineering",
-    title: "Beyond templates: Why bespoke Next.js architectures scale while builders crumble",
+    title: "Beyond templates: Why bespoke software architectures scale while builders crumble",
     category: "Engineering",
     published_at: "2024-06-18",
     read_time: 5,

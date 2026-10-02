@@ -41,7 +41,7 @@ const steps = [
     phase: "Build",
     title: "Full-stack engineering & testing",
     body: "Clean, strongly typed codebases with component modularity and zero cumulative layout shift. We architect for long-term maintainability, strict security posture, and high throughput from the first commit.",
-    deliverables: ["Typed Next.js / API Codebase", "Database Migrations", "Automated CI/CD Pipelines"],
+    deliverables: ["Production Application Codebase", "Database Migrations", "Automated CI/CD Pipelines"],
     duration: "2–8 Weeks",
   },
   {

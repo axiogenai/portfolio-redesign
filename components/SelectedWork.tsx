@@ -76,7 +76,7 @@ const defaultProjects: ProjectItem[] = [
     client: "SEOHUB PRO",
     title: "All-in-one enterprise SEO platform auditing, fixing & monitoring website search performance",
     image: "/axiogen-seo.jpg",
-    tags: ["Next.js"],
+    tags: ["Analytics Platform"],
     href: "https://seohubpro.vercel.app",
     bezelColor: "#d94e22",
     stage: {

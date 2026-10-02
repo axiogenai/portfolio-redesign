@@ -15,7 +15,7 @@ const introLines = [
 
 const capabilitiesStrip = [
   "AI / ML SOLUTIONS",
-  "WEB DEVELOPMENT",
+  "DIGITAL PLATFORMS",
   "MOBILE APPS",
   "CLOUD SOLUTIONS",
   "DATABASE DESIGN",

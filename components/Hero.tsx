@@ -255,7 +255,7 @@ export default function Hero() {
               }}
             >
               <span className="sr-only">
-                Team Axiogen — AI Development, Next.js Web Platforms, Mobile Apps, Cybersecurity Architectures &amp; Cloud Engineering Studio based in Kolhapur &amp; Sangli, Maharashtra, India. Founded by Aditya Patil, Aditya Minchekar, and Ajinkya More.
+                Team Axiogen — AI Systems, Intelligent Software Architectures, Digital Engineering &amp; Autonomous Solutions Studio based in Kolhapur &amp; Sangli, Maharashtra, India. Founded by Aditya Patil, Aditya Minchekar, and Ajinkya More.
               </span>
               {Nu.map((u, d) => (
                 <span

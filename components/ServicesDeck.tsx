@@ -7,7 +7,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export const cardColors = [
   "#FF6B42", // 01 AI / ML - Vibrant Coral
-  "#9B8AFF", // 02 Web Dev - Lavender Purple
+  "#9B8AFF", // 02 Digital Platforms - Lavender Purple
   "#38BDF8", // 03 Mobile Apps - Sky Cyan
   "#4FD16B", // 04 Cloud Solutions - Vivid Mint Green
   "#FFB43D", // 05 Database Design - Warm Amber

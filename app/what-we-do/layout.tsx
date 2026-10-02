@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Services — AI Development, Web Platforms & Engineering | Team Axiogen",
+  title: "Services — AI Systems & Digital Engineering | Team Axiogen",
   description:
-    "Team Axiogen offers AI development, machine learning, full-stack web & mobile apps, cybersecurity, cloud & DevOps, brand identity design, e-commerce solutions, and academic project development. Based in India.",
+    "Team Axiogen offers AI development, machine learning, digital platforms, mobile applications, cybersecurity, cloud architecture, brand identity design, and academic project development. Based in India.",
   keywords: [
     "AI development services",
     "machine learning studio",
-    "full-stack web development",
-    "Next.js web development",
+    "digital platform engineering",
+    "intelligent software systems",
     "mobile app development India",
     "cybersecurity architecture",
     "cloud infrastructure DevOps",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Services — AI Development & Digital Engineering | Team Axiogen",
     description:
-      "AI development, web & mobile apps, cybersecurity, cloud solutions, and student projects by Team Axiogen.",
+      "AI development, digital platforms, mobile apps, cybersecurity, cloud solutions, and student projects by Team Axiogen.",
     url: "https://team.axiogen.in/what-we-do",
     siteName: "team.axiogen.in",
     images: [
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services — What Team Axiogen Does",
     description:
-      "AI, web development, cybersecurity, and cloud solutions by Team Axiogen.",
+      "AI, digital platforms, cybersecurity, and cloud solutions by Team Axiogen.",
     images: ["/axiogen-logo.png"],
     creator: "@teamaxiogen",
   },

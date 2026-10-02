@@ -10,7 +10,7 @@ Core Members & Leadership (Exactly 3 Members):
 
 Studio Capabilities & Services:
 1. AI & Neural Systems: Custom LLM fine-tuning, autonomous agent pipelines, multimodal vision architectures, real-time edge inference, conversational voice agents.
-2. Full-Stack Web Platforms: High-velocity, sub-second web applications built with Next.js, React, Tailwind CSS, TypeScript, Supabase, and distributed serverless backends.
+2. Intelligent Software Systems: High-velocity, sub-second distributed software systems, modern digital platforms, and mission-critical cloud infrastructure.
 3. Mobile Apps: Native iOS & Android applications with offline sync, biometric auth, and real-time state.
 4. Cloud & Cybersecurity: Zero-trust architecture, encrypted storage vaults, hardened container clusters, edge telemetry, and 99.9% uptime SLA.
 5. Brand & UI/UX Engineering: Coherent design systems, immersive micro-interactions, brand identity, and conversion-optimized experiences.

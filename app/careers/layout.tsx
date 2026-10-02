@@ -6,8 +6,8 @@ export const metadata: Metadata = {
     "Join Team Axiogen — a remote-first AI & digital engineering studio from India. We're looking for engineers, designers, and builders who obsess over craft and ship at high velocity.",
   keywords: [
     "AI engineer jobs India",
-    "Next.js developer jobs remote",
-    "software engineer careers India",
+    "software engineering jobs remote",
+    "systems engineer careers India",
     "Team Axiogen careers",
     "remote tech jobs India",
     "machine learning engineer hiring",

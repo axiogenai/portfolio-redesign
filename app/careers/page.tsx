@@ -53,20 +53,20 @@ const perks = [
 const openRoles = [
   {
     num: "01",
-    title: "Full-Stack Software Engineer",
+    title: "Systems & Platform Engineer",
     type: "Full-Time",
     location: "Remote · India",
     description:
-      "We are seeking a Full-Stack Engineer who transitions effortlessly between typed Next.js App Router frontends and low-latency Node.js/Python API backends. You build with strict attention to Core Web Vitals, database indexing, and maintainable component hierarchies.",
+      "We are seeking a Systems Engineer who transitions effortlessly between high-concurrency client interfaces and low-latency distributed API backends. You build with strict attention to performance metrics, database indexing, and maintainable software architectures.",
     requirements: [
-      "TypeScript & React 19",
-      "Next.js App Router",
-      "PostgreSQL & Supabase",
-      "REST & GraphQL APIs",
-      "Docker & OCI Deployments",
-      "Tailwind CSS Layouts",
+      "Modern Component Architectures",
+      "Distributed State Systems",
+      "Transactional Databases",
+      "High-Concurrency APIs",
+      "Containerized Deployments",
+      "Design-Token UI Systems",
     ],
-    mailSubject: "Full-Stack Software Engineer Application",
+    mailSubject: "Systems & Platform Engineer Application",
   },
   {
     num: "02",
@@ -76,12 +76,12 @@ const openRoles = [
     description:
       "We need an applied ML engineer who bridges research papers with production APIs. You will fine-tune open-weights models, architect dense vector retrieval systems, train computer vision classifiers, and optimize GPU inference pipelines.",
     requirements: [
-      "PyTorch & Python Core",
-      "Custom LLM Fine-Tuning",
-      "ChromaDB & Vector RAG",
-      "FastAPI Microservices",
-      "CUDA Inference Optimization",
-      "HuggingFace Transformers",
+      "Deep Learning Architectures",
+      "Custom Model Fine-Tuning",
+      "Vector Search & Retrieval (RAG)",
+      "High-Throughput Microservices",
+      "GPU Inference Optimization",
+      "Transformer Architectures",
     ],
     mailSubject: "Machine Learning Engineer Application",
   },

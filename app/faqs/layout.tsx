@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     "Find answers to common questions about working with Team Axiogen — project timelines, pricing, tech stack, communication, deliverables, and IP ownership.",
   keywords: [
     "software development pricing India",
-    "web development FAQs",
+    "software engineering FAQs",
     "hire software developers cost",
     "Team Axiogen FAQs",
     "software contract terms",

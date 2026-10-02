@@ -69,14 +69,14 @@ const ecosystemProducts = [
   },
   {
     icon: Code2,
-    tag: "Web Engineering",
-    name: "Cinematic Web Systems",
-    badge: "Next.js 15 & WebGL",
-    desc: "Sub-second, interactive digital flagship platforms built with Next.js App Router, React 19, TypeScript, and fluid Three.js / WebGL interactions. Engineered for 100/100 Core Web Vitals and organic technical search dominance.",
+    tag: "Digital Engineering",
+    name: "Interactive Digital Platforms",
+    badge: "Sub-Second Micro-Architecture",
+    desc: "Sub-second, interactive digital flagship platforms built with modern distributed architectures, GPU-accelerated graphics, and fluid spatial interactions. Engineered for 100/100 Core Web Vitals and peak technical performance.",
     capabilities: [
       "Sub-second page transitions & instant FCP",
       "GPU-accelerated micro-animations",
-      "Strict end-to-end TypeScript architecture",
+      "Strict end-to-end typed architecture",
       "Automated edge caching & CDN delivery",
     ],
   },
@@ -85,7 +85,7 @@ const ecosystemProducts = [
     tag: "Cloud Security",
     name: "Axiogen Vault & Dynamic WAF",
     badge: "Zero-Exposure Storage",
-    desc: "Cryptographic digital asset delivery and dynamic application firewall proxies. Integrated with MinIO S3 object storage with time-decay presigned URLs, cryptographic file delivery, and real-time malicious traffic scrubbing.",
+    desc: "Cryptographic digital asset delivery and dynamic application firewall proxies. Integrated with private object storage with time-decay presigned URLs, cryptographic file delivery, and real-time malicious traffic scrubbing.",
     capabilities: [
       "Time-decay cryptographic presigned URLs",
       "Zero-exposure private storage architecture",
@@ -103,28 +103,28 @@ const stackData: Record<
   { name: string; tag: string; description: string }[]
 > = {
   ai: [
-    { name: "PyTorch & TensorFlow", tag: "Frameworks", description: "Deep learning model training, architecture customization & edge inference." },
-    { name: "Autonomous LLM Agents", tag: "Cognitive", description: "Function-calling tool-use agents with persistent vector memory & RAG." },
-    { name: "Whisper & Neural TTS", tag: "Speech & Audio", description: "Low-latency real-time voice transcription and expressive voice synthesis." },
-    { name: "Vector Databases", tag: "Embeddings", description: "pgvector, Pinecone & Qdrant for semantic search & contextual retrieval." },
+    { name: "Deep Learning Architectures", tag: "Neural Systems", description: "Deep learning model training, architecture customization & edge inference." },
+    { name: "Autonomous Cognitive Agents", tag: "Cognitive", description: "Function-calling tool-use agents with persistent vector memory & RAG." },
+    { name: "Neural Speech Synthesis", tag: "Audio & Speech", description: "Low-latency real-time voice transcription and expressive voice synthesis." },
+    { name: "Semantic Vector Engines", tag: "Retrieval", description: "High-dimensional vector indexes for semantic search & contextual retrieval." },
   ],
   web: [
-    { name: "Next.js 15 App Router", tag: "Framework", description: "Server components, streaming SSR, and edge compute runtime optimization." },
-    { name: "React 19 & TypeScript", tag: "Core UI", description: "Typed component architectures, hooks, and clean state primitives." },
-    { name: "Tailwind CSS & Motion", tag: "Styling", description: "Design-token design systems, responsive layouts & 60fps animations." },
-    { name: "Three.js & WebGL", tag: "3D & Canvas", description: "Cinematic interactive spatial graphics, shaders, and geometry rendering." },
+    { name: "Distributed Edge Runtimes", tag: "Architecture", description: "Server components, streaming architectures, and edge compute runtime optimization." },
+    { name: "High-Concurrency UI Engines", tag: "Core Systems", description: "Robust component architectures, event streams, and clean state primitives." },
+    { name: "Design-Token Design Systems", tag: "Interface", description: "Token-based design systems, responsive spatial layouts & 60fps animations." },
+    { name: "Interactive Spatial Visualizers", tag: "3D & Graphics", description: "Cinematic interactive spatial visualizers, shaders, and real-time geometry rendering." },
   ],
   cloud: [
-    { name: "Docker & Kubernetes", tag: "Containers", description: "Containerized microservice meshes with automated horizontal pod autoscaling." },
-    { name: "AWS & Google Cloud", tag: "Cloud Infra", description: "Elastic compute, multi-region failover, serverless lambdas & VPC networks." },
-    { name: "PostgreSQL & Redis", tag: "Databases", description: "ACID transactional databases, connection pooling & distributed caching." },
-    { name: "CI/CD & Observability", tag: "DevOps", description: "Automated GitHub Actions pipelines, telemetry logging & uptime alerting." },
+    { name: "Container Orchestration", tag: "Containers", description: "Containerized microservice meshes with automated horizontal autoscaling." },
+    { name: "Distributed Cloud Infrastructure", tag: "Cloud Infra", description: "Elastic compute, multi-region failover, serverless runtimes & VPC networks." },
+    { name: "Transactional Data Engines", tag: "Databases", description: "ACID transactional databases, connection pooling & distributed caching." },
+    { name: "Telemetry & Observability", tag: "Operations", description: "Automated deployment pipelines, distributed tracing & real-time telemetry." },
   ],
   mobile: [
-    { name: "Flutter & Dart", tag: "Cross-Platform", description: "Unified iOS & Android builds with 60fps Skia engine rendering." },
-    { name: "React Native", tag: "Native Hybrid", description: "Platform-native bridge integration with fluid gesture mechanics." },
-    { name: "Hardware Integration", tag: "Sensors", description: "Biometric auth, BLE peripherals, camera feeds & background GPS." },
-    { name: "Offline Sync Engines", tag: "State", description: "Local SQLite/WatermelonDB persistence with background server sync." },
+    { name: "Cross-Platform Engines", tag: "Mobile Core", description: "Unified cross-platform builds with high-frequency hardware-accelerated rendering." },
+    { name: "Native Systems Integration", tag: "Hardware", description: "Platform-native bridge integration with fluid gesture mechanics." },
+    { name: "Hardware Telemetry", tag: "Sensors", description: "Biometric auth, BLE peripherals, camera feeds & background GPS." },
+    { name: "Offline Sync Engines", tag: "State", description: "Local embedded database persistence with background server synchronization." },
   ],
 };
 

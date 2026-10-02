@@ -60,15 +60,15 @@ const solutionsFor = [
 ];
 
 const techStack = [
-  "PYTHON",
-  "REACT",
-  "NODE.JS",
-  "NEXT.JS",
-  "JAVA",
-  "TENSORFLOW",
-  "AWS / GCP",
-  "POSTGRESQL",
-  ".NET",
+  "AUTONOMOUS AGENTS",
+  "NEURAL ARCHITECTURES",
+  "DISTRIBUTED SYSTEMS",
+  "EDGE INFERENCE",
+  "CRYPTOGRAPHIC VAULTS",
+  "ZERO-TRUST SECURITY",
+  "REAL-TIME TELEMETRY",
+  "HIGH-CONCURRENCY APIS",
+  "CLOUD MESH",
 ];
 
 export default function WhatWeDoPage() {
@@ -221,15 +221,15 @@ export default function WhatWeDoPage() {
               </div>
             </section>
 
-            {/* Tech Stack Banner */}
+            {/* Architectural Capabilities Banner */}
             <section className="mt-20 lg:mt-32">
               <div className="rounded-[36px] border border-border bg-gradient-to-b from-foreground/[0.03] to-foreground/[0.01] p-8 sm:p-12">
                 <div className="flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground mb-4">
                   <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
-                  Engineering Tech Stack
+                  Architectural Capabilities
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-6">
-                  Production stacks we build with daily.
+                  Production systems we engineer daily.
                 </h3>
                 <div className="flex flex-wrap gap-2.5">
                   {techStack.map((tech) => (

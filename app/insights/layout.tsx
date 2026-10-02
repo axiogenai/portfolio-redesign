@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Insights & Technical Blog — AI & Software Engineering | Team Axiogen",
   description:
-    "Read insights, technical articles, and architectural teardowns from Team Axiogen on AI, machine learning, web development, cybersecurity, branding, and digital engineering.",
+    "Read insights, technical articles, and architectural teardowns from Team Axiogen on AI, machine learning, software systems, cybersecurity, branding, and digital engineering.",
   keywords: [
     "AI engineering blog",
     "software architecture articles",
-    "Next.js performance guide",
+    "software performance guide",
     "machine learning tutorials India",
     "cybersecurity best practices",
     "Team Axiogen insights",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Insights & Blog — Team Axiogen",
     description:
-      "Technical articles and insights from Team Axiogen on AI, web development, and digital engineering.",
+      "Technical articles and insights from Team Axiogen on AI, software systems, and digital engineering.",
     url: "https://team.axiogen.in/insights",
     siteName: "team.axiogen.in",
     images: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Insights & Blog — Team Axiogen",
     description:
-      "Technical articles and insights from Team Axiogen.",
+      "Technical articles and insights from Team Axiogen on AI and software engineering.",
     images: ["/axiogen-logo.png"],
     creator: "@teamaxiogen",
   },

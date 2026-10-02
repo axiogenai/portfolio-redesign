@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s | Team Axiogen",
   },
   description:
-    "Team Axiogen is an AI & digital engineering studio from India. We build intelligent software systems, bespoke AI models, full-stack web & mobile platforms, cybersecurity architectures, and high-performance cloud solutions for startups, enterprises, and academic projects.",
+    "Team Axiogen is an AI & digital engineering studio from India. We build intelligent software systems, bespoke AI models, digital platforms, cybersecurity architectures, and high-performance cloud solutions for startups, enterprises, and academic projects.",
   keywords: [
     // Brand
     "Team Axiogen",
@@ -41,16 +41,15 @@ export const metadata: Metadata = {
 
     // Core services — high-intent
     "AI development company India",
-    "machine learning development India",
-    "full stack web development India",
-    "mobile app development India",
+    "machine learning systems India",
+    "digital engineering studio India",
+    "intelligent software systems",
+    "mobile application development India",
     "cybersecurity solutions India",
     "cloud architecture services",
     "custom software development India",
     "AI consulting India",
-    "Next.js development company",
-    "React developer India",
-    "SaaS development company India",
+    "SaaS platform development India",
 
     // Products
     "ClinicOS healthcare software",
@@ -61,17 +60,15 @@ export const metadata: Metadata = {
     "AI company Kolhapur",
     "software company Sangli",
     "tech company Maharashtra",
-    "web development Kolhapur",
-    "app development Maharashtra",
+    "digital engineering Kolhapur",
+    "software company Maharashtra",
 
-    // Long-tail discovery
+    // High-level discovery
     "startup MVP development India",
     "college project development India",
     "final year project help India",
     "healthcare software development",
-    "e-commerce website development India",
     "brand identity design India",
-    "digital engineering studio India",
     "AI automation company",
   ],
   authors: [{ name: "Team Axiogen", url: "https://team.axiogen.in" }],
@@ -282,7 +279,7 @@ const jsonLd = {
       priceRange: "$$",
       serviceType: [
         "AI Development",
-        "Web Development",
+        "Digital Engineering",
         "Mobile App Development",
         "Cybersecurity",
         "Cloud Architecture",

@@ -3,13 +3,13 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Our Work — Portfolio & Case Studies | Team Axiogen",
   description:
-    "Explore the portfolio of Team Axiogen — AI-powered applications, full-stack web platforms, mobile apps, cybersecurity tools, and digital engineering projects built for clients worldwide.",
+    "Explore the portfolio of Team Axiogen — AI-powered applications, intelligent software systems, mobile apps, cybersecurity tools, and digital engineering projects built for clients worldwide.",
   keywords: [
     "Team Axiogen portfolio",
     "AI projects India",
     "software case studies",
     "ClinicOS case study",
-    "web development portfolio",
+    "software engineering portfolio",
     "mobile app showcase",
     "cybersecurity tools portfolio",
     "digital engineering projects",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Our Work — Projects by Team Axiogen",
     description:
-      "Explore Team Axiogen's portfolio of AI applications, web platforms, mobile apps, and cybersecurity tools.",
+      "Explore Team Axiogen's portfolio of AI applications, digital platforms, mobile apps, and cybersecurity tools.",
     url: "https://team.axiogen.in/our-work",
     siteName: "team.axiogen.in",
     images: [

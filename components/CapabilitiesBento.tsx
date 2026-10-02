@@ -9,37 +9,37 @@ const services = [
     title: "AI / ML Solutions",
     description:
       "Custom models, pipelines, and intelligent automation built to solve complex computational problems.",
-    tags: ["TensorFlow", "PyTorch", "Automation", "Pipelines"],
+    tags: ["Neural Models", "Edge Inference", "Autonomous Agents", "Pipelines"],
   },
   {
-    title: "Web Development",
+    title: "Digital Platforms",
     description:
-      "Modern full-stack applications with premium UX/UI and robust database routing configurations.",
-    tags: ["Next.js", "React 19", "TypeScript", "Node.js"],
+      "Modern high-performance applications with premium UX/UI and robust distributed routing configurations.",
+    tags: ["Distributed Systems", "Sub-Second UX", "API Gateways", "State Engines"],
   },
   {
     title: "Mobile Apps",
     description:
       "Cross-platform native iOS & Android applications engineered for speed and fluid animations.",
-    tags: ["Flutter", "React Native", "iOS", "Android"],
+    tags: ["High-FPS UI", "Biometric Auth", "iOS", "Android"],
   },
   {
     title: "Cloud Solutions",
     description:
       "Scalable cloud infrastructure, container orchestration, and continuous DevOps deployment pipelines.",
-    tags: ["AWS", "GCP", "Docker", "DevOps"],
+    tags: ["Container Mesh", "Serverless", "Security", "DevOps"],
   },
   {
     title: "Database Design",
     description:
       "High-performance database architectures, query optimization, and secure data relation schemas.",
-    tags: ["PostgreSQL", "Supabase", "Indexing", "Schemas"],
+    tags: ["ACID Compliant", "Indexing", "Distributed Cache", "Schemas"],
   },
   {
     title: "Voice Synthesis",
     description:
       "Real-time AI voice generation, speech-to-text integration, and interactive voice interfaces.",
-    tags: ["Neural TTS", "Speech-to-Text", "Voice AI", "Whisper"],
+    tags: ["Neural TTS", "Speech-to-Text", "Voice AI", "Low Latency"],
   },
   {
     title: "Document Intelligence",
@@ -51,7 +51,7 @@ const services = [
     title: "Deep Research",
     description:
       "Automated academic research, intelligent documentation, and domain knowledge synthesis.",
-    tags: ["ArXiv Synthesis", "Documentation", "Literature Review", "Analysis"],
+    tags: ["Synthesis", "Documentation", "Literature Review", "Analysis"],
   },
   {
     title: "Meta & Google Ads",
@@ -80,15 +80,15 @@ const solutionsFor = [
 ];
 
 const techStack = [
-  "PYTHON",
-  "REACT",
-  "NODE.JS",
-  "NEXT.JS",
-  "JAVA",
-  "TENSORFLOW",
-  "AWS / GCP",
-  "POSTGRESQL",
-  ".NET",
+  "AUTONOMOUS AGENTS",
+  "NEURAL ARCHITECTURES",
+  "DISTRIBUTED SYSTEMS",
+  "EDGE INFERENCE",
+  "CRYPTOGRAPHIC VAULTS",
+  "ZERO-TRUST SECURITY",
+  "REAL-TIME TELEMETRY",
+  "HIGH-CONCURRENCY APIS",
+  "CLOUD MESH",
 ];
 
 const badges = [
