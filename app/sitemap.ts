@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/sectors",
     "/services",
     "/what-we-do",
+    "/privacy-policy",
   ];
 
   return publicRoutes.map((route) => ({
