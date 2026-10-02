@@ -390,7 +390,7 @@ export default function Footer() {
 
             {/* Massive Brand Watermark: CRAFTING SINCE 2024 */}
             <div className="border-t border-white/10 pt-6 sm:pt-8 pb-8 sm:pb-10 overflow-hidden select-none">
-              <h1 className="text-[clamp(1.5rem,7vw,7vw)] sm:text-5xl md:text-[6.5vw] lg:text-[7vw] font-black tracking-tight leading-none text-center lg:text-left uppercase whitespace-nowrap">
+              <div className="text-[clamp(1.5rem,7vw,7vw)] sm:text-5xl md:text-[6.5vw] lg:text-[7vw] font-black tracking-tight leading-none text-center lg:text-left uppercase whitespace-nowrap">
                 <ShinyText
                   text="CRAFTING SINCE 2024"
                   speed={2}
@@ -402,7 +402,7 @@ export default function Footer() {
                   yoyo={false}
                   pauseOnHover={false}
                 />
-              </h1>
+              </div>
             </div>
 
             {/* Bottom Copyright & Legal Strip with Fade-in */}

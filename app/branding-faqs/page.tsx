@@ -163,9 +163,28 @@ export default function BrandingFAQsPage() {
     }));
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: BRANDING_SECTIONS.flatMap((sec) =>
+      sec.items.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.a,
+        },
+      }))
+    ),
+  };
+
   return (
     <SmoothScroll>
       <div className="min-h-screen bg-background text-foreground font-['Schibsted_Grotesk',sans-serif]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
         <Navbar />
 
         <main

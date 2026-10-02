@@ -4,7 +4,7 @@ import React, { useRef, useState, useCallback, useLayoutEffect, useEffect } from
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-const Nu = ["One stop solution for", "all creative needs", "and goals"];
+const Nu = ["AI & Digital Engineering", "Architecting intelligent", "systems from India"];
 const ju = [0.16, 1, 0.3, 1] as const;
 
 const De = (e: number) => Math.round(e * 100) / 100;
@@ -254,6 +254,9 @@ export default function Hero() {
                 margin: 0,
               }}
             >
+              <span className="sr-only">
+                Team Axiogen — AI Development, Next.js Web Platforms, Mobile Apps, Cybersecurity Architectures &amp; Cloud Engineering Studio based in Kolhapur &amp; Sangli, Maharashtra, India. Founded by Aditya Patil, Aditya Minchekar, and Ajinkya More.
+              </span>
               {Nu.map((u, d) => (
                 <span
                   key={u}
