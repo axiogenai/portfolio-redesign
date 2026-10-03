@@ -9,63 +9,7 @@ import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import SmoothScroll from "@/components/SmoothScroll";
 
-interface Article {
-  id: string;
-  slug: string;
-  title: string;
-  category: string;
-  published_at: string;
-  read_time: number;
-  meta_description: string;
-}
-
-const articles: Article[] = [
-  {
-    id: "1",
-    slug: "why-brand-redesigns-fail",
-    title: "Why 90% of brand redesigns fail in the first six months",
-    category: "Branding",
-    published_at: "2024-08-14",
-    read_time: 4,
-    meta_description: "An identity is only as durable as its execution after launch day. How to build design systems that marketing and engineering teams actually adopt rather than circumvent.",
-  },
-  {
-    id: "2",
-    slug: "optimizing-llm-inference-latency-edge",
-    title: "Optimizing LLM inference latency and token throughput at the edge",
-    category: "AI Architecture",
-    published_at: "2024-07-22",
-    read_time: 6,
-    meta_description: "KV-cache pruning, speculative decoding, and quantization strategies that cut round-trip latency to sub-100ms on serverless GPU clusters.",
-  },
-  {
-    id: "3",
-    slug: "beyond-templates-bespoke-engineering",
-    title: "Beyond templates: Why bespoke software architectures scale while builders crumble",
-    category: "Engineering",
-    published_at: "2024-06-18",
-    read_time: 5,
-    meta_description: "When codebases are engineered with clean component boundaries and headless pipelines, page load stays instantaneous as your catalog and team scale.",
-  },
-  {
-    id: "4",
-    slug: "creative-testing-without-guesswork",
-    title: "Creative testing without guesswork: Setting up honest attribution signals",
-    category: "Strategy",
-    published_at: "2024-05-30",
-    read_time: 5,
-    meta_description: "How to evaluate creative performance using business-level purchase intent rather than vanity platform metrics and click fraud.",
-  },
-  {
-    id: "5",
-    slug: "ai-force-multiplier-in-modern-studios",
-    title: "AI as a force multiplier, not an identity replacement",
-    category: "Engineering",
-    published_at: "2024-04-12",
-    read_time: 7,
-    meta_description: "How modern multidisciplinary studios leverage generative models and automations to amplify human craft without compromising taste.",
-  },
-];
+import { ARTICLES } from "@/lib/articles";
 
 const formatDate = (d: string) => {
   return new Date(d).toLocaleDateString("en-IN", {
@@ -79,14 +23,14 @@ export default function InsightsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const categories = useMemo(() => {
-    const cats = Array.from(new Set(articles.map((a) => a.category))).sort();
+    const cats = Array.from(new Set(ARTICLES.map((a) => a.category))).sort();
     return ["All", ...cats];
   }, []);
 
   const filteredArticles = useMemo(() => {
     return activeCategory === "All"
-      ? articles
-      : articles.filter((a) => a.category === activeCategory);
+      ? ARTICLES
+      : ARTICLES.filter((a) => a.category === activeCategory);
   }, [activeCategory]);
 
   const [featured, ...rest] = filteredArticles;
@@ -120,8 +64,8 @@ export default function InsightsPage() {
                 const isActive = activeCategory === cat;
                 const count =
                   cat === "All"
-                    ? articles.length
-                    : articles.filter((a) => a.category === cat).length;
+                    ? ARTICLES.length
+                    : ARTICLES.filter((a) => a.category === cat).length;
 
                 return (
                   <button
@@ -172,7 +116,7 @@ export default function InsightsPage() {
                 className="border-y border-border"
               >
                 <Link
-                  href="/contact"
+                  href={`/insights/${featured.slug}`}
                   className="group grid grid-cols-1 gap-6 py-8 lg:grid-cols-12 lg:gap-10 lg:py-14"
                 >
                   <div className="lg:col-span-7">
@@ -234,7 +178,7 @@ export default function InsightsPage() {
                     }}
                     className="flex flex-col justify-between group"
                   >
-                    <Link href="/contact" className="block">
+                    <Link href={`/insights/${item.slug}`} className="block">
                       <div className="flex flex-wrap items-center gap-x-3 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground mb-3">
                         <span>{item.category}</span>
                         <span aria-hidden="true" className="text-muted-foreground/40">/</span>

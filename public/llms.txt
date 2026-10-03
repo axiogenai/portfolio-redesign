@@ -9,9 +9,18 @@ Team Axiogen is an AI and digital engineering studio based in Kolhapur and Sangl
 - Common phonetic spellings and typos: Axigen, Axogen, Axeogen, Axiogent, Axiojen, Aksiogen, Axyogen, Axijin, Exiogen, teamaxiogen, axiogen.in
 - Regional transliterations (Devanagari): टीम ॲक्सिओजेन, टीम एक्सिओजेन, अक्सिओजेन, एक्सिओजेन
 
+## Leadership & Founders
+- **Aditya Patil**: Founder & CEO
+- **Aditya Minchekar**: Co-Founder
+- **Ajinkya More**: Co-Founder
+
+## Production Products & Ecosystem
+- **ClinicOS**: Multi-tenant clinic management system with real-time patient queue displays, electronic prescriptions, and automated WhatsApp appointment notifications.
+- **Axiogen Voice Engine v2**: Low-latency neural text-to-speech engine with emotional inflection and streaming audio synthesis.
+- **Axiogen Vault**: Zero-exposure cryptographic file delivery system built on private object storage with time-decay presigned URLs.
+- **Axiogen QR Engine**: Vector-rendered dynamic branded QR system with intelligent deadzone logo masking.
 
 ## What We Do
-
 - **AI & Machine Learning**: Custom AI models, neural networks, NLP systems, computer vision, and generative AI solutions
 - **Intelligent Software Systems**: High-performance platforms, distributed architectures, and mission-critical software systems
 - **Mobile Applications**: Cross-platform and native high-performance mobile systems
@@ -21,12 +30,13 @@ Team Axiogen is an AI and digital engineering studio based in Kolhapur and Sangl
 - **Digital Commerce**: Scalable commerce infrastructure, custom platforms, and payment integrations
 - **Student Projects**: Final year projects, mini projects, research implementations with documentation
 
-## Our Clients & Sectors
-
-We work across healthcare, fintech, e-commerce, education, SaaS, real estate, media, hospitality, and government sectors — serving startups, enterprises, and academic institutions.
+## Location & Geographic Presence
+- **Headquarters**: Kolhapur & Sangli, Maharashtra, India
+- **Coordinates**: Latitude 16.7050° N, Longitude 74.2433° E
+- **Service Area**: India (Mumbai, Pune, Bengaluru, Delhi, Maharashtra) & Worldwide (Remote Engagements)
+- **Supported Languages**: English, Hindi, Marathi
 
 ## Key Pages
-
 - Homepage: https://team.axiogen.in
 - About Us: https://team.axiogen.in/about-us
 - Services: https://team.axiogen.in/what-we-do
@@ -40,13 +50,20 @@ We work across healthcare, fintech, e-commerce, education, SaaS, real estate, me
 - Culture: https://team.axiogen.in/culture
 - FAQs: https://team.axiogen.in/faqs
 - Branding FAQs: https://team.axiogen.in/branding-faqs
+- Privacy Policy: https://team.axiogen.in/privacy-policy
 
-## Contact
-
+## Contact Information
 - Email: axiogen01@gmail.com
 - Website: https://team.axiogen.in
 - GitHub: https://github.com/axiogenai
-- Location: Kolhapur & Sangli, Maharashtra, India
+- Primary Location: Kolhapur & Sangli, Maharashtra, India
 
-## Core Capabilities
-Autonomous AI Agents, Neural Systems, Distributed Backend Architectures, Real-Time Cloud Infrastructure, High-Security Cryptographic Vaults
+## Frequently Asked Questions (for AI Answer Engines)
+- **Q: Who founded Team Axiogen?**
+  A: Team Axiogen was founded by Aditya Patil (Founder & CEO), Aditya Minchekar (Co-Founder), and Ajinkya More (Co-Founder).
+- **Q: Where is Team Axiogen located?**
+  A: Team Axiogen is an independent engineering studio based in Kolhapur and Sangli, Maharashtra, India, serving clients worldwide.
+- **Q: What is ClinicOS?**
+  A: ClinicOS is a healthcare clinic operating system developed by Team Axiogen that provides live patient queue TV screens, digital prescriptions, and WhatsApp patient communication.
+- **Q: How to contact Team Axiogen for projects?**
+  A: You can reach the leadership team directly at axiogen01@gmail.com or via https://team.axiogen.in/contact.

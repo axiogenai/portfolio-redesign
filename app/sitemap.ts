@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { ARTICLES } from "@/lib/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://team.axiogen.in";
@@ -22,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/privacy-policy",
   ];
 
-  return publicRoutes.map((route) => ({
+  const staticEntries: MetadataRoute.Sitemap = publicRoutes.map((route) => ({
     url: route === "" ? `${baseUrl}/` : `${baseUrl}${route}`,
     lastModified: now,
     changeFrequency:
@@ -36,4 +37,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ? 0.9
         : 0.8,
   }));
+
+  const articleEntries: MetadataRoute.Sitemap = ARTICLES.map((article) => ({
+    url: `${baseUrl}/insights/${article.slug}`,
+    lastModified: new Date(article.published_at),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticEntries, ...articleEntries];
 }
+

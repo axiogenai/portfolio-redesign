@@ -361,6 +361,10 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="512x512" href="/icon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="msvalidate.01" content="a23d4b89789449e0854989d10df30bde" />
+        <meta name="geo.region" content="IN-MH" />
+        <meta name="geo.placename" content="Kolhapur, Sangli, Maharashtra, India" />
+        <meta name="geo.position" content="16.7050;74.2433" />
+        <meta name="ICBM" content="16.7050, 74.2433" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
