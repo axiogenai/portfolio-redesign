@@ -1,5 +1,53 @@
 [
   {
+    "id": "2174c003-0bf9-4562-a93f-36bc5ed3e602",
+    "name": "ClinicOS",
+    "category": "Healthcare & Medical SaaS",
+    "year": "2026",
+    "desc": "Healthcare operating system orchestrating multi-tenant clinic workflows, real-time queue displays, digital prescriptions, and automated WhatsApp patient communication.",
+    "tech": [
+      "Distributed SaaS",
+      "Real-Time Pub/Sub",
+      "Smart TV Engine",
+      "WhatsApp Gateway"
+    ],
+    "display_order": 0,
+    "hidden": false,
+    "link": "https://team.axiogen.in/insights/building-clinicos-healthcare-operating-system"
+  },
+  {
+    "id": "inexus-ide-cloud-studio-2026",
+    "name": "iNexus IDE",
+    "category": "Developer Tools & Cloud Studio",
+    "year": "2026",
+    "desc": "High-performance cloud-based code studio with sandboxed execution runtime, Monaco editor, and autonomous AI code assistant.",
+    "tech": [
+      "Cloud IDE",
+      "Judge0 Engine",
+      "Monaco Editor",
+      "Groq AI Assistant"
+    ],
+    "link": "https://github.com/axiogenai/online-ide",
+    "display_order": 1,
+    "hidden": false
+  },
+  {
+    "id": "whatsapp-ai-saas-pulse-2026",
+    "name": "Axiogen WhatsApp AI",
+    "category": "Autonomous AI & Conversational SaaS",
+    "year": "2026",
+    "desc": "Autonomous personal AI assistant for WhatsApp with voice note transcription, conversational image reasoning, and 24/7 client engagement.",
+    "tech": [
+      "WhatsApp SaaS",
+      "Voice Note Transcription",
+      "Conversational AI",
+      "CRM Webhooks"
+    ],
+    "link": "https://github.com/axiogenai/whatsapp-saas",
+    "display_order": 2,
+    "hidden": false
+  },
+  {
     "id": "69d396a1-5015-4bb7-8a7f-39ebd46b6804",
     "name": "SEOHub",
     "category": "SEO Tool",
@@ -12,7 +60,7 @@
       "PageSpeed API"
     ],
     "link": "https://seohubpro.vercel.app",
-    "display_order": 0,
+    "display_order": 3,
     "hidden": false
   },
   {
@@ -28,7 +76,7 @@
       "HTML",
       "CSS"
     ],
-    "display_order": 1,
+    "display_order": 4,
     "hidden": false
   },
   {
@@ -44,7 +92,7 @@
       "typescript"
     ],
     "link": "https://rebuildly.vercel.app",
-    "display_order": 2,
+    "display_order": 5,
     "hidden": false
   },
   {
@@ -60,7 +108,7 @@
       "SQLite"
     ],
     "link": "https://invenscope.vercel.app/",
-    "display_order": 3,
+    "display_order": 6,
     "hidden": false
   },
   {
@@ -76,7 +124,7 @@
       "Docker"
     ],
     "link": "https://axiogen.in",
-    "display_order": 4,
+    "display_order": 7,
     "hidden": false
   },
   {
@@ -92,7 +140,7 @@
       "Socket.IO",
       "SQLite"
     ],
-    "display_order": 5,
+    "display_order": 8,
     "hidden": false
   },
   {
@@ -108,7 +156,7 @@
       "PostgreSQL",
       "Docker"
     ],
-    "display_order": 6,
+    "display_order": 9,
     "hidden": false
   },
   {
@@ -123,7 +171,7 @@
       "Vitest",
       "Node.js"
     ],
-    "display_order": 7,
+    "display_order": 10,
     "hidden": false
   },
   {
@@ -139,7 +187,7 @@
       "CSS"
     ],
     "link": "https://truth-lenspro.vercel.app/",
-    "display_order": 8,
+    "display_order": 11,
     "hidden": false
   },
   {
@@ -155,7 +203,7 @@
       "TailwindCSS"
     ],
     "link": "https://blockchainforge.vercel.app",
-    "display_order": 9,
+    "display_order": 12,
     "hidden": false
   },
   {
@@ -171,7 +219,7 @@
       "PostgreSQL"
     ],
     "link": "https://naac-nine.vercel.app",
-    "display_order": 10,
+    "display_order": 13,
     "hidden": false
   },
   {
@@ -187,7 +235,7 @@
       "TailwindCSS"
     ],
     "link": "https://sessionwarden.in",
-    "display_order": 11,
+    "display_order": 14,
     "hidden": false
   },
   {
@@ -203,7 +251,7 @@
       "Vanilla CSS"
     ],
     "link": "https://luminabackgrounds.vercel.app",
-    "display_order": 12,
+    "display_order": 15,
     "hidden": false
   },
   {
@@ -218,22 +266,7 @@
       "Tailwind CSS",
       "Node.js"
     ],
-    "display_order": 13,
-    "hidden": false
-  },
-  {
-    "id": "2174c003-0bf9-4562-a93f-36bc5ed3e602",
-    "name": "Axiogen ClinicOS",
-    "category": "Healthcare & Medical SaaS",
-    "year": "2026",
-    "desc": "Comprehensive medical clinic management system, EHR, patient queue management, and electronic prescription engine.",
-    "tech": [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Supabase"
-    ],
-    "display_order": 14,
+    "display_order": 16,
     "hidden": false
   },
   {
@@ -249,7 +282,7 @@
       "FastAPI",
       "Groq AI"
     ],
-    "display_order": 15,
+    "display_order": 17,
     "hidden": false
   },
   {
@@ -264,7 +297,7 @@
       "Node.js",
       "MongoDB"
     ],
-    "display_order": 16,
+    "display_order": 18,
     "hidden": false
   },
   {
@@ -280,7 +313,7 @@
       "Tree-Sitter",
       "Docker"
     ],
-    "display_order": 17,
+    "display_order": 19,
     "hidden": false
   },
   {
@@ -296,7 +329,7 @@
       "CSS3",
       "REST APIs"
     ],
-    "display_order": 18,
+    "display_order": 20,
     "hidden": false
   },
   {
@@ -311,7 +344,7 @@
       "Tailwind CSS",
       "PostgreSQL"
     ],
-    "display_order": 19,
+    "display_order": 21,
     "hidden": false
   },
   {
@@ -319,14 +352,14 @@
     "name": "Maison Velours",
     "category": "Luxury E-Commerce",
     "year": "2026",
-    "desc": "Maison Velours — Luxury Women Ethnic Saree & Bridal Store with interactive catalog, digital showcase, and seamless checkout.",
+    "desc": "Maison Velours \u2014 Luxury Women Ethnic Saree & Bridal Store with interactive catalog, digital showcase, and seamless checkout.",
     "tech": [
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
       "Framer Motion"
     ],
-    "display_order": 20,
+    "display_order": 22,
     "hidden": false
   },
   {
@@ -341,7 +374,7 @@
       "CSS3",
       "Bootstrap"
     ],
-    "display_order": 21,
+    "display_order": 23,
     "hidden": false
   },
   {
@@ -356,7 +389,7 @@
       "Tailwind CSS",
       "Supabase"
     ],
-    "display_order": 22,
+    "display_order": 24,
     "hidden": false
   },
   {
@@ -371,7 +404,7 @@
       "Express",
       "Redis"
     ],
-    "display_order": 23,
+    "display_order": 25,
     "hidden": false
   }
 ]
