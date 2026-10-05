@@ -159,7 +159,7 @@ export default function Navbar() {
             {/* Dark / Light Mode Toggle Button */}
             <button
               type="button"
-              onClick={toggleTheme}
+              onClick={(e) => toggleTheme(e)}
               className={`relative h-10 w-10 md:h-11 md:w-11 rounded-full flex items-center justify-center transition-all duration-300 overflow-hidden select-none shrink-0 border border-black/10 dark:border-white/15 bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.15] hover:scale-105 active:scale-95 shadow-sm ${
                 isCoralHeader
                   ? "text-black border-black/20 bg-black/5 hover:bg-black/10"
