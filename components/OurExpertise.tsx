@@ -1,89 +1,180 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
-import { ArrowUpRight, Star, ChevronUp, ChevronDown } from "lucide-react";
+import React, { useRef, useState, useEffect } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+  MotionValue,
+} from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 interface ServiceItem {
   id: string;
   title: string;
-  blurb: string;
-  href: string;
-  image: string;
 }
 
+// Axiogen's genuine core services
 const services: ServiceItem[] = [
   {
-    id: "ai",
-    title: "AI & Neural Systems",
-    blurb: "Custom LLMs, autonomous agents, neural models and real-time edge inference.",
-    href: "#contact",
-    image: "/axiogen-neural.jpg",
+    id: "ai-neural",
+    title: "AI & NEURAL",
   },
   {
-    id: "web",
-    title: "Web Platforms",
-    blurb: "High-performance digital platforms engineered for ultra-low latency & scale.",
-    href: "#contact",
-    image: "/project-nth.webp",
+    id: "web-platforms",
+    title: "WEB PLATFORMS",
   },
   {
-    id: "app",
-    title: "App Development",
-    blurb: "Native and cross-platform iOS and Android mobile applications.",
-    href: "#contact",
-    image: "/video-gear.webp",
+    id: "mobile-apps",
+    title: "MOBILE APPS",
   },
   {
-    id: "cloud",
-    title: "Cybersecurity & Cloud",
-    blurb: "Zero-trust architectures, cryptographic vaults and hardened cloud infrastructure.",
-    href: "#contact",
-    image: "/axiogen-cyber.jpg",
+    id: "cloud-devops",
+    title: "CLOUD & DEVOPS",
   },
   {
-    id: "automation",
-    title: "Business Automation",
-    blurb: "Autonomous workflow pipelines, intelligent WhatsApp bots and telemetry.",
-    href: "#contact",
-    image: "/team-collab.webp",
+    id: "data-architecture",
+    title: "DATA ARCHITECTURE",
   },
   {
-    id: "brand",
-    title: "Brand & Digital Identity",
-    blurb: "Coherent mathematical design systems, product UX and brand presence.",
-    href: "#contact",
-    image: "/creative-office.webp",
+    id: "voice-engines",
+    title: "VOICE ENGINES",
+  },
+  {
+    id: "autonomous-agents",
+    title: "AUTONOMOUS AGENTS",
   },
 ];
 
-const bentoMetrics = [
-  { label: "Systems Shipped", value: "46+", detail: "Enterprise Grade" },
-  { label: "Inference Events", value: "210M+", detail: "Sub-50ms Latency" },
-  { label: "Platforms Scaled", value: "83", detail: "Global Deployments" },
-  { label: "Client Rating", value: "4.9", isRating: true, detail: "Verified Reviews" },
-];
+const springCursor = { stiffness: 500, damping: 28, mass: 0.4 };
 
-const customEase = [0.16, 1, 0.3, 1] as const;
-const springCursor = { stiffness: 450, damping: 28, mass: 0.5 };
+/**
+ * 100% GPU Compositor Driven Service Row.
+ * Zero React state re-renders during scrolling — buttery smooth 120fps.
+ */
+function KineticServiceRow({
+  service,
+  idx,
+  progress,
+  onClick,
+}: {
+  service: ServiceItem;
+  idx: number;
+  progress: MotionValue<number>;
+  onClick: () => void;
+}) {
+  // y position along 3D cylinder:
+  // When progress < idx (below center): y is positive (+105, +210)
+  // When progress = idx (at center): y = 0
+  // When progress > idx (above center): y is negative (-105, -210)
+  const y = useTransform(
+    progress,
+    [idx - 2, idx - 1, idx, idx + 1, idx + 2],
+    [210, 105, 0, -105, -210]
+  );
+
+  // 3D cylindrical curvature tilt:
+  // Bottom rows tilt forward (-28deg), center row is flat (0deg), top rows tilt back (+28deg)
+  const rotateX = useTransform(
+    progress,
+    [idx - 2, idx - 1, idx, idx + 1, idx + 2],
+    [-52, -28, 0, 28, 52]
+  );
+
+  // Scale: 1.0 at center, down to 0.76 at edges
+  const scale = useTransform(
+    progress,
+    [idx - 2, idx - 1, idx, idx + 1, idx + 2],
+    [0.74, 0.88, 1.0, 0.88, 0.74]
+  );
+
+  // Row container opacity: visible within ±1.8 range
+  const containerOpacity = useTransform(
+    progress,
+    [idx - 2.2, idx - 1, idx, idx + 1, idx + 2.2],
+    [0, 0.82, 1.0, 0.82, 0]
+  );
+
+  // Solid crisp white text opacity (active at center)
+  const whiteOpacity = useTransform(
+    progress,
+    [idx - 0.48, idx, idx + 0.48],
+    [0, 1, 0]
+  );
+
+  // Radiant amber/copper text opacity (active when off-center)
+  const amberOpacity = useTransform(
+    progress,
+    [idx - 1.8, idx - 1, idx - 0.4, idx, idx + 0.4, idx + 1, idx + 1.8],
+    [0.2, 1, 0.85, 0, 0.85, 1, 0.2]
+  );
+
+  // Elevation index
+  const zIndex = useTransform(
+    progress,
+    [idx - 0.5, idx, idx + 0.5],
+    [10, 30, 10]
+  );
+
+  return (
+    <motion.div
+      onClick={onClick}
+      style={{
+        y,
+        rotateX,
+        scale,
+        opacity: containerOpacity,
+        zIndex,
+        transformOrigin: "center center",
+      }}
+      className="absolute flex items-center justify-center cursor-pointer select-none will-change-transform px-4"
+    >
+      <div className="relative flex items-center justify-center text-center">
+        {/* Layer 1: Ambient Radiant Copper/Amber Text (Inactive) */}
+        <motion.span
+          style={{ opacity: amberOpacity }}
+          className="whitespace-nowrap font-extrabold uppercase tracking-[-0.035em] text-[#FF5A28] drop-shadow-[0_2px_20px_rgba(255,90,40,0.4)] text-3xl sm:text-5xl lg:text-7xl xl:text-8xl"
+        >
+          {service.title}
+        </motion.span>
+
+        {/* Layer 2: Solid Crisp White Text (Active Center) */}
+        <motion.span
+          style={{ opacity: whiteOpacity }}
+          className="absolute inset-0 flex items-center justify-center whitespace-nowrap font-extrabold uppercase tracking-[-0.035em] text-white drop-shadow-[0_2px_36px_rgba(255,255,255,0.3)] text-3xl sm:text-5xl lg:text-7xl xl:text-8xl pointer-events-none"
+        >
+          {service.title}
+        </motion.span>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function OurExpertise() {
-  const [activeIdx, setActiveIdx] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const drumRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [isWheelLocked, setIsWheelLocked] = useState(false);
 
-  const containerRef = useRef<HTMLDivElement>(null);
   const pointerX = useMotionValue(-200);
   const pointerY = useMotionValue(-200);
   const smoothX = useSpring(pointerX, springCursor);
   const smoothY = useSpring(pointerY, springCursor);
 
   const total = services.length;
-  const prevIdx = (activeIdx - 1 + total) % total;
-  const nextIdx = (activeIdx + 1) % total;
 
-  // Media query for fine pointer
+  // Track scroll position through the tall sticky container
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Direct 1:1 GPU mapping with Lenis smooth scroll — zero lag, instantaneous response
+  const progress = useTransform(scrollYProgress, [0, 1], [0, total - 1]);
+
+  // Media query for fine pointer cursor follower
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
     const updateMedia = () => setIsDesktop(media.matches);
@@ -96,276 +187,120 @@ export default function OurExpertise() {
   useEffect(() => {
     if (!isDesktop) return;
     const onPointerMove = (e: PointerEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
+      if (drumRef.current) {
+        const rect = drumRef.current.getBoundingClientRect();
         pointerX.set(e.clientX - rect.left);
         pointerY.set(e.clientY - rect.top);
       }
     };
-    const el = containerRef.current;
+    const el = drumRef.current;
     if (el) {
       el.addEventListener("pointermove", onPointerMove, { passive: true });
       return () => el.removeEventListener("pointermove", onPointerMove);
     }
   }, [isDesktop, pointerX, pointerY]);
 
-  // Auto-advance timer (pauses when hovered)
-  useEffect(() => {
-    if (isHovered) return;
-    const interval = setInterval(() => {
-      setActiveIdx((prev) => (prev + 1) % total);
-    }, 3400);
-    return () => clearInterval(interval);
-  }, [isHovered, total]);
-
-  // Handle smooth scroll wheel navigation
-  const handleWheel = useCallback(
-    (e: React.WheelEvent) => {
-      if (Math.abs(e.deltaY) < 25 || isWheelLocked) return;
-
-      setIsWheelLocked(true);
-      if (e.deltaY > 0) {
-        setActiveIdx((prev) => (prev + 1) % total);
-      } else {
-        setActiveIdx((prev) => (prev - 1 + total) % total);
-      }
-
-      setTimeout(() => {
-        setIsWheelLocked(false);
-      }, 280);
-    },
-    [isWheelLocked, total]
-  );
+  // Click on any visible row to smoothly scroll the page directly to it
+  const handleItemClick = (idx: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const startY = window.scrollY + rect.top;
+    const totalScrollDistance =
+      containerRef.current.offsetHeight - window.innerHeight;
+    const targetY = startY + (idx / (total - 1)) * totalScrollDistance;
+    window.scrollTo({ top: targetY, behavior: "smooth" });
+  };
 
   return (
-    <div id="expertise" className="w-full bg-background px-3 sm:px-5 md:px-6">
-      <section className="relative w-full overflow-hidden rounded-[24px] bg-[#08080A] font-['Schibsted_Grotesk',sans-serif] text-white border border-white/[0.04] md:rounded-[36px]">
-        {/* Subtle atmospheric ambient glow */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-96 w-[700px] rounded-full bg-[#FF6B42]/[0.025] blur-[120px]"
-        />
+    <section
+      id="expertise"
+      ref={containerRef}
+      className="relative w-full h-[320vh] bg-background text-foreground"
+    >
+      {/* Viewport-locked Sticky Frame */}
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden bg-[#0A0A0D] text-white border-y border-white/[0.04] px-4 sm:px-8 md:px-12 lg:px-16 py-8 sm:py-10 md:py-12 font-['Schibsted_Grotesk',sans-serif]">
+        {/* Top Mission Statement */}
+        <div className="flex flex-col items-center justify-center text-center max-w-2xl mx-auto pt-2">
+          <p className="font-normal text-xs sm:text-sm md:text-base leading-relaxed text-zinc-400">
+            We build brand systems that behave like software and websites that behave like objects, for teams who would rather be remembered than described.
+          </p>
 
-        <div className="relative z-10 px-5 pt-16 pb-12 sm:px-8 md:px-12 lg:px-16 lg:pt-24 lg:pb-16 max-w-7xl mx-auto">
-          {/* Top Bar: Eyebrow + Quote + Year */}
-          <div className="flex flex-col items-center justify-between gap-6 md:flex-row md:items-start text-center md:text-left">
-            {/* Left Tag */}
-            <div className="flex items-center gap-2 font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-[#FF6B42]">
-              <span className="h-[2px] w-4 bg-[#FF6B42]" />
-              <span>Our Expertise</span>
+          {/* Mobile Eyebrows (shown on small screens) */}
+          <div className="mt-4 flex w-full items-center justify-between text-[10px] font-mono uppercase tracking-[0.2em] md:hidden">
+            <div className="flex items-center gap-2 text-[#FF6B42]">
+              <span className="h-[1.5px] w-4 bg-[#FF6B42]" />
+              <span>OUR CRAFT</span>
             </div>
+            <div className="text-zinc-600">EST. 2024</div>
+          </div>
+        </div>
 
-            {/* Center Mission Statement */}
-            <p className="max-w-xl text-center font-normal text-xs sm:text-sm md:text-base leading-relaxed text-zinc-400">
-              We engineer intelligent software systems that behave like thinking architectures and digital platforms that scale with mathematical precision.
-            </p>
-
-            {/* Right Tag */}
-            <div className="hidden font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-zinc-500 md:block">
-              EST. 2024
-            </div>
+        {/* Center Zone: 3D Kinetic Drum Roller with Side Tags */}
+        <div className="relative w-full my-auto flex items-center justify-between">
+          {/* Left Eyebrow (Desktop) */}
+          <div className="hidden md:flex items-center gap-2.5 text-[#FF6B42] text-[11px] font-mono uppercase tracking-[0.22em] select-none pl-2">
+            <span className="h-[1.5px] w-6 bg-[#FF6B42]" />
+            <span>OUR CRAFT</span>
           </div>
 
-          {/* Interactive 3D Kinetic Rolling Drum Viewport */}
+          {/* 3D Drum Viewport */}
           <div
-            ref={containerRef}
-            onWheel={handleWheel}
+            ref={drumRef}
+            className="relative h-[300px] sm:h-[360px] md:h-[420px] flex-1 max-w-[1100px] mx-auto flex items-center justify-center select-none overflow-hidden"
+            style={{ perspective: 1200 }}
             onPointerEnter={() => setIsHovered(true)}
             onPointerLeave={() => setIsHovered(false)}
-            className="relative my-10 sm:my-14 lg:my-16 h-[340px] sm:h-[400px] lg:h-[440px] w-full flex flex-col items-center justify-center select-none overflow-hidden"
-            style={{ perspective: 1200 }}
           >
-            {/* Floating Cursor Circle Follower (Shown in Desktop Reference) */}
+            {/* Floating Cursor Circle Follower */}
             {isDesktop && isHovered && (
               <motion.div
                 aria-hidden="true"
-                className="pointer-events-none absolute left-0 top-0 z-50 -ml-7 -mt-7 flex h-14 w-14 items-center justify-center rounded-full bg-white text-black shadow-[0_12px_32px_rgba(0,0,0,0.7)]"
-                style={{
-                  x: smoothX,
-                  y: smoothY,
-                }}
+                className="pointer-events-none absolute left-0 top-0 z-50 -ml-7 -mt-7 flex h-14 w-14 items-center justify-center rounded-full bg-white text-black shadow-[0_12px_32px_rgba(0,0,0,0.85)]"
+                style={{ x: smoothX, y: smoothY }}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.18 }}
               >
                 <ArrowUpRight className="h-6 w-6 stroke-[2.5]" />
               </motion.div>
             )}
 
-            {/* Vertical Drum Wheel Stage */}
-            <div className="relative w-full flex flex-col items-center justify-center">
-              {/* Previous Row (Top Row - angled back, blurred, warm copper/gradient text) */}
-              <button
-                type="button"
-                onClick={() => setActiveIdx(prevIdx)}
-                className="group absolute -top-24 sm:-top-28 lg:-top-32 flex items-center justify-center gap-3 sm:gap-4 transition-all duration-500 cursor-pointer opacity-35 hover:opacity-75 focus:outline-none"
-                style={{
-                  transform: "rotateX(26deg) scale(0.82) translateZ(-40px)",
-                  filter: "blur(1.5px)",
-                }}
-                aria-label={`Select ${services[prevIdx].title}`}
-              >
-                <span className="relative block h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 shrink-0 overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-zinc-900/80 shadow-md">
-                  <img
-                    src={services[prevIdx].image}
-                    alt=""
-                    className="h-full w-full object-cover grayscale brightness-75 transition-all duration-300 group-hover:grayscale-0"
-                  />
-                </span>
-                <span className="whitespace-nowrap font-extrabold uppercase tracking-[-0.03em] text-amber-500/80 bg-gradient-to-r from-amber-600 via-[#FF6B42] to-amber-500 bg-clip-text text-transparent text-2xl sm:text-4xl lg:text-5xl">
-                  {services[prevIdx].title}
-                </span>
-              </button>
-
-              {/* Active Focused Row (Center Row - Large, High-Contrast White, 3D Squircle Icon) */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={services[activeIdx].id}
-                  initial={{ opacity: 0, y: 28, scale: 0.92, rotateX: -15 }}
-                  animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-                  exit={{ opacity: 0, y: -28, scale: 0.92, rotateX: 15 }}
-                  transition={{ duration: 0.45, ease: customEase }}
-                  className="z-20 flex flex-col items-center"
-                >
-                  <a
-                    href={services[activeIdx].href}
-                    className="group flex items-center justify-center gap-4 sm:gap-6 lg:gap-8 focus:outline-none cursor-pointer"
-                  >
-                    {/* 3D Glossy Squircle Badge */}
-                    <div className="relative h-14 w-14 sm:h-18 sm:w-18 lg:h-20 lg:w-20 shrink-0 overflow-hidden rounded-[18px] sm:rounded-[22px] border border-white/20 bg-zinc-900 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-105">
-                      <img
-                        src={services[activeIdx].image}
-                        alt=""
-                        className="h-full w-full object-cover"
-                      />
-                      {/* Glossy inner rim */}
-                      <div className="pointer-events-none absolute inset-0 rounded-[18px] sm:rounded-[22px] ring-1 ring-inset ring-white/25" />
-                    </div>
-
-                    {/* Massive Bold Center Typography */}
-                    <h3
-                      className="whitespace-nowrap font-extrabold tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-zinc-200"
-                      style={{
-                        fontSize: "clamp(2.3rem, 6.2vw, 6.5rem)",
-                        lineHeight: 1,
-                      }}
-                    >
-                      {services[activeIdx].title}
-                    </h3>
-                  </a>
-
-                  {/* Active Service Blurb Description */}
-                  <motion.p
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, delay: 0.1 }}
-                    className="mt-5 max-w-lg text-center text-xs sm:text-sm font-mono tracking-wide text-zinc-400 px-4"
-                  >
-                    {services[activeIdx].blurb}
-                  </motion.p>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Next Row (Bottom Row - angled forward, blurred, warm copper/gradient text) */}
-              <button
-                type="button"
-                onClick={() => setActiveIdx(nextIdx)}
-                className="group absolute -bottom-24 sm:-bottom-28 lg:-bottom-32 flex items-center justify-center gap-3 sm:gap-4 transition-all duration-500 cursor-pointer opacity-35 hover:opacity-75 focus:outline-none"
-                style={{
-                  transform: "rotateX(-26deg) scale(0.82) translateZ(-40px)",
-                  filter: "blur(1.5px)",
-                }}
-                aria-label={`Select ${services[nextIdx].title}`}
-              >
-                <span className="relative block h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 shrink-0 overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-zinc-900/80 shadow-md">
-                  <img
-                    src={services[nextIdx].image}
-                    alt=""
-                    className="h-full w-full object-cover grayscale brightness-75 transition-all duration-300 group-hover:grayscale-0"
-                  />
-                </span>
-                <span className="whitespace-nowrap font-extrabold uppercase tracking-[-0.03em] text-amber-500/80 bg-gradient-to-r from-amber-600 via-[#FF6B42] to-amber-500 bg-clip-text text-transparent text-2xl sm:text-4xl lg:text-5xl">
-                  {services[nextIdx].title}
-                </span>
-              </button>
-            </div>
-
-            {/* Quick Wheel Navigation Controls & Indicators */}
-            <div className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-30">
-              <button
-                type="button"
-                onClick={() => setActiveIdx((prev) => (prev - 1 + total) % total)}
-                aria-label="Previous service"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-zinc-900/80 text-zinc-400 hover:text-white hover:border-white/25 transition-colors"
-              >
-                <ChevronUp className="h-4 w-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveIdx((prev) => (prev + 1) % total)}
-                aria-label="Next service"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-zinc-900/80 text-zinc-400 hover:text-white hover:border-white/25 transition-colors"
-              >
-                <ChevronDown className="h-4 w-4" />
-              </button>
-            </div>
-
-            {/* Step Position Indicator Pills */}
-            <div className="absolute bottom-2 flex items-center gap-1.5 z-30">
-              {services.map((item, idx) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setActiveIdx(idx)}
-                  aria-label={`Jump to ${item.title}`}
-                  className="h-1 rounded-full transition-all duration-300"
-                  style={{
-                    width: idx === activeIdx ? 24 : 8,
-                    backgroundColor:
-                      idx === activeIdx ? "#FF6B42" : "rgba(255,255,255,0.15)",
-                  }}
+            {/* Continuous 3D Cylinder Reel (Zero Re-render GPU Accelerated) */}
+            <div className="relative w-full h-full flex items-center justify-center">
+              {services.map((service, idx) => (
+                <KineticServiceRow
+                  key={service.id}
+                  service={service}
+                  idx={idx}
+                  progress={progress}
+                  onClick={() => handleItemClick(idx)}
                 />
               ))}
             </div>
           </div>
 
-          {/* Bottom Row: 4 Bento Cards (Matching ThreeUI Reference Video Exactly) */}
-          <div className="mt-12 sm:mt-16 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-4 w-full">
-            {bentoMetrics.map((item, idx) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.06] bg-zinc-900/40 p-4 sm:p-5 lg:p-6 backdrop-blur-md transition-all duration-300 hover:border-white/15 hover:bg-zinc-900/60"
-              >
-                {/* Eyebrow & Corner Dots */}
-                <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] text-zinc-400">
-                  <span className="truncate pr-2">{item.label}</span>
-                  <span className="font-mono text-xs text-zinc-600 transition-colors group-hover:text-zinc-400" aria-hidden="true">
-                    •••
-                  </span>
-                </div>
-
-                {/* Main Big Number */}
-                <div className="mt-3 sm:mt-4 flex items-baseline gap-1 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
-                  <span>{item.value}</span>
-                  {item.isRating && (
-                    <Star className="h-4 w-4 sm:h-5 sm:w-5 fill-[#FF6B42] text-[#FF6B42] inline-block ml-0.5" />
-                  )}
-                </div>
-
-                {/* Subtext */}
-                <div className="mt-2 text-[10px] sm:text-[11px] font-mono text-zinc-500">
-                  {item.detail}
-                </div>
-              </motion.div>
-            ))}
+          {/* Right Year Tag (Desktop) */}
+          <div className="hidden md:flex items-center text-zinc-600 text-[11px] font-mono uppercase tracking-[0.22em] select-none pr-2">
+            <span>EST. 2024</span>
           </div>
         </div>
-      </section>
-    </div>
+
+        {/* Bottom Zone: Grounded, Authentic Studio Status (No Fake Marketing Cards) */}
+        <div className="w-full max-w-[1100px] mx-auto pb-2 sm:pb-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between border-t border-white/[0.07] pt-5 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400 gap-3">
+            <div className="flex items-center gap-2.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B42]" />
+              <span className="text-zinc-300">STUDIO STATUS: ACCEPTING SELECT CLIENT BUILDS</span>
+            </div>
+            <div className="flex items-center gap-4 text-zinc-500">
+              <span>END-TO-END ENGINEERING</span>
+              <span className="text-zinc-700">•</span>
+              <span>PRODUCTION GRADE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

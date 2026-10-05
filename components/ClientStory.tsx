@@ -28,8 +28,7 @@ export default function ClientStory() {
   return (
     <div
       id="client-story"
-      className="relative z-10 w-full scroll-mt-24 px-3 pb-[clamp(28px,4vw,64px)] sm:px-5 md:px-6"
-      style={{ marginTop: `calc(-1 * ${xS})` }}
+      className="relative z-10 w-full scroll-mt-24 px-3 pt-20 sm:pt-28 md:pt-36 pb-[clamp(28px,4vw,64px)] sm:px-5 md:px-6"
     >
       <motion.figure
         className="relative mx-auto w-full max-w-[1500px] overflow-hidden rounded-[24px] bg-secondary shadow-[0_40px_90px_-50px_rgba(0,0,0,0.7)] md:rounded-[40px]"
