@@ -207,16 +207,22 @@ function DeckCardItem({
               </ul>
             </div>
 
-            {/* Action CTA Button */}
-            <div className="lg:col-span-6 lg:col-start-1">
+            {/* Action CTA Buttons */}
+            <div className="lg:col-span-6 lg:col-start-1 flex flex-wrap items-center gap-3">
               <Link
-                href="/contact"
+                href={`/services/${service.slug}`}
                 className="group inline-flex items-center gap-2.5 rounded-full border-2 border-black px-5 py-3 text-[13px] font-bold text-black transition-colors duration-300 ease-out hover:bg-black hover:text-white"
               >
-                <span>View more details</span>
+                <span>Explore Technical Specs</span>
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black/15 transition-[transform,background-color] duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:bg-white/20 motion-reduce:transform-none">
                   <ArrowUpRight className="h-3 w-3 stroke-[3]" />
                 </span>
+              </Link>
+              <Link
+                href="/contact"
+                className="text-[12px] font-semibold text-black/70 hover:text-black underline underline-offset-4"
+              >
+                Book Discovery Call
               </Link>
             </div>
           </div>

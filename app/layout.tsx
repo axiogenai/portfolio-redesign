@@ -28,48 +28,45 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://team.axiogen.in"),
   title: {
-    default: "Team Axiogen | AI Architectures, Digital Engineering & High-Velocity Systems",
+    default: "Team Axiogen | AI Development, Custom Software & SaaS Engineering Studio",
     template: "%s | Team Axiogen",
   },
   description:
-    "Team Axiogen is an AI & digital engineering studio from India. We build intelligent software systems, bespoke AI models, digital platforms, cybersecurity architectures, and high-performance cloud solutions for startups, enterprises, and academic projects.",
+    "Team Axiogen is an AI development, custom software, and full-stack SaaS engineering studio from India. We engineer autonomous AI agents, enterprise software systems, mobile apps, and scalable cloud architectures.",
   keywords: [
     // Brand
     "Team Axiogen",
     "Axiogen",
     "Axiogen AI",
 
-    // Core services — high-intent
-    "AI development company India",
-    "machine learning systems India",
-    "digital engineering studio India",
-    "intelligent software systems",
-    "mobile application development India",
-    "cybersecurity solutions India",
+    // High-intent commercial queries
+    "AI agent development company",
+    "AI automation agency India",
+    "custom software development company",
+    "SaaS development company India",
+    "hire Next.js developers India",
+    "full stack web application development",
+    "mobile app development company India",
+    "Flutter app development agency",
     "cloud architecture services",
-    "custom software development India",
+    "enterprise ERP development company",
     "AI consulting India",
-    "SaaS platform development India",
+    "machine learning systems India",
 
-    // Products
+    // Products & Verticals
     "ClinicOS healthcare software",
+    "hospital management software India",
     "AI voice engine",
     "text to speech API India",
 
-    // Local SEO
+    // Regional & Academic niche
+    "final year project development India",
+    "IEEE project implementation",
+    "computer science capstone help",
     "AI company Kolhapur",
     "software company Sangli",
     "tech company Maharashtra",
-    "digital engineering Kolhapur",
-    "software company Maharashtra",
-
-    // High-level discovery
     "startup MVP development India",
-    "college project development India",
-    "final year project help India",
-    "healthcare software development",
-    "brand identity design India",
-    "AI automation company",
   ],
   authors: [{ name: "Team Axiogen", url: "https://team.axiogen.in" }],
   creator: "Team Axiogen",
@@ -95,9 +92,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
   openGraph: {
-    title: "Team Axiogen | AI Architectures & Digital Engineering",
+    title: "Team Axiogen | AI Development, Custom Software & SaaS Engineering Studio",
     description:
-      "Team Axiogen engineers intelligent software systems, bespoke AI models, full-stack digital platforms, and high-performance cybersecurity architectures from India.",
+      "Team Axiogen engineers autonomous AI agents, bespoke enterprise software, full-stack SaaS platforms, and mobile applications from India.",
     url: "https://team.axiogen.in",
     siteName: "team.axiogen.in",
     images: [
@@ -105,7 +102,7 @@ export const metadata: Metadata = {
         url: "/axiogen-logo.png",
         width: 1200,
         height: 630,
-        alt: "Team Axiogen — AI & Digital Engineering Studio",
+        alt: "Team Axiogen — AI Development, Custom Software & SaaS Studio",
       },
     ],
     locale: "en_US",
@@ -113,9 +110,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Team Axiogen | AI Architectures & Digital Engineering",
+    title: "Team Axiogen | AI Development, Custom Software & SaaS Engineering Studio",
     description:
-      "Team Axiogen builds intelligent software systems, AI models, full-stack platforms, and cybersecurity architectures from India.",
+      "Team Axiogen builds autonomous AI agents, enterprise software systems, full-stack SaaS platforms, and mobile apps from India.",
     images: ["/axiogen-logo.png"],
     creator: "@teamaxiogen",
   },
@@ -251,6 +248,55 @@ const jsonLd = {
         },
         "query-input": "required name=search_term_string",
       },
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://team.axiogen.in/#navigation",
+      name: "Main Navigation",
+      itemListElement: [
+        {
+          "@type": "SiteNavigationElement",
+          position: 1,
+          name: "About Us",
+          description: "Meet Team Axiogen founders and digital engineering studio",
+          url: "https://team.axiogen.in/about-us",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 2,
+          name: "Services",
+          description: "AI systems, web development, mobile apps, and cloud solutions",
+          url: "https://team.axiogen.in/what-we-do",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 3,
+          name: "Our Work",
+          description: "Production case studies, featured software, and client projects",
+          url: "https://team.axiogen.in/our-work",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 4,
+          name: "Contact",
+          description: "Start a project or consult with Team Axiogen",
+          url: "https://team.axiogen.in/contact",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 5,
+          name: "Careers",
+          description: "Engineering roles and culture at Team Axiogen",
+          url: "https://team.axiogen.in/careers",
+        },
+        {
+          "@type": "SiteNavigationElement",
+          position: 6,
+          name: "Insights",
+          description: "Engineering deep dives, architecture patterns, and technical articles",
+          url: "https://team.axiogen.in/insights",
+        },
+      ],
     },
     {
       "@type": "ProfessionalService",

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ARTICLES } from "@/lib/articles";
+import { SERVICE_PAGES } from "@/lib/servicePages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://team.axiogen.in";
@@ -18,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/portfolio-gallery",
     "/processes",
     "/sectors",
-    "/services",
     "/what-we-do",
     "/privacy-policy",
   ];
@@ -38,6 +38,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         : 0.8,
   }));
 
+  const serviceEntries: MetadataRoute.Sitemap = Object.values(SERVICE_PAGES).map(
+    (service) => ({
+      url: `${baseUrl}/services/${service.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    })
+  );
+
   const articleEntries: MetadataRoute.Sitemap = ARTICLES.map((article) => ({
     url: `${baseUrl}/insights/${article.slug}`,
     lastModified: new Date(article.published_at),
@@ -45,6 +54,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticEntries, ...articleEntries];
+  return [...staticEntries, ...serviceEntries, ...articleEntries];
 }
 
