@@ -77,22 +77,39 @@ const faqs = [
 
 const localServiceJsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": canonical + "#webpage",
-  url: canonical,
-  name: "Software Development Company in Kolhapur | Team Axiogen",
-  description:
-    "Custom software, websites, SaaS products and AI automation for businesses in Kolhapur, Sangli and Maharashtra.",
-  about: {
-    "@type": "Organization",
-    "@id": "https://team.axiogen.in/#organization",
-    name: "Team Axiogen",
-    url: "https://team.axiogen.in/",
-  },
-  areaServed: [
-    { "@type": "City", name: "Kolhapur" },
-    { "@type": "City", name: "Sangli" },
-    { "@type": "AdministrativeArea", name: "Maharashtra" },
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": canonical + "#webpage",
+      url: canonical,
+      name: "Software Development Company in Kolhapur | Team Axiogen",
+      description:
+        "Custom software, websites, SaaS products and AI automation for businesses in Kolhapur, Sangli and Maharashtra.",
+      mainEntity: { "@id": canonical + "#service" },
+    },
+    {
+      "@type": "Service",
+      "@id": canonical + "#service",
+      name: "Software Development Services in Kolhapur",
+      serviceType: [
+        "Custom software development",
+        "Website development",
+        "SaaS development",
+        "AI and workflow automation",
+      ],
+      provider: {
+        "@type": "Organization",
+        "@id": "https://team.axiogen.in/#organization",
+        name: "Team Axiogen",
+        url: "https://team.axiogen.in/",
+      },
+      areaServed: [
+        { "@type": "City", name: "Kolhapur" },
+        { "@type": "City", name: "Sangli" },
+        { "@type": "AdministrativeArea", name: "Maharashtra" },
+      ],
+      url: canonical,
+    },
   ],
 };
 
