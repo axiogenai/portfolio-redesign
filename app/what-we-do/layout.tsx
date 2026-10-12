@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Services — AI Systems & Digital Engineering | Team Axiogen",
+  title: "AI, Website & Software Development Services in Kolhapur | Axiogen",
   description:
-    "Team Axiogen offers AI development, machine learning, digital platforms, mobile applications, cybersecurity, cloud architecture, brand identity design, and academic project development. Based in India.",
+    "Explore Team Axiogen services: AI agent development, business automation, custom software, SaaS platforms, website and mobile app development, cloud engineering and cybersecurity.",
   keywords: [
     "AI development services",
     "machine learning studio",
@@ -20,11 +20,11 @@ export const metadata: Metadata = {
   creator: "Team Axiogen",
   publisher: "Team Axiogen",
   openGraph: {
-    title: "Services — AI Development & Digital Engineering | Team Axiogen",
+    title: "AI & Software Development Services | Team Axiogen",
     description:
-      "AI development, digital platforms, mobile apps, cybersecurity, cloud solutions, and student projects by Team Axiogen.",
+      "Explore Team Axiogen services: AI agent development, business automation, custom software, SaaS platforms, website and mobile app development, cloud engineering and cybersecurity.",
     url: "https://team.axiogen.in/what-we-do",
-    siteName: "team.axiogen.in",
+    siteName: "Team Axiogen",
     images: [
       {
         url: "/axiogen-logo.png",
