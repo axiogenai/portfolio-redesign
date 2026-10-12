@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/portfolio-gallery",
     "/processes",
     "/sectors",
+    "/software-development-company-kolhapur",
     "/what-we-do",
     "/privacy-policy",
   ];
