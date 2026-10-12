@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         alt: "Team Axiogen Founders & Leadership",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
