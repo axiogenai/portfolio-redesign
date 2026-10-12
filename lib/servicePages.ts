@@ -73,7 +73,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     badge: "AUTONOMOUS AGENTS & AUTOMATION",
     title: "AI Agent Development & Workflow Automation",
     h1: "Enterprise AI Agents, Custom Workflows & Intelligent Automation",
-    metaTitle: "AI Agent Development Company in Kolhapur | Team Axiogen",
+    metaTitle: "AI Agent Development Company in Kolhapur",
     metaDescription:
       "Team Axiogen builds AI agents, custom RAG systems and workflow automation for businesses in Kolhapur, Sangli and across India.",
     targetQueries: [
@@ -269,7 +269,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     badge: "ENTERPRISE SYSTEMS & BESPOKE SOFTWARE",
     title: "Custom Software Development & Enterprise Engineering",
     h1: "Bespoke Enterprise Software, Internal Portals & Scalable Architectures",
-    metaTitle: "Custom Software Development in Kolhapur | Team Axiogen",
+    metaTitle: "Custom Software Development in Kolhapur",
     metaDescription:
       "Team Axiogen builds custom business software, internal tools, ERP systems and database-backed platforms for companies in Kolhapur, Sangli and across India.",
     targetQueries: [
@@ -658,7 +658,7 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     badge: "HIGH-PERFORMANCE FULL-STACK WEB",
     title: "Modern Full-Stack Web Development (Next.js & React)",
     h1: "High-Performance Full-Stack Web Applications & Next.js Systems",
-    metaTitle: "Website & Web App Development in Kolhapur | Team Axiogen",
+    metaTitle: "Website & Web App Development in Kolhapur",
     metaDescription:
       "Team Axiogen designs and develops responsive websites and web applications for businesses in Kolhapur, Sangli and across India, with modern Next.js and TypeScript.",
     targetQueries: [
