@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         alt: "Team Axiogen Technical Insights",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
