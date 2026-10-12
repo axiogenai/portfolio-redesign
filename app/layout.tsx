@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://team.axiogen.in"),
   title: {
     default: "Team Axiogen | AI Development & Software Company in Kolhapur",
-    template: "%s | Team Axiogen",
+    template: "%s",
   },
   description:
     "Team Axiogen is an AI development and software engineering studio serving Kolhapur, Sangli and businesses across India. We build AI agents, custom software, SaaS platforms, websites and business automation systems.",
