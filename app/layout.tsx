@@ -82,12 +82,12 @@ export const metadata: Metadata = {
         alt: "Team Axiogen — AI Development, Custom Software & SaaS Studio",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Team Axiogen | AI Development, Custom Software & SaaS Engineering Studio",
+    title: "Team Axiogen | AI Development & Software Company in Kolhapur",
     description:
       "AI development, custom software, SaaS platforms and business automation by Team Axiogen in Kolhapur, Maharashtra, India.",
     images: ["/axiogen-logo.png"],
