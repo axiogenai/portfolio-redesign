@@ -73,10 +73,11 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     badge: "AUTONOMOUS AGENTS & AUTOMATION",
     title: "AI Agent Development & Workflow Automation",
     h1: "Enterprise AI Agents, Custom Workflows & Intelligent Automation",
-    metaTitle: "AI Agent Development Company | Custom AI Automation Agency",
+    metaTitle: "AI Agent Development Company in Kolhapur | Team Axiogen",
     metaDescription:
-      "Team Axiogen builds autonomous AI agents, multi-agent frameworks, custom RAG pipelines, and enterprise automation systems. Scale operations with zero manual bottlenecks.",
+      "Team Axiogen builds AI agents, custom RAG systems and workflow automation for businesses in Kolhapur, Sangli and across India.",
     targetQueries: [
+      "AI agent development company Kolhapur",
       "AI agent development company",
       "AI automation agency India",
       "custom AI chatbot development",
@@ -268,10 +269,11 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     badge: "ENTERPRISE SYSTEMS & BESPOKE SOFTWARE",
     title: "Custom Software Development & Enterprise Engineering",
     h1: "Bespoke Enterprise Software, Internal Portals & Scalable Architectures",
-    metaTitle: "Custom Software Development Company | Bespoke Enterprise Systems",
+    metaTitle: "Custom Software Development in Kolhapur | Team Axiogen",
     metaDescription:
-      "Team Axiogen engineers bespoke enterprise software, internal tools, ERPs, and database-backed platforms with TypeScript, Next.js, and resilient cloud architectures.",
+      "Team Axiogen builds custom business software, internal tools, ERP systems and database-backed platforms for companies in Kolhapur, Sangli and across India.",
     targetQueries: [
+      "custom software development company Kolhapur",
       "custom software development company",
       "bespoke enterprise software India",
       "custom ERP development company",
@@ -462,9 +464,9 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     badge: "0-TO-1 MVP & PRODUCT ENGINEERING",
     title: "SaaS Product Engineering & Startup MVP Development",
     h1: "High-Velocity SaaS Product Engineering & 0-to-1 MVP Launches",
-    metaTitle: "SaaS Development Company | Startup MVP Product Engineering Studio",
+    metaTitle: "SaaS Development Company in India | Team Axiogen",
     metaDescription:
-      "Team Axiogen builds scalable full-stack SaaS platforms and startup MVPs. Multi-tenant architecture, Stripe billing, auth, and sub-second APIs shipped fast.",
+      "Team Axiogen builds SaaS platforms and startup MVPs with multi-tenant architecture, authentication, billing integrations and scalable APIs for teams in India.",
     targetQueries: [
       "SaaS development company India",
       "startup MVP development studio",
@@ -656,10 +658,12 @@ export const SERVICE_PAGES: Record<string, ServicePageData> = {
     badge: "HIGH-PERFORMANCE FULL-STACK WEB",
     title: "Modern Full-Stack Web Development (Next.js & React)",
     h1: "High-Performance Full-Stack Web Applications & Next.js Systems",
-    metaTitle: "Web Development Company | Next.js & React 19 Engineering Studio",
+    metaTitle: "Website & Web App Development in Kolhapur | Team Axiogen",
     metaDescription:
-      "Team Axiogen builds high-performance web applications using Next.js App Router, TypeScript, and edge networks. 100 Core Web Vitals and sub-second load times.",
+      "Team Axiogen designs and develops responsive websites and web applications for businesses in Kolhapur, Sangli and across India, with modern Next.js and TypeScript.",
     targetQueries: [
+      "web development company Kolhapur",
+      "website development company Kolhapur",
       "web development company India",
       "Next.js development agency",
       "full stack web application development",
