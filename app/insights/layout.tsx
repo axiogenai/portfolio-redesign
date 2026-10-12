@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Insights & Technical Blog — AI & Software Engineering | Team Axiogen",
+  title: "AI & Software Engineering Insights | Team Axiogen",
   description:
-    "Read insights, technical articles, and architectural teardowns from Team Axiogen on AI, machine learning, software systems, cybersecurity, branding, and digital engineering.",
+    "Read practical engineering insights from Team Axiogen on AI development, software architecture, SaaS, cybersecurity, automation and building digital products.",
   keywords: [
     "AI engineering blog",
     "software architecture articles",
@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   creator: "Team Axiogen",
   publisher: "Team Axiogen",
   openGraph: {
-    title: "Insights & Blog — Team Axiogen",
+    title: "AI & Software Engineering Insights | Team Axiogen",
     description:
-      "Technical articles and insights from Team Axiogen on AI, software systems, and digital engineering.",
+      "Read practical engineering insights from Team Axiogen on AI development, software architecture, SaaS, cybersecurity, automation and building digital products.",
     url: "https://team.axiogen.in/insights",
-    siteName: "team.axiogen.in",
+    siteName: "Team Axiogen",
     images: [
       {
         url: "/axiogen-logo.png",
