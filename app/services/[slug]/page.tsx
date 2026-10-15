@@ -103,10 +103,13 @@ export default async function ServiceDetailPage({ params }: Props) {
       url: "https://team.axiogen.in",
       logo: "https://team.axiogen.in/axiogen-logo.png",
     },
-    areaServed: {
-      "@type": "Country",
-      name: "Worldwide",
-    },
+    areaServed: [
+      { "@type": "City", name: "Kolhapur" },
+      { "@type": "City", name: "Sangli" },
+      { "@type": "AdministrativeArea", name: "Maharashtra" },
+      { "@type": "Country", name: "India" },
+      { "@type": "Place", name: "Worldwide" },
+    ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: `${service.title} Capabilities`,

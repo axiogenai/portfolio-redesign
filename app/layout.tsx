@@ -28,45 +28,22 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://team.axiogen.in"),
   title: {
-    default: "Team Axiogen | AI Development, Custom Software & SaaS Engineering Studio",
-    template: "%s | Team Axiogen",
+    default: "Team Axiogen | AI Development & Software Company in Kolhapur",
+    template: "%s",
   },
   description:
-    "Team Axiogen is an AI development, custom software, and full-stack SaaS engineering studio from India. We engineer autonomous AI agents, enterprise software systems, mobile apps, and scalable cloud architectures.",
+    "Team Axiogen is an AI development and software engineering studio serving Kolhapur, Sangli and businesses across India. We build AI agents, custom software, SaaS platforms, websites and business automation systems.",
   keywords: [
-    // Brand
     "Team Axiogen",
-    "Axiogen",
-    "Axiogen AI",
-
-    // High-intent commercial queries
-    "AI agent development company",
-    "AI automation agency India",
-    "custom software development company",
+    "AI development company Kolhapur",
+    "software development company Kolhapur",
+    "website development company Kolhapur",
+    "AI automation company Maharashtra",
+    "custom software development India",
     "SaaS development company India",
-    "hire Next.js developers India",
-    "full stack web application development",
-    "mobile app development company India",
-    "Flutter app development agency",
-    "cloud architecture services",
-    "enterprise ERP development company",
-    "AI consulting India",
-    "machine learning systems India",
-
-    // Products & Verticals
-    "ClinicOS healthcare software",
-    "hospital management software India",
-    "AI voice engine",
-    "text to speech API India",
-
-    // Regional & Academic niche
-    "final year project development India",
-    "IEEE project implementation",
-    "computer science capstone help",
-    "AI company Kolhapur",
-    "software company Sangli",
-    "tech company Maharashtra",
-    "startup MVP development India",
+    "AI agent development",
+    "business process automation",
+    "web and mobile app development",
   ],
   authors: [{ name: "Team Axiogen", url: "https://team.axiogen.in" }],
   creator: "Team Axiogen",
@@ -92,11 +69,11 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
   openGraph: {
-    title: "Team Axiogen | AI Development, Custom Software & SaaS Engineering Studio",
+    title: "Team Axiogen | AI Development & Software Company in Kolhapur",
     description:
-      "Team Axiogen engineers autonomous AI agents, bespoke enterprise software, full-stack SaaS platforms, and mobile applications from India.",
+      "AI agents, custom software, SaaS platforms, websites and automation systems from Team Axiogen, serving Kolhapur, Sangli and businesses across India.",
     url: "https://team.axiogen.in",
-    siteName: "team.axiogen.in",
+    siteName: "Team Axiogen",
     images: [
       {
         url: "/axiogen-logo.png",
@@ -105,14 +82,14 @@ export const metadata: Metadata = {
         alt: "Team Axiogen — AI Development, Custom Software & SaaS Studio",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Team Axiogen | AI Development, Custom Software & SaaS Engineering Studio",
+    title: "Team Axiogen | AI Development & Software Company in Kolhapur",
     description:
-      "Team Axiogen builds autonomous AI agents, enterprise software systems, full-stack SaaS platforms, and mobile apps from India.",
+      "AI development, custom software, SaaS platforms and business automation by Team Axiogen in Kolhapur, Maharashtra, India.",
     images: ["/axiogen-logo.png"],
     creator: "@teamaxiogen",
   },
@@ -129,9 +106,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: "https://team.axiogen.in",
-  },
   category: "technology",
   verification: {
     other: {
@@ -147,38 +121,7 @@ const jsonLd = {
       "@type": "Organization",
       "@id": "https://team.axiogen.in/#organization",
       name: "Team Axiogen",
-      alternateName: [
-        "Axiogen",
-        "team axiogen",
-        "axiogen",
-        "Team Axiogen India",
-        "Axiogen AI",
-        "Axigen",
-        "Team Axigen",
-        "Axogen",
-        "Team Axogen",
-        "Axeogen",
-        "Team Axeogen",
-        "Axiogent",
-        "Team Axiogent",
-        "Axiojen",
-        "Team Axiojen",
-        "Aksiogen",
-        "Team Aksiogen",
-        "Axyogen",
-        "Team Axyogen",
-        "Axijin",
-        "Team Axijin",
-        "Exiogen",
-        "Team Exiogen",
-        "teamaxiogen",
-        "axiogen.in",
-        "team.axiogen.in",
-        "टीम ॲक्सिओजेन",
-        "टीम एक्सिओजेन",
-        "अक्सिओजेन",
-        "एक्सिओजेन"
-      ],
+      alternateName: ["Axiogen", "Axiogen AI"],
       founder: [
         {
           "@type": "Person",
@@ -345,43 +288,6 @@ const jsonLd = {
           ],
           opens: "09:00",
           closes: "21:00",
-        },
-      ],
-    },
-    {
-      "@type": "ItemList",
-      "@id": "https://team.axiogen.in/#sitenav",
-      name: "Team Axiogen Navigation",
-      itemListElement: [
-        {
-          "@type": "SiteNavigationElement",
-          position: 1,
-          name: "Services",
-          url: "https://team.axiogen.in/what-we-do",
-        },
-        {
-          "@type": "SiteNavigationElement",
-          position: 2,
-          name: "Our Work",
-          url: "https://team.axiogen.in/our-work",
-        },
-        {
-          "@type": "SiteNavigationElement",
-          position: 3,
-          name: "About Us",
-          url: "https://team.axiogen.in/about-us",
-        },
-        {
-          "@type": "SiteNavigationElement",
-          position: 4,
-          name: "Insights",
-          url: "https://team.axiogen.in/insights",
-        },
-        {
-          "@type": "SiteNavigationElement",
-          position: 5,
-          name: "Contact",
-          url: "https://team.axiogen.in/contact",
         },
       ],
     },

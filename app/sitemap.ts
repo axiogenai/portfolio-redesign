@@ -4,8 +4,6 @@ import { SERVICE_PAGES } from "@/lib/servicePages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://team.axiogen.in";
-  const now = new Date();
-
   const publicRoutes = [
     "",
     "/about-us",
@@ -19,13 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/portfolio-gallery",
     "/processes",
     "/sectors",
+    "/software-development-company-kolhapur",
     "/what-we-do",
     "/privacy-policy",
   ];
 
   const staticEntries: MetadataRoute.Sitemap = publicRoutes.map((route) => ({
     url: route === "" ? `${baseUrl}/` : `${baseUrl}${route}`,
-    lastModified: now,
     changeFrequency:
       route === "" || route === "/our-work" || route === "/insights"
         ? "weekly"
@@ -41,7 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const serviceEntries: MetadataRoute.Sitemap = Object.values(SERVICE_PAGES).map(
     (service) => ({
       url: `${baseUrl}/services/${service.slug}`,
-      lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     })
@@ -49,7 +46,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const articleEntries: MetadataRoute.Sitemap = ARTICLES.map((article) => ({
     url: `${baseUrl}/insights/${article.slug}`,
-    lastModified: new Date(article.published_at),
     changeFrequency: "monthly",
     priority: 0.8,
   }));

@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: article.published_at,
       authors: [article.author],
-      siteName: "team.axiogen.in",
+      siteName: "Team Axiogen",
       images: [
         {
           url: "/axiogen-logo.png",
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           alt: article.title,
         },
       ],
-      locale: "en_US",
+      locale: "en_IN",
     },
     twitter: {
       card: "summary_large_image",
@@ -97,7 +97,6 @@ export default async function ArticleDetailPage({ params }: Props) {
       },
     },
     datePublished: article.published_at,
-    dateModified: article.published_at,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `https://team.axiogen.in/insights/${article.slug}`,

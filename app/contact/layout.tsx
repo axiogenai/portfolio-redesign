@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Team Axiogen — Hire AI & Digital Engineers",
+  title: "Contact an AI & Software Development Company in Kolhapur | Axiogen",
   description:
-    "Get in touch with Team Axiogen for AI development, intelligent platforms, mobile applications, cybersecurity, cloud solutions, and student projects. Based in Kolhapur & Sangli, Maharashtra, India. Email: axiogen01@gmail.com",
+    "Contact Team Axiogen to discuss AI development, custom software, SaaS, websites, mobile apps and business automation. Serving Kolhapur, Sangli and clients across India.",
   keywords: [
     "hire AI developers India",
     "contact Team Axiogen",
@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   creator: "Team Axiogen",
   publisher: "Team Axiogen",
   openGraph: {
-    title: "Contact Team Axiogen — Let's Build Something Remarkable",
+    title: "Contact Team Axiogen | AI & Software Projects",
     description:
-      "Reach out to Team Axiogen for AI, intelligent platforms, cybersecurity, and digital engineering projects. Based in India.",
+      "Contact Team Axiogen to discuss AI development, custom software, SaaS, websites, mobile apps and business automation. Serving Kolhapur, Sangli and clients across India.",
     url: "https://team.axiogen.in/contact",
-    siteName: "team.axiogen.in",
+    siteName: "Team Axiogen",
     images: [
       {
         url: "/axiogen-logo.png",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         alt: "Contact Team Axiogen",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {

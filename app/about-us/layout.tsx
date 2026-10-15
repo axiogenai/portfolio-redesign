@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Us — Team Axiogen | Leadership, Mission & Founders",
+  title: "About Team Axiogen | AI & Software Engineering in Kolhapur",
   description:
-    "Founded by Aditya Patil (Founder & CEO), Aditya Minchekar (Co-Founder), and Ajinkya More (Co-Founder), Team Axiogen is an independent AI Automation & Systems Engineering Studio in India architecting autonomous AI models, ClinicOS, and high-performance digital platforms.",
+    "Meet Team Axiogen, an AI and software engineering studio serving Kolhapur, Sangli and businesses across Maharashtra and India. Learn about our founders, engineering approach and digital products.",
   keywords: [
     "Team Axiogen founders",
     "Aditya Patil CEO",
@@ -20,11 +20,11 @@ export const metadata: Metadata = {
   creator: "Team Axiogen",
   publisher: "Team Axiogen",
   openGraph: {
-    title: "About Us — Team Axiogen | Leadership & Mission",
+    title: "About Team Axiogen | AI & Software Engineering",
     description:
-      "Founded by Aditya Patil (Founder & CEO), Aditya Minchekar (Co-Founder), and Ajinkya More (Co-Founder), Team Axiogen is an independent AI Automation & Systems Engineering Studio in India.",
+      "Meet Team Axiogen, an AI and software engineering studio serving Kolhapur, Sangli and businesses across Maharashtra and India. Learn about our founders, engineering approach and digital products.",
     url: "https://team.axiogen.in/about-us",
-    siteName: "team.axiogen.in",
+    siteName: "Team Axiogen",
     images: [
       {
         url: "/axiogen-logo.png",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         alt: "Team Axiogen Founders & Leadership",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
