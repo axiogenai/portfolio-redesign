@@ -13,6 +13,11 @@ import {
   Play,
   Pause,
   Search,
+  Activity,
+  ShieldCheck,
+  Cpu,
+  Terminal,
+  Layers,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -80,6 +85,40 @@ function mapToFilterCategory(cat: string): string {
     return "Developer Tools";
   }
   return "Enterprise & Cloud";
+}
+
+function getCategoryIcon(category: string) {
+  const lower = category.toLowerCase();
+  if (lower.includes("health") || lower.includes("clinic") || lower.includes("medical")) {
+    return <Activity className="w-3.5 h-3.5" />;
+  }
+  if (lower.includes("cyber") || lower.includes("security") || lower.includes("defense")) {
+    return <ShieldCheck className="w-3.5 h-3.5" />;
+  }
+  if (
+    lower.includes("ai") ||
+    lower.includes("intelligence") ||
+    lower.includes("neural") ||
+    lower.includes("patent") ||
+    lower.includes("forensic") ||
+    lower.includes("media")
+  ) {
+    return <Cpu className="w-3.5 h-3.5" />;
+  }
+  if (
+    lower.includes("cloud") ||
+    lower.includes("studio") ||
+    lower.includes("code") ||
+    lower.includes("ide") ||
+    lower.includes("terminal") ||
+    lower.includes("web3")
+  ) {
+    return <Terminal className="w-3.5 h-3.5" />;
+  }
+  if (lower.includes("seo") || lower.includes("search")) {
+    return <Search className="w-3.5 h-3.5" />;
+  }
+  return <Layers className="w-3.5 h-3.5" />;
 }
 
 
@@ -256,7 +295,7 @@ export default function OurWorkPage() {
               <div className="mt-8 grid grid-cols-1 lg:mt-14 lg:grid-cols-12">
                 <div className="lg:col-span-6 lg:col-start-7">
                   <p className="max-w-[46ch] text-lg font-medium leading-[1.45] tracking-[-0.02em] text-foreground sm:text-xl md:text-2xl">
-                    Brand identities, websites, apps and video — built by one team and shipped for real businesses.
+                    Autonomous AI systems, clinical operating platforms, cybersecurity engines, and cloud software — built and shipped by Team Axiogen.
                   </p>
                 </div>
               </div>
@@ -270,6 +309,7 @@ export default function OurWorkPage() {
                   <div className="flex touch-pan-y touch-pinch-zoom">
                     {showcaseList.map((item, idx) => {
                       const isActive = idx === selectedIndex;
+                      const isExternal = item.link.startsWith("http");
                       return (
                         <div
                           key={item.id}
@@ -281,8 +321,8 @@ export default function OurWorkPage() {
                         >
                           <a
                             href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            target={isExternal ? "_blank" : undefined}
+                            rel={isExternal ? "noopener noreferrer" : undefined}
                             className="group block"
                             onClick={(e) => {
                               if (!isActive) {
@@ -298,11 +338,7 @@ export default function OurWorkPage() {
                               surfaceClassName="bg-secondary"
                               tags={
                                 <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-foreground px-4 py-2 text-xs font-bold text-background shadow-md">
-                                  {item.category === "Web Design" ? (
-                                    <LayoutGrid className="w-3.5 h-3.5" />
-                                  ) : (
-                                    <Globe className="w-3.5 h-3.5" />
-                                  )}
+                                  {getCategoryIcon(item.category)}
                                   <span>{item.category}</span>
                                 </span>
                               }

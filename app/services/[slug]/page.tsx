@@ -220,7 +220,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                 <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
               </Link>
               <a
-                href={`https://wa.me/918767980838?text=${encodeURIComponent(
+                href={`https://wa.me/917030807704?text=${encodeURIComponent(
                   `Hi Team Axiogen, I would like to discuss our requirements for ${service.title}.`
                 )}`}
                 target="_blank"
@@ -553,7 +553,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                 Start Technical Discovery
               </Link>
               <a
-                href={`https://wa.me/918767980838?text=${encodeURIComponent(
+                href={`https://wa.me/917030807704?text=${encodeURIComponent(
                   `Hi Team Axiogen, I would like to schedule a consultation for ${service.title}.`
                 )}`}
                 target="_blank"
