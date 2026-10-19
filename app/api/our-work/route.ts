@@ -27,26 +27,9 @@ export async function GET() {
     }
 
     const parsed = JSON.parse(data.value);
-    
-    // Safety check: ensure parsed database data is valid and does not contain legacy external mockups
-    const hasStaleMockups =
-      !Array.isArray(parsed) ||
-      parsed.length === 0 ||
-      parsed.some(
-        (p: any) =>
-          p.id === 'clorefy' ||
-          p.id === 'breadberry' ||
-          p.id === 'addmenu' ||
-          p.id === 'kyoprep' ||
-          p.id === 'zraaya' ||
-          p.id === 'id3cor' ||
-          p.id === 'rahaman' ||
-          p.id === 'dhristi' ||
-          p.id === 'pink-brasserie' ||
-          (typeof p.link === 'string' && (p.link.includes('clorefy') || p.link.includes('breadberry') || p.link.includes('addmenu') || p.link.includes('kyoprep')))
-      );
+    const projects = Array.isArray(parsed) ? parsed : (parsed?.projects || []);
 
-    if (hasStaleMockups) {
+    if (!Array.isArray(projects) || projects.length === 0) {
       return NextResponse.json(
         { success: true, data: DEFAULT_SHOWCASE_PROJECTS, isDefault: true },
         { headers: { 'Cache-Control': 'no-store, max-age=0' } }
@@ -54,7 +37,7 @@ export async function GET() {
     }
 
     return NextResponse.json(
-      { success: true, data: parsed },
+      { success: true, data: projects },
       { headers: { 'Cache-Control': 'no-store, max-age=0' } }
     );
   } catch {

@@ -126,7 +126,7 @@ export default function OurWorkPage() {
   const [showcaseList, setShowcaseList] = useState<ShowcaseProject[]>(DEFAULT_SHOWCASE_PROJECTS);
 
   useEffect(() => {
-    fetch('/api/our-work')
+    fetch(`/api/our-work?t=${Date.now()}`, { cache: 'no-store' })
       .then((res) => res.json())
       .then((resData) => {
         if (resData.success && Array.isArray(resData.data) && resData.data.length > 0) {
