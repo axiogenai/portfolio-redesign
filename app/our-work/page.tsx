@@ -354,6 +354,14 @@ export default function OurWorkPage() {
                                 loading="eager"
                                 decoding="async"
                                 className="h-full w-full object-cover"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  if (item.image?.startsWith('/') && !target.src.includes('team.axiogen.in')) {
+                                    target.src = `https://team.axiogen.in${item.image}`;
+                                    return;
+                                  }
+                                  target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200';
+                                }}
                               />
                             </NotchedCard>
 
