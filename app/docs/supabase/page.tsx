@@ -1,248 +1,240 @@
-"use client";
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PageHeader from "@/components/PageHeader";
-import SmoothScroll from "@/components/SmoothScroll";
+import Link from "next/link";
 import {
+  FileText,
   Database,
   Server,
   Zap,
   ShieldCheck,
   CheckCircle2,
-  ExternalLink,
-  Cpu,
+  ChevronRight,
+  Clock,
   Layers,
-  Activity,
   ArrowRight,
 } from "lucide-react";
-import Link from "next/link";
 
-export default function SupabaseIntegrationDocsPage() {
+export default function SupabaseDocsPage() {
   return (
-    <SmoothScroll>
-      <div className="min-h-screen bg-[#08080a] text-white font-['Schibsted_Grotesk',sans-serif] selection:bg-emerald-500/30 selection:text-emerald-200">
-        <Navbar />
+    <div className="min-h-screen bg-[#0a0a0c] text-[#e4e4e7] font-sans antialiased selection:bg-emerald-500/20 selection:text-emerald-300">
+      <Navbar />
 
-        <main
-          className="px-4 md:px-[clamp(20px,2.6vw,52px)]"
-          style={{
-            paddingTop: "clamp(104px, 12vw, 168px)",
-            paddingBottom: "clamp(56px, 7vw, 120px)",
-          }}
-        >
-          <div className="mx-auto max-w-4xl space-y-16">
-            <PageHeader
-              eyebrow="Supabase Technology Partner"
-              lines={["ClinicOS Integration", "& Technical Spec."]}
-              support="Production architecture, data models, realtime WebSocket orchestration, and healthcare compliance powering ClinicOS on Supabase cloud infrastructure."
-            />
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
+        {/* Docs Breadcrumb */}
+        <nav className="flex items-center gap-2 text-xs text-zinc-500 mb-6 font-mono">
+          <Link href="/" className="hover:text-zinc-300 transition-colors">
+            Axiogen
+          </Link>
+          <ChevronRight className="w-3 h-3 text-zinc-600" />
+          <span className="text-zinc-400">Docs</span>
+          <ChevronRight className="w-3 h-3 text-zinc-600" />
+          <span className="text-emerald-400">Supabase Integration</span>
+        </nav>
 
-            {/* Quick Metrics Badge Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-5 rounded-2xl bg-[#0f0f12] border border-white/5 space-y-2">
-                <div className="flex items-center gap-2 text-emerald-400">
-                  <Zap className="w-4 h-4" />
-                  <h3 className="font-semibold text-xs tracking-wider uppercase">Realtime Radar</h3>
-                </div>
-                <p className="text-xs text-white/60 leading-relaxed">
-                  Sub-60ms live cabin token propagation using Supabase Realtime WebSocket broadcasts.
-                </p>
-              </div>
+        {/* Normal Document Title & Metadata */}
+        <header className="border-b border-zinc-800/80 pb-6 mb-8 space-y-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="px-2.5 py-0.5 rounded text-[11px] font-medium bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 font-mono">
+              Technology Partner Spec
+            </span>
+            <span className="px-2 py-0.5 rounded text-[11px] text-zinc-400 bg-zinc-900 border border-zinc-800 font-mono">
+              v2.4 Production
+            </span>
+          </div>
 
-              <div className="p-5 rounded-2xl bg-[#0f0f12] border border-white/5 space-y-2">
-                <div className="flex items-center gap-2 text-blue-400">
-                  <Cpu className="w-4 h-4" />
-                  <h3 className="font-semibold text-xs tracking-wider uppercase">Connection Pooler</h3>
-                </div>
-                <p className="text-xs text-white/60 leading-relaxed">
-                  Resilient transaction pooling via Supavisor prevents exhaustion during peak morning OPD rushes.
-                </p>
-              </div>
+          <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+            ClinicOS × Supabase Integration Documentation
+          </h1>
 
-              <div className="p-5 rounded-2xl bg-[#0f0f12] border border-white/5 space-y-2">
-                <div className="flex items-center gap-2 text-amber-400">
-                  <Layers className="w-4 h-4" />
-                  <h3 className="font-semibold text-xs tracking-wider uppercase">ACID Sequencing</h3>
-                </div>
-                <p className="text-xs text-white/60 leading-relaxed">
-                  Database trigger automation guarantees gapless, zero-collision daily token issuance per facility.
-                </p>
-              </div>
+          <p className="text-sm text-zinc-400 leading-relaxed max-w-3xl">
+            Technical architecture, relational data models, realtime WebSocket synchronization, and security specifications for ClinicOS backed by Supabase cloud infrastructure.
+          </p>
 
-              <div className="p-5 rounded-2xl bg-[#0f0f12] border border-white/5 space-y-2">
-                <div className="flex items-center gap-2 text-purple-400">
-                  <ShieldCheck className="w-4 h-4" />
-                  <h3 className="font-semibold text-xs tracking-wider uppercase">Health Security</h3>
-                </div>
-                <p className="text-xs text-white/60 leading-relaxed">
-                  AES-256 at rest, TLS 1.3 in-flight, and Row Level Security multi-tenant boundaries.
-                </p>
-              </div>
-            </div>
+          <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 pt-1 font-mono">
+            <span>Author: Team Axiogen</span>
+            <span>•</span>
+            <span>Platform: ClinicOS EMR</span>
+            <span>•</span>
+            <span>Engine: Supabase PostgreSQL & Realtime</span>
+            <span>•</span>
+            <span>Status: Verified Active</span>
+          </div>
+        </header>
 
-            {/* Content Sections */}
-            <div className="space-y-14 text-sm sm:text-base leading-relaxed text-white/80">
-              {/* Section 1 */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-                  <Server className="w-5 h-5 text-emerald-400" /> 1. Architecture Overview
-                </h2>
-                <p>
-                  ClinicOS implements a dual-layer architectural model engineered to bridge client-side reactivity with the ACID guarantees of Supabase Managed PostgreSQL.
-                </p>
-                <div className="p-6 rounded-2xl bg-[#0d0d10] border border-white/5 space-y-4 text-xs sm:text-sm">
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-400 font-bold">•</span>
-                      <span>
-                        <strong className="text-white">Doctor EMR Workspace (Vite + React):</strong> Provides clinicians with instant case paper generation, diagnostic triage templates, and token calling.
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-400 font-bold">•</span>
-                      <span>
-                        <strong className="text-white">Public Patient Portal (Next.js):</strong> Patients monitor live OPD token movements, verify tamper-proof digital certificates, and access multi-lingual voice prescriptions.
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-400 font-bold">•</span>
-                      <span>
-                        <strong className="text-white">Microservices Tier (Node.js Express):</strong> Communicates with Supabase using transactional connection pooling (Supavisor) for high-concurrency background notifications.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </section>
+        {/* Documentation Body (Clean Technical Layout) */}
+        <article className="space-y-10 text-sm leading-relaxed text-zinc-300">
+          {/* Section 1: Executive Overview */}
+          <section className="space-y-3">
+            <h2 className="text-lg font-semibold text-white tracking-tight flex items-center gap-2 border-b border-zinc-800/60 pb-2">
+              <FileText className="w-4 h-4 text-emerald-400" /> 1. Executive Summary
+            </h2>
+            <p className="text-zinc-300">
+              <strong className="text-white">ClinicOS</strong> is an Electronic Medical Records (EMR) and Outpatient Department (OPD) queue management system built for medical practices, clinics, and multi-specialty centers. 
+            </p>
+            <p className="text-zinc-400">
+              By integrating natively with <strong className="text-zinc-200">Supabase</strong>, ClinicOS leverages enterprise-grade PostgreSQL, Supabase Realtime (WebSockets), and Connection Pooling (Supavisor) to power sub-60ms live cabin token movements, zero-collision appointment sequencing, and tamper-proof prescription histories.
+            </p>
+          </section>
 
-              {/* Section 2 */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-                  <Database className="w-5 h-5 text-emerald-400" /> 2. Core Relational Entities
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-5 rounded-2xl bg-[#0d0d10] border border-white/5 space-y-2">
-                    <h3 className="font-semibold text-sm text-white">Facility & Practitioner Registry</h3>
-                    <p className="text-xs text-white/60 leading-relaxed">
-                      Manages multi-tenant clinic configurations, practitioner medical registration numbers, and operational consultation timings.
-                    </p>
-                  </div>
-                  <div className="p-5 rounded-2xl bg-[#0d0d10] border border-white/5 space-y-2">
-                    <h3 className="font-semibold text-sm text-white">Unified Patient Master Index</h3>
-                    <p className="text-xs text-white/60 leading-relaxed">
-                      Maintains comprehensive longitudinal patient visitation histories, demographics, contact channels, and localized village records.
-                    </p>
-                  </div>
-                  <div className="p-5 rounded-2xl bg-[#0d0d10] border border-white/5 space-y-2">
-                    <h3 className="font-semibold text-sm text-white">High-Velocity OPD Queue Engine</h3>
-                    <p className="text-xs text-white/60 leading-relaxed">
-                      Tracks real-time consultation lifecycle states (waiting, in-cabin, completed, rescheduled) with zero token collisions.
-                    </p>
-                  </div>
-                  <div className="p-5 rounded-2xl bg-[#0d0d10] border border-white/5 space-y-2">
-                    <h3 className="font-semibold text-sm text-white">Clinical Encounters & Prescriptions</h3>
-                    <p className="text-xs text-white/60 leading-relaxed">
-                      Stores structured clinical observations, diagnosis classifications, pharmaceutical regimens, and audio prescription links.
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              {/* Section 3 */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-                  <Activity className="w-5 h-5 text-emerald-400" /> 3. Realtime Queue Synchronization Flow
-                </h2>
-                <div className="p-6 rounded-2xl bg-[#0d0d10] border border-white/5 space-y-3 text-xs sm:text-sm">
-                  <div className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0">
-                      1
-                    </span>
-                    <p>
-                      <strong className="text-white">Doctor Advances Queue:</strong> Clinician selects the next patient in ClinicOS EMR.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0">
-                      2
-                    </span>
-                    <p>
-                      <strong className="text-white">PostgreSQL Transaction Commit:</strong> Supabase commits transaction with updated lifecycle timestamps.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0">
-                      3
-                    </span>
-                    <p>
-                      <strong className="text-white">WebSocket Broadcast:</strong> Supabase Realtime dispatches change event filtered by facility tenant.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0">
-                      4
-                    </span>
-                    <p>
-                      <strong className="text-white">Instant Radar Refresh:</strong> Patient mobile web apps and lobby monitors update token status in &lt;60ms.
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              {/* Section 4 */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" /> 4. Security & Healthcare Compliance
-                </h2>
-                <ul className="list-disc pl-5 space-y-2 text-xs sm:text-sm">
-                  <li>
-                    <strong className="text-white">Row Level Security (RLS):</strong> Multi-tenant isolation ensures patient records are accessible strictly to authorized clinical personnel.
-                  </li>
-                  <li>
-                    <strong className="text-white">Cryptographic Verification:</strong> Medical certificates and prescriptions feature tamper-proof verification seals verifiable without exposing underlying EMR databases.
-                  </li>
-                  <li>
-                    <strong className="text-white">Data Protection:</strong> Full TLS 1.3 encryption in transit with AES-256 storage volume encryption at rest.
-                  </li>
-                </ul>
-              </section>
-
-              {/* Section 5 */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400" /> 5. Production Telemetry & Verification
-                </h2>
-                <div className="p-6 rounded-2xl bg-[#0d0d10] border border-white/5 space-y-4 text-xs sm:text-sm">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/5">
-                      <span className="text-white/60">Database Engine</span>
-                      <span className="font-semibold text-emerald-400">Supabase Managed PostgreSQL</span>
-                    </div>
-                    <div className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/5">
-                      <span className="text-white/60">Realtime Latency</span>
-                      <span className="font-semibold text-emerald-400">&lt; 60ms Average</span>
-                    </div>
-                    <div className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/5">
-                      <span className="text-white/60">Transaction Pooler</span>
-                      <span className="font-semibold text-emerald-400">Active (Supavisor)</span>
-                    </div>
-                    <div className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/5">
-                      <span className="text-white/60">Integration Stage</span>
-                      <span className="font-semibold text-emerald-400">Production / Live</span>
-                    </div>
-                  </div>
-                  <p className="text-white/50 text-xs">
-                    All outpatient queues, consultation sequences, and prescriptions are securely processed through Supabase across live clinical deployments.
+          {/* Section 2: Architecture */}
+          <section className="space-y-3">
+            <h2 className="text-lg font-semibold text-white tracking-tight flex items-center gap-2 border-b border-zinc-800/60 pb-2">
+              <Server className="w-4 h-4 text-emerald-400" /> 2. Architecture & Data Flow
+            </h2>
+            <p className="text-zinc-300">
+              The integration operates across a dual-tier architecture connecting the clinical doctor workspace, public patient radar, and microservices through Supabase:
+            </p>
+            <div className="bg-zinc-900/60 border border-zinc-800 rounded-lg p-4 space-y-3 text-xs sm:text-sm">
+              <div className="flex items-start gap-3">
+                <span className="font-mono text-emerald-400 font-bold">01.</span>
+                <div>
+                  <strong className="text-white">Doctor EMR Workspace (Vite + React):</strong>
+                  <p className="text-zinc-400 text-xs mt-0.5">
+                    Clinicians record diagnostic notes, generate digital case papers, and advance daily patient queues. State commits execute atomically to Supabase.
                   </p>
                 </div>
-              </section>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="font-mono text-emerald-400 font-bold">02.</span>
+                <div>
+                  <strong className="text-white">Public Patient Radar & Portal (Next.js):</strong>
+                  <p className="text-zinc-400 text-xs mt-0.5">
+                    Patients monitor active cabin consultations live, inspect dynamic wait times, and reserve sequential appointments with zero polling delay.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="font-mono text-emerald-400 font-bold">03.</span>
+                <div>
+                  <strong className="text-white">Backend Microservices (Node.js Express):</strong>
+                  <p className="text-zinc-400 text-xs mt-0.5">
+                    Communicates with Supabase via Transaction Connection Pooling (Supavisor on Port 6543) for automated WhatsApp reminders and cryptographic certificate validation.
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </main>
+          </section>
 
-        <Footer />
-      </div>
-    </SmoothScroll>
+          {/* Section 3: Core Domain Models */}
+          <section className="space-y-3">
+            <h2 className="text-lg font-semibold text-white tracking-tight flex items-center gap-2 border-b border-zinc-800/60 pb-2">
+              <Database className="w-4 h-4 text-emerald-400" /> 3. Data Entities & Relational Design
+            </h2>
+            <p className="text-zinc-400 text-xs sm:text-sm">
+              Clinical entities are structured to maintain strict relational integrity across outpatient interactions:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <div className="p-3.5 bg-zinc-900/50 border border-zinc-800 rounded-lg space-y-1">
+                <h3 className="font-medium text-xs text-white">Facility & Practitioner Registry</h3>
+                <p className="text-[11px] text-zinc-400 leading-normal">
+                  Multi-tenant clinic metadata, doctor registration credentials, medical specializations, and operating hours.
+                </p>
+              </div>
+              <div className="p-3.5 bg-zinc-900/50 border border-zinc-800 rounded-lg space-y-1">
+                <h3 className="font-medium text-xs text-white">Patient Master Index</h3>
+                <p className="text-[11px] text-zinc-400 leading-normal">
+                  Unified patient identification, longitudinal visit histories, demographic records, and contact channels.
+                </p>
+              </div>
+              <div className="p-3.5 bg-zinc-900/50 border border-zinc-800 rounded-lg space-y-1">
+                <h3 className="font-medium text-xs text-white">OPD Live Queue Engine</h3>
+                <p className="text-[11px] text-zinc-400 leading-normal">
+                  Real-time token lifecycle registry tracking daily consultation states: waiting, in-cabin, completed, rescheduled.
+                </p>
+              </div>
+              <div className="p-3.5 bg-zinc-900/50 border border-zinc-800 rounded-lg space-y-1">
+                <h3 className="font-medium text-xs text-white">Clinical Encounters & Prescriptions</h3>
+                <p className="text-[11px] text-zinc-400 leading-normal">
+                  Structured diagnostic records, pharmaceutical regimens, multi-lingual audio prescriptions, and verification hashes.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 4: Realtime Protocol */}
+          <section className="space-y-3">
+            <h2 className="text-lg font-semibold text-white tracking-tight flex items-center gap-2 border-b border-zinc-800/60 pb-2">
+              <Zap className="w-4 h-4 text-emerald-400" /> 4. Realtime Queue Synchronization
+            </h2>
+            <p className="text-zinc-300">
+              The live queue engine uses Supabase Realtime channel subscriptions to broadcast token state transitions with sub-60ms latency:
+            </p>
+            <ol className="list-decimal pl-5 space-y-2 text-xs sm:text-sm text-zinc-300">
+              <li>
+                <strong className="text-white">Queue Advance:</strong> Clinician calls the next patient token inside ClinicOS EMR.
+              </li>
+              <li>
+                <strong className="text-white">PostgreSQL Transaction:</strong> Supabase commits the status change and lifecycle timestamps atomically.
+              </li>
+              <li>
+                <strong className="text-white">WebSocket Broadcast:</strong> Supabase Realtime dispatches the mutation event filtered by clinic tenant.
+              </li>
+              <li>
+                <strong className="text-white">Lobby & Mobile Sync:</strong> Lobby radar displays and patient mobile web apps update immediately without polling.
+              </li>
+            </ol>
+          </section>
+
+          {/* Section 5: Security & Compliance */}
+          <section className="space-y-3">
+            <h2 className="text-lg font-semibold text-white tracking-tight flex items-center gap-2 border-b border-zinc-800/60 pb-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" /> 5. Security & Healthcare Compliance
+            </h2>
+            <div className="space-y-2 text-xs sm:text-sm text-zinc-400">
+              <p>
+                • <strong className="text-white">Row Level Security (RLS):</strong> Multi-tenant isolation guarantees patient records are accessible strictly to authorized clinic staff.
+              </p>
+              <p>
+                • <strong className="text-white">Cryptographic Verification:</strong> Medical certificates and prescriptions feature tamper-proof verification seals verifiable without exposing underlying EMR databases.
+              </p>
+              <p>
+                • <strong className="text-white">Encryption:</strong> Enforced TLS 1.3 in-flight and AES-256 storage volume encryption at rest on Supabase cloud.
+              </p>
+            </div>
+          </section>
+
+          {/* Section 6: Telemetry & Production Verification */}
+          <section className="space-y-3">
+            <h2 className="text-lg font-semibold text-white tracking-tight flex items-center gap-2 border-b border-zinc-800/60 pb-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" /> 6. Production Verification Status
+            </h2>
+            <div className="bg-zinc-900/60 border border-zinc-800 rounded-lg p-4 font-mono text-xs space-y-2">
+              <div className="flex justify-between border-b border-zinc-800/80 pb-1.5">
+                <span className="text-zinc-500">Database Engine</span>
+                <span className="text-emerald-400 font-semibold">Supabase Managed PostgreSQL</span>
+              </div>
+              <div className="flex justify-between border-b border-zinc-800/80 pb-1.5">
+                <span className="text-zinc-500">Realtime Protocol</span>
+                <span className="text-emerald-400 font-semibold">Supabase Realtime v2 (WebSockets)</span>
+              </div>
+              <div className="flex justify-between border-b border-zinc-800/80 pb-1.5">
+                <span className="text-zinc-500">Connection Pooler</span>
+                <span className="text-emerald-400 font-semibold">Port 6543 (Supavisor)</span>
+              </div>
+              <div className="flex justify-between pb-0.5">
+                <span className="text-zinc-500">Deployment Status</span>
+                <span className="text-emerald-400 font-semibold">Active In Production</span>
+              </div>
+            </div>
+          </section>
+        </article>
+
+        {/* Normal Docs Footer */}
+        <footer className="border-t border-zinc-800/80 mt-14 pt-6 flex flex-wrap items-center justify-between gap-4 text-xs text-zinc-500 font-mono">
+          <p>© 2026 Team Axiogen. ClinicOS Platform Documentation.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/" className="hover:text-zinc-300 transition-colors">
+              Axiogen Home
+            </Link>
+            <Link href="https://team.axiogen.in" className="hover:text-zinc-300 transition-colors">
+              team.axiogen.in
+            </Link>
+          </div>
+        </footer>
+      </main>
+
+      <Footer />
+    </div>
   );
 }

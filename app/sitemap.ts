@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/software-development-company-kolhapur",
     "/what-we-do",
     "/privacy-policy",
+    "/docs/supabase",
   ];
 
   const staticEntries: MetadataRoute.Sitemap = publicRoutes.map((route) => ({
@@ -52,4 +53,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticEntries, ...serviceEntries, ...articleEntries];
 }
-
