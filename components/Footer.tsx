@@ -426,8 +426,8 @@ export default function Footer() {
             <InfrastructurePartners />
 
             {/* Massive Brand Watermark: CRAFTING SINCE 2025 */}
-            <div className="border-t border-white/10 pt-6 sm:pt-8 pb-8 sm:pb-10 overflow-hidden select-none">
-              <div className="text-[clamp(1.5rem,7vw,7vw)] sm:text-5xl md:text-[6.5vw] lg:text-[7vw] font-black tracking-tight leading-none text-center lg:text-left uppercase whitespace-nowrap">
+            <div className="border-t border-white/10 pt-6 sm:pt-8 pb-8 sm:pb-10 select-none w-full">
+              <div className="w-full text-[clamp(1.1rem,4.8vw,6.5vw)] font-black tracking-tighter leading-none text-center lg:text-left uppercase whitespace-nowrap overflow-visible">
                 <ShinyText
                   text="CRAFTING SINCE 2025"
                   speed={2}
