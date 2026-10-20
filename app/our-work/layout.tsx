@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI & Software Development Portfolio | Team Axiogen, Kolhapur",
+  title: "Software & AI Projects Portfolio | Team Axiogen Kolhapur",
   description:
     "Explore Team Axiogen's selected AI, SaaS, web application and software engineering projects, including product features, technologies and real-world use cases.",
   keywords: [
     "Team Axiogen portfolio",
     "AI projects India",
     "software case studies",
+    "software projects Kolhapur",
+    "web applications developed Kolhapur",
+    "best software company case studies",
+    "enterprise software development portfolio",
     "ClinicOS case study",
     "software engineering portfolio",
     "mobile app showcase",

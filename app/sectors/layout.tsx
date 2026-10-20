@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Industries & Sectors — AI & Software Solutions | Team Axiogen",
+  title: "Industries We Serve — Software & AI Company in Kolhapur | Team Axiogen",
   description:
     "Team Axiogen builds AI and software solutions across industries — healthcare, fintech, e-commerce, education, SaaS, real estate, media, and more. Explore the sectors we serve.",
   keywords: [
+    "software solutions for Kolhapur industries",
+    "foundry and manufacturing software Kolhapur",
+    "textile software Ichalkaranji Kolhapur",
+    "sugar factory software Kolhapur",
+    "hospital management software Kolhapur",
     "fintech software development India",
     "healthcare AI solutions",
     "edtech platform development",

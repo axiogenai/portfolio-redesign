@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact an AI & Software Development Company in Kolhapur | Axiogen",
+  title: "Contact #1 Software & AI Company in Kolhapur | Team Axiogen",
   description:
     "Contact Team Axiogen to discuss AI development, custom software, SaaS, websites, mobile apps and business automation. Serving Kolhapur, Sangli and clients across India.",
   keywords: [
     "hire AI developers India",
     "contact Team Axiogen",
     "hire software engineers Kolhapur",
+    "software company contact Kolhapur",
+    "top IT company in Kolhapur contact",
+    "web developers in Kolhapur contact",
+    "get software quote Kolhapur",
     "software project inquiry",
     "AI consulting contact",
     "hire systems engineer India",

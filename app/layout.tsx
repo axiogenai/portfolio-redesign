@@ -28,22 +28,49 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://team.axiogen.in"),
   title: {
-    default: "Team Axiogen | AI Development & Software Company in Kolhapur",
-    template: "%s",
+    default: "Team Axiogen | #1 Software, Web & Mobile App Development Company in Kolhapur",
+    template: "%s | Team Axiogen",
   },
   description:
-    "Team Axiogen is an AI development and software engineering studio serving Kolhapur, Sangli and businesses across India. We build AI agents, custom software, SaaS platforms, websites and business automation systems.",
+    "Team Axiogen is the #1 software development & IT company in Kolhapur, Maharashtra. We engineer custom web applications, mobile apps (iOS & Android), enterprise ERP/CRM systems, e-commerce platforms, SaaS products, cloud infrastructure, and AI workflow automation.",
   keywords: [
     "Team Axiogen",
-    "AI development company Kolhapur",
+    "software company in Kolhapur",
     "software development company Kolhapur",
-    "website development company Kolhapur",
+    "best software company in Kolhapur",
+    "top IT company in Kolhapur",
+    "web development company Kolhapur",
+    "website design company Kolhapur",
+    "web application development Kolhapur",
+    "custom software development Kolhapur",
+    "AI company Kolhapur",
+    "AI development company Kolhapur",
     "AI automation company Maharashtra",
-    "custom software development India",
+    "mobile app development company Kolhapur",
+    "Android app development Kolhapur",
+    "iOS app development Kolhapur",
     "SaaS development company India",
-    "AI agent development",
-    "business process automation",
-    "web and mobile app development",
+    "ERP software development Kolhapur",
+    "CRM software development Kolhapur",
+    "ecommerce website development Kolhapur",
+    "hospital clinic management software Kolhapur",
+    "manufacturing software solutions Kolhapur",
+    "foundry software development Kolhapur",
+    "textile software solutions Ichalkaranji Kolhapur",
+    "sugar factory ERP software Kolhapur",
+    "billing accounting software Kolhapur",
+    "full-stack software development company India",
+    "AI agent development company",
+    "business process automation Kolhapur",
+    "software engineers in Kolhapur",
+    "IT services company Kolhapur",
+    "hire software developers Kolhapur",
+    "best web developers in Kolhapur",
+    "cloud consulting DevOps company Kolhapur",
+    "cybersecurity services Kolhapur",
+    "digital transformation company Kolhapur Sangli",
+    "software company Sangli",
+    "software company Maharashtra",
   ],
   authors: [{ name: "Team Axiogen", url: "https://team.axiogen.in" }],
   creator: "Team Axiogen",
@@ -69,9 +96,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
   openGraph: {
-    title: "Team Axiogen | AI Development & Software Company in Kolhapur",
+    title: "Team Axiogen | #1 Software, Web & Mobile App Development Company in Kolhapur",
     description:
-      "AI agents, custom software, SaaS platforms, websites and automation systems from Team Axiogen, serving Kolhapur, Sangli and businesses across India.",
+      "Team Axiogen is the leading software development company in Kolhapur, Maharashtra. We build custom software, web applications, mobile apps, ERP/CRM systems, and AI automation.",
     url: "https://team.axiogen.in",
     siteName: "Team Axiogen",
     images: [
@@ -79,7 +106,7 @@ export const metadata: Metadata = {
         url: "/axiogen-logo.png",
         width: 1200,
         height: 630,
-        alt: "Team Axiogen — AI Development, Custom Software & SaaS Studio",
+        alt: "Team Axiogen — #1 Software, Web & Mobile App Development Company in Kolhapur",
       },
     ],
     locale: "en_IN",
@@ -87,9 +114,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Team Axiogen | AI Development & Software Company in Kolhapur",
+    title: "Team Axiogen | #1 Software, Web & Mobile App Development Company in Kolhapur",
     description:
-      "AI development, custom software, SaaS platforms and business automation by Team Axiogen in Kolhapur, Maharashtra, India.",
+      "Best software company in Kolhapur, Maharashtra. Bespoke web apps, mobile apps, SaaS platforms, ERP systems, and AI agents.",
     images: ["/axiogen-logo.png"],
     creator: "@teamaxiogen",
   },
@@ -147,13 +174,14 @@ const jsonLd = {
         height: 512,
       },
       description:
-        "Team Axiogen is an AI & digital engineering studio from India building intelligent software systems, AI models, full-stack platforms, and cybersecurity architectures.",
+        "Team Axiogen is the premier software development, web applications, mobile app, and enterprise systems company in Kolhapur, Maharashtra, India, architecting high-velocity digital products, cloud backends, and business automation suites.",
       email: "axiogen01@gmail.com",
       foundingLocation: {
         "@type": "Place",
         name: "Kolhapur, Maharashtra, India",
       },
-      areaServed: "Worldwide",
+      areaServed: ["Kolhapur", "Sangli", "Ichalkaranji", "Satara", "Pune", "Maharashtra", "India", "Worldwide"],
+      telephone: "+91-7030807704",
       knowsAbout: [
         "Artificial Intelligence",
         "Machine Learning",
@@ -176,10 +204,11 @@ const jsonLd = {
         "Team Axiogen",
         "team.axiogen.in",
         "axiogen.in",
-        "Team Axiogen Studio"
+        "Team Axiogen Software Company",
+        "Best Software Company in Kolhapur"
       ],
       description:
-        "AI & Digital Engineering Studio — Building intelligent systems from India",
+        "#1 Software Development, Web & Mobile Apps Company in Kolhapur, Maharashtra",
       publisher: {
         "@id": "https://team.axiogen.in/#organization",
       },
@@ -201,7 +230,7 @@ const jsonLd = {
           "@type": "SiteNavigationElement",
           position: 1,
           name: "About Us",
-          description: "Meet Team Axiogen founders and digital engineering studio",
+          description: "Meet Team Axiogen founders and software company leadership",
           url: "https://team.axiogen.in/about-us",
         },
         {
@@ -249,7 +278,7 @@ const jsonLd = {
       url: "https://team.axiogen.in",
       email: "axiogen01@gmail.com",
       description:
-        "AI architectures, digital engineering, full-stack development, cybersecurity, and cloud solutions.",
+        "#1 Software company in Kolhapur providing bespoke web applications, mobile apps (iOS & Android), enterprise ERP/CRM systems, e-commerce storefronts, SaaS platforms, and AI automation.",
       areaServed: {
         "@type": "GeoCircle",
         geoMidpoint: {

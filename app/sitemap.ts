@@ -29,9 +29,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ? "weekly"
         : "monthly",
     priority:
-      route === ""
+      route === "" || route === "/software-development-company-kolhapur"
         ? 1.0
-        : route === "/what-we-do" || route === "/our-work" || route === "/about-us"
+        : route === "/what-we-do" || route === "/our-work" || route === "/about-us" || route === "/sectors"
         ? 0.9
         : 0.8,
   }));

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI, Website & Software Development Services in Kolhapur | Axiogen",
+  title: "Software & Web Development Services in Kolhapur | Team Axiogen",
   description:
     "Explore Team Axiogen services: AI agent development, business automation, custom software, SaaS platforms, website and mobile app development, cloud engineering and cybersecurity.",
   keywords: [
     "AI development services",
-    "machine learning studio",
+    "software company in Kolhapur",
+    "web application development Kolhapur",
+    "custom ERP CRM Kolhapur",
+    "ecommerce website design Kolhapur",
+    "AI software company Kolhapur",
     "digital platform engineering",
     "intelligent software systems",
     "mobile app development India",

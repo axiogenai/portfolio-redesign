@@ -7,10 +7,10 @@ import { ArrowUpRight } from "lucide-react";
 import BlurLines from "./BlurLines";
 
 const introLines = [
-  "An independent studio",
-  "in India engineering AI systems,",
-  "web platforms, software and",
-  "brands built to grow.",
+  "The leading software company",
+  "in Kolhapur engineering web apps,",
+  "mobile applications, enterprise ERPs",
+  "and digital products.",
 ];
 
 const capabilitiesStrip = [

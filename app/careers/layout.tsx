@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Careers — Join Team Axiogen | Remote AI & Software Engineering",
+  title: "Careers — Join Team Axiogen | Software & AI Company in Kolhapur",
   description:
-    "Join Team Axiogen — a remote-first AI & digital engineering studio from India. We're looking for engineers, designers, and builders who obsess over craft and ship at high velocity.",
+    "Join Team Axiogen — a high-growth software engineering and AI company in Kolhapur, Maharashtra. We're looking for engineers, designers, and builders who obsess over craft and ship at high velocity.",
   keywords: [
     "AI engineer jobs India",
+    "software jobs in Kolhapur",
+    "IT jobs in Kolhapur",
+    "web developer jobs Kolhapur",
+    "software engineer careers Kolhapur",
     "software engineering jobs remote",
     "systems engineer careers India",
     "Team Axiogen careers",

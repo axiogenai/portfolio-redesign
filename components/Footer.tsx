@@ -1,5 +1,7 @@
 "use client";
 
+import InfrastructurePartners from "./InfrastructurePartners";
+
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -250,7 +252,7 @@ export default function Footer() {
               </div>
 
               {/* Navigation Columns with Kinetic Blur Slide-In & Hover Lines */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 flex-1 w-full lg:w-auto text-xs sm:text-sm">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-8 flex-1 w-full text-xs sm:text-sm">
                 {/* Column 1: Learn */}
                 <div className="flex flex-col gap-4">
                   <FadeUpBlur delay={0.15}>
@@ -319,7 +321,39 @@ export default function Footer() {
                   </ul>
                 </div>
 
-                {/* Column 3: Get in touch */}
+                                {/* Column 3: Kolhapur IT & Solutions */}
+                <div className="flex flex-col gap-4">
+                  <FadeUpBlur delay={0.22}>
+                    <h3 className="text-white font-extrabold tracking-widest text-[11px] uppercase opacity-95">
+                      Kolhapur IT
+                    </h3>
+                  </FadeUpBlur>
+                  <ul className="flex flex-col gap-2.5 text-neutral-300 text-xs sm:text-sm">
+                    {[
+                      { label: "Software in Kolhapur", href: "/software-development-company-kolhapur", delay: 0.25 },
+                      { label: "Web Applications", href: "/services/web-development", delay: 0.28 },
+                      { label: "AI & Automations", href: "/services/ai-agent-development", delay: 0.31 },
+                      { label: "ERP & CRM Systems", href: "/services/custom-software-development", delay: 0.34 },
+                      { label: "SaaS Platforms", href: "/services/saas-development", delay: 0.37 },
+                      { label: "Mobile Apps", href: "/services/mobile-app-development", delay: 0.4 },
+                      { label: "Industry Sectors", href: "/sectors", delay: 0.43 },
+                    ].map((item) => (
+                      <li key={item.label}>
+                        <SlideInBlur delay={item.delay}>
+                          <Link
+                            href={item.href}
+                            className="group relative inline-block hover:text-white transition-colors"
+                          >
+                            <span>{item.label}</span>
+                            <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
+                          </Link>
+                        </SlideInBlur>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Column 4: Get in touch */}
                 <div className="col-span-2 sm:col-span-1 flex flex-col gap-4">
                   <FadeUpBlur delay={0.25}>
                     <h3 className="text-white font-extrabold tracking-widest text-[11px] uppercase opacity-95">
@@ -358,7 +392,7 @@ export default function Footer() {
                         <MapPin className="h-4 w-4 text-white/90 mt-0.5 shrink-0" />
                         <div className="flex flex-col leading-tight">
                           <p className="font-semibold text-white">Team Axiogen.</p>
-                          <p className="text-neutral-400 text-xs mt-0.5">India & Worldwide</p>
+                          <p className="text-neutral-400 text-xs mt-0.5">Kolhapur, Maharashtra & Worldwide</p>
                         </div>
                       </SlideInBlur>
                     </li>
@@ -388,11 +422,14 @@ export default function Footer() {
               </button>
             </div>
 
-            {/* Massive Brand Watermark: CRAFTING SINCE 2024 */}
+            {/* Technology & Infrastructure Partners Strip */}
+            <InfrastructurePartners />
+
+            {/* Massive Brand Watermark: CRAFTING SINCE 2025 */}
             <div className="border-t border-white/10 pt-6 sm:pt-8 pb-8 sm:pb-10 overflow-hidden select-none">
               <div className="text-[clamp(1.5rem,7vw,7vw)] sm:text-5xl md:text-[6.5vw] lg:text-[7vw] font-black tracking-tight leading-none text-center lg:text-left uppercase whitespace-nowrap">
                 <ShinyText
-                  text="CRAFTING SINCE 2024"
+                  text="CRAFTING SINCE 2025"
                   speed={2}
                   delay={0}
                   color="#b5b5b5"
@@ -421,7 +458,7 @@ export default function Footer() {
                   <span className="hidden text-white/25 md:inline">|</span>
                   <span>© Team Axiogen 2026</span>
                   <span className="text-white/25">|</span>
-                  <span>India & Worldwide</span>
+                  <span>#1 Software Company in Kolhapur, Maharashtra</span>
                 </div>
               </FadeUpBlur>
 

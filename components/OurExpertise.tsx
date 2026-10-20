@@ -286,12 +286,12 @@ export default function OurExpertise() {
           </div>
         </div>
 
-        {/* Bottom Zone: Grounded, Authentic Studio Status (No Fake Marketing Cards) */}
+        {/* Bottom Zone: Grounded, Authentic Company Status */}
         <div className="w-full max-w-[1100px] mx-auto pb-2 sm:pb-4">
           <div className="flex flex-col sm:flex-row items-center justify-between border-t border-white/[0.07] pt-5 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400 gap-3">
             <div className="flex items-center gap-2.5">
               <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B42]" />
-              <span className="text-zinc-300">STUDIO STATUS: ACCEPTING SELECT CLIENT BUILDS</span>
+              <span className="text-zinc-300">COMPANY STATUS: ACCEPTING SELECT CLIENT BUILDS</span>
             </div>
             <div className="flex items-center gap-4 text-zinc-500">
               <span>END-TO-END ENGINEERING</span>

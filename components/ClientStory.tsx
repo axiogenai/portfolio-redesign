@@ -8,7 +8,7 @@ const xS = "clamp(220px, 24vw, 320px)";
 const CO = "clamp(440px, 48vw, 640px)";
 const PO = "One team from first idea to launch day";
 const ly = {
-  name: "Team Axiogen Studio",
+  name: "Team Axiogen Company",
   role: "Creative, product & growth team",
 };
 
@@ -139,7 +139,7 @@ export default function ClientStory() {
               href="#about"
               className="group inline-flex items-center gap-2 rounded-full bg-black/85 py-2 pl-4 pr-2 text-[11px] font-bold text-white transition-colors duration-300 hover:bg-black sm:text-xs shadow-md"
             >
-              <span>About the studio</span>
+              <span>About our company</span>
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 ease-out group-hover:translate-x-0.5">
                 <ArrowUpRight className="h-3 w-3" strokeWidth={3} />
               </span>

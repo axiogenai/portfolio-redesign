@@ -4,7 +4,7 @@ import React, { useRef, useState, useCallback, useLayoutEffect, useEffect } from
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-const Nu = ["AI & Digital Engineering", "Architecting intelligent", "systems from India"];
+const Nu = ["Software Development", "Web, Mobile & Systems", "Company from India"];
 const ju = [0.16, 1, 0.3, 1] as const;
 
 const De = (e: number) => Math.round(e * 100) / 100;
@@ -255,7 +255,7 @@ export default function Hero() {
               }}
             >
               <span className="sr-only">
-                Team Axiogen — AI Systems, Intelligent Software Architectures, Digital Engineering &amp; Autonomous Solutions Studio based in Kolhapur &amp; Sangli, Maharashtra, India. Founded by Aditya Patil, Aditya Minchekar, and Ajinkya More.
+                Team Axiogen — #1 Software Development Company in Kolhapur &amp; Sangli, Maharashtra, India. Custom web applications, iOS &amp; Android mobile apps, enterprise ERP/CRM systems, SaaS platforms, and AI solutions. Founded by Aditya Patil, Aditya Minchekar, and Ajinkya More.
               </span>
               {Nu.map((u, d) => (
                 <span
