@@ -5,7 +5,7 @@ import InfrastructurePartners from "./InfrastructurePartners";
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ArrowUp, Phone, Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, ArrowUp, Phone, Mail, MapPin, Globe } from "lucide-react";
 import { FaLinkedinIn, FaWhatsapp, FaXTwitter, FaInstagram } from "react-icons/fa6";
 import AxiogenLogo from "./AxiogenLogo";
 import ShinyText from "./ShinyText";
@@ -184,8 +184,8 @@ export default function Footer() {
         </div>
 
         {/* Main Footer Card */}
-        <footer className="footer-card-responsive relative bg-[var(--footer-card)] text-white pt-8 md:pt-12 lg:pt-16 pb-12 md:pb-12 overflow-hidden rounded-[24px] md:rounded-[32px]">
-          <div className="max-w-7xl mx-auto relative">
+        <footer className="relative bg-[var(--footer-card)] text-white pt-7 md:pt-12 lg:pt-16 pb-10 md:pb-12 overflow-hidden rounded-[24px] md:rounded-[32px]">
+          <div className="max-w-7xl mx-auto relative px-5 sm:px-8 md:px-10 lg:px-12">
             <div className="footer-content-padded pt-2 md:pt-4 pb-10 md:pb-12 flex flex-col lg:flex-row justify-between items-start gap-8 sm:gap-10 lg:gap-16">
               {/* Brand & Call to Action with Blur-in Animation */}
               <div className="flex flex-col gap-6 items-start max-w-sm w-full">
@@ -203,7 +203,7 @@ export default function Footer() {
                 </FadeUpBlur>
 
                 <FadeUpBlur delay={0.1}>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight text-white">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-white">
                     Do you like
                     <br />
                     what you see?
@@ -252,7 +252,7 @@ export default function Footer() {
               </div>
 
               {/* Navigation Columns with Kinetic Blur Slide-In & Hover Lines */}
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-8 flex-1 w-full text-xs sm:text-sm">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-8 flex-1 w-full text-xs sm:text-sm">
                 {/* Column 1: Learn */}
                 <div className="flex flex-col gap-4">
                   <FadeUpBlur delay={0.15}>
@@ -354,19 +354,19 @@ export default function Footer() {
                 </div>
 
                 {/* Column 4: Get in touch */}
-                <div className="col-span-2 sm:col-span-1 flex flex-col gap-4">
+                <div className="flex flex-col gap-3">
                   <FadeUpBlur delay={0.25}>
                     <h3 className="text-white font-extrabold tracking-widest text-[11px] uppercase opacity-95">
                       Get in touch
                     </h3>
                   </FadeUpBlur>
-                  <ul className="flex flex-col gap-3.5 text-neutral-300 text-xs sm:text-sm">
+                  <ul className="flex flex-col gap-3 text-neutral-300 text-xs sm:text-sm">
                     <li>
-                      <SlideInBlur delay={0.3} className="flex items-center gap-3">
+                      <SlideInBlur delay={0.3} className="flex items-center gap-2.5">
                         <Phone className="h-4 w-4 text-white/90 shrink-0" />
                         <a
                           href="tel:+917030807704"
-                          className="group relative inline-flex items-center hover:text-white transition-colors"
+                          className="group relative inline-flex items-center hover:text-white transition-colors whitespace-nowrap"
                         >
                           <span>+91 70308 07704</span>
                           <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
@@ -375,11 +375,11 @@ export default function Footer() {
                     </li>
 
                     <li>
-                      <SlideInBlur delay={0.35} className="flex items-center gap-3">
+                      <SlideInBlur delay={0.35} className="flex items-center gap-2.5">
                         <Mail className="h-4 w-4 text-white/90 shrink-0" />
                         <a
                           href="mailto:axiogen01@gmail.com"
-                          className="group relative inline-flex items-center hover:text-white transition-colors break-all"
+                          className="group relative inline-flex items-center hover:text-white transition-colors whitespace-nowrap"
                         >
                           <span>axiogen01@gmail.com</span>
                           <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
@@ -388,21 +388,27 @@ export default function Footer() {
                     </li>
 
                     <li>
-                      <SlideInBlur delay={0.4} className="flex items-start gap-3">
+                      <SlideInBlur delay={0.4} className="flex items-start gap-2.5">
                         <MapPin className="h-4 w-4 text-white/90 mt-0.5 shrink-0" />
                         <div className="flex flex-col leading-tight">
                           <p className="font-semibold text-white">Team Axiogen.</p>
-                          <p className="text-neutral-400 text-xs mt-0.5">Kolhapur, Maharashtra & Worldwide</p>
+                          <p className="text-neutral-400 text-[11px] mt-0.5">Kolhapur, Maharashtra & Worldwide</p>
                         </div>
                       </SlideInBlur>
                     </li>
 
                     <li>
-                      <SlideInBlur delay={0.45} className="flex items-center gap-3">
-                        <span className="text-white text-sm font-bold flex-shrink-0 w-4 text-center">///</span>
-                        <span className="hover:text-white transition-colors text-neutral-300 text-xs font-mono">
-                          team.axiogen.in
-                        </span>
+                      <SlideInBlur delay={0.45} className="flex items-center gap-2.5">
+                        <Globe className="h-4 w-4 text-white/90 shrink-0" />
+                        <a
+                          href="https://team.axiogen.in"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group relative inline-flex items-center hover:text-white transition-colors text-neutral-300 text-xs font-mono"
+                        >
+                          <span>team.axiogen.in</span>
+                          <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
+                        </a>
                       </SlideInBlur>
                     </li>
                   </ul>
@@ -464,9 +470,7 @@ export default function Footer() {
 
               <FadeUpBlur delay={0.3}>
                 <div className="flex flex-wrap gap-2 sm:gap-4 justify-center">
-                  <span>Web & AI Engineering</span>
-                  <span>|</span>
-                  <span>All Rights Reserved</span>
+                                    <span>All Rights Reserved</span>
                   <span>|</span>
                   <Link href="/privacy-policy" className="hover:text-white transition-colors">
                     Privacy Policy
